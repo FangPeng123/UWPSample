@@ -1,0 +1,41 @@
+﻿<Page
+    x:Class="MVVMLisght.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MVVMLisght"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid DataContext="{Binding MainViewModel,Source={StaticResource VMLocator}}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel Orientation="Vertical">
+            
+        <ListBox Name="MyListBox" ItemsSource="{Binding TestItems}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Name="Myte" Text="{Binding id}"></TextBlock>
+                        <TextBlock Text="{Binding Title}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+                <i:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="SelectionChanged">
+                        <core:InvokeCommandAction Command="{Binding selectedcommand}" CommandParameter="{Binding ElementName=MyListBox,Path=SelectedItem}"></core:InvokeCommandAction>
+                    </core:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+        </ListBox>
+
+        <Button Content="click me" Width="200" >
+                <i:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="Tapped">
+                        <core:InvokeCommandAction Command="{Binding MyTestCommand}" CommandParameter="test"></core:InvokeCommandAction>
+                    </core:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+        </Button>
+
+        </StackPanel>
+    </Grid>
+</Page>
