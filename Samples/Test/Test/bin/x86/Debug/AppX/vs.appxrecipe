@@ -31,13 +31,13 @@
     <AppXManifest Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\Test\Test\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2017-04-28T06:48:16.009</Modified>
+      <Modified>2017-04-28T06:56:32.001</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\Test\Test\bin\x86\Debug\Test.exe">
       <PackagePath>entrypoint\Test.exe</PackagePath>
-      <Modified>2017-04-28T06:48:11.425</Modified>
+      <Modified>2017-04-28T06:56:30.940</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fapeng\.nuget\packages\Microsoft.CSharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
       <PackagePath>Microsoft.CSharp.dll</PackagePath>
@@ -535,7 +535,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\Test\Test\bin\x86\Debug\Test.xr.xml">
       <PackagePath>Test.xr.xml</PackagePath>
-      <Modified>2017-04-28T06:48:11.031</Modified>
+      <Modified>2017-04-28T06:56:30.646</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.15063.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -544,11 +544,11 @@
     <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\Test\Test\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2017-04-28T06:48:15.100</Modified>
+      <Modified>2017-04-28T06:56:31.702</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\Test\Test\bin\x86\Debug\Core\Test.exe">
       <PackagePath>Test.exe</PackagePath>
-      <Modified>2017-04-28T06:48:15.985</Modified>
+      <Modified>2017-04-28T06:56:31.993</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
