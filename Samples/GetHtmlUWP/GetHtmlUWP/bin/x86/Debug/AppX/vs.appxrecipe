@@ -31,13 +31,13 @@
     <AppXManifest Include="c:\users\fapeng\documents\visual studio 2017\Projects\GetHtmlUWP\GetHtmlUWP\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2017-08-24T09:17:51.587</Modified>
+      <Modified>2017-08-24T09:42:34.975</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="c:\users\fapeng\documents\visual studio 2017\Projects\GetHtmlUWP\GetHtmlUWP\bin\x86\Debug\GetHtmlUWP.exe">
       <PackagePath>entrypoint\GetHtmlUWP.exe</PackagePath>
-      <Modified>2017-08-24T09:17:51.130</Modified>
+      <Modified>2017-08-24T09:42:34.494</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fapeng\.nuget\packages\HAPUWP\1.0.1\lib\netcore\HtmlAgilityPack.dll">
       <PackagePath>HtmlAgilityPack.dll</PackagePath>
@@ -564,7 +564,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="c:\users\fapeng\documents\visual studio 2017\Projects\GetHtmlUWP\GetHtmlUWP\bin\x86\Debug\Core\GetHtmlUWP.exe">
       <PackagePath>GetHtmlUWP.exe</PackagePath>
-      <Modified>2017-08-24T09:17:51.577</Modified>
+      <Modified>2017-08-24T09:42:34.965</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

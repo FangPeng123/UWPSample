@@ -52,6 +52,8 @@ namespace GetHtmlUWP
             var node1 = htmldoc.DocumentNode.Descendants("ul").Where(d => d.Attributes.Contains("class") && d.Attributes["class"].Value.Contains("history")).FirstOrDefault();
             var node2 = node1.Descendants("a").Where(d => d.Attributes.Contains("class") && d.Attributes["class"].Value.Contains("author")).FirstOrDefault();
             var t = node2.Attributes["title"].Value;
+
+
             List<string> t1= new List<string>(); ;
             var nodeuserinfor = htmldoc.DocumentNode.Descendants("div").Where(d => d.Attributes.Contains("class") && d.Attributes["class"].Value.Contains("userInfo"));
             foreach(var mynode in nodeuserinfor)
@@ -59,13 +61,30 @@ namespace GetHtmlUWP
                 int conunt = nodeuserinfor.Count();
                 var text = mynode.Descendants("div").Where(d => d.Attributes.Contains("class")).FirstOrDefault();
                 string value1 = text.Attributes["data-profile-usercard-customlink"].Value;
-                var ttt = value1.Split(',')[1];
-                string user = ttt.Split(':')[1];
+                var tttuser = value1.Split(',')[1];
+                string user = tttuser.Split(':')[1];
                 int lenth = user.Length;
                 string myuser = user.Substring(1, lenth - 17);
-
-            
                 t1.Add(myuser);
+
+                var tttuserlink = value1.Split(',')[0];
+                string ttttuserlink = tttuserlink.Split('"')[3];
+                HttpClient client = new HttpClient();
+                var htmlcontent = await client.GetStringAsync(new Uri(ttttuserlink));
+                HtmlAgilityPack.HtmlDocument htmldoc1 = new HtmlDocument();
+                htmldoc1.LoadHtml(htmlcontent);
+
+                var userthreads = htmldoc1.DocumentNode.Descendants("div").Where(d => d.Attributes.Contains("class") && d.Attributes["class"].Value.Contains("detailscontainer"));
+                int count = userthreads.Count();
+                foreach (var userthread in userthreads)
+                {
+
+                    var userthreaddetailsurl = userthread.Descendants("a").FirstOrDefault().Attributes["href"].Value;
+                    var userthreaddetailsurltitle = userthread.Descendants("a").FirstOrDefault().InnerText;
+                }
+
+
+
 
             }
 
