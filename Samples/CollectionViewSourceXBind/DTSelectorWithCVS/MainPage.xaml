@@ -1,0 +1,44 @@
+﻿<Page
+    x:Class="DTSelectorWithCVS.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DTSelectorWithCVS"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wuxdata="using:Windows.UI.Xaml.Data"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <CollectionViewSource x:Name="CVS"  IsSourceGrouped="True" ItemsPath="Items" />
+        
+
+        <DataTemplate x:Key="EmptyTemplate" x:DataType="local:GroupInfoList">
+            <TextBlock Text="{x:Bind Key}" Margin="0,0,0,5" Foreground="Red" />
+        </DataTemplate>
+        <DataTemplate x:Key="FullTemplate" x:DataType="local:GroupInfoList">
+            <TextBlock Text="{x:Bind Key}" Margin="0,0,0,5" Foreground="Green"/>
+        </DataTemplate>
+
+ 
+
+
+        <DataTemplate x:Key="EmptyTemplate1" x:DataType="local:test">
+            <TextBlock Text="{x:Bind heard}" Margin="0,0,0,5" Foreground="Red" />
+        </DataTemplate>
+        <DataTemplate x:Key="FullTemplate1" x:DataType="local:test">
+            <TextBlock Text="{x:Bind heard}" Margin="0,0,0,5" Foreground="Yellow"/>
+        </DataTemplate>
+
+        <local:GroupEmptyOrFullSelectorGridview x:Key="GroupEmptyOrFullSelectorgridview" Empty="{StaticResource EmptyTemplate}" Full="{StaticResource FullTemplate}" />
+        <local:GroupEmptyOrFullSelectorGroupheader x:Key="GroupEmptyOrFullSelectorGroupheader" Empty="{StaticResource EmptyTemplate1}" Full="{StaticResource FullTemplate1}" />
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <GridView Name="MyGridview" ItemsSource="{x:Bind CVS.View}" ItemTemplateSelector="{StaticResource GroupEmptyOrFullSelectorgridview}">
+            
+            <GridView.GroupStyle>
+                <GroupStyle HeaderTemplateSelector="{StaticResource GroupEmptyOrFullSelectorGroupheader}"></GroupStyle>
+            </GridView.GroupStyle>
+        </GridView>
+       
+    </Grid>
+</Page>

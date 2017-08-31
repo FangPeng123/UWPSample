@@ -1,0 +1,1 @@
+C:\Users\fapeng\Desktop\DTSelectorWithCVS\DTSelectorWithCVS\DTSelectorWithCVS.csproj;x64
