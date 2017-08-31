@@ -8,7 +8,7 @@
     xmlns:wuxdata="using:Windows.UI.Xaml.Data"
     mc:Ignorable="d">
     <Page.Resources>
-        <CollectionViewSource x:ConnectionId='2' x:Name="CVS"  IsSourceGrouped="True" ItemsPath="Items" />
+        <CollectionViewSource x:ConnectionId='2' x:Name="CVS"  IsSourceGrouped="True" ItemsPath="groupInfoList"                         />
         
 
         <DataTemplate x:Key="EmptyTemplate"                                 >

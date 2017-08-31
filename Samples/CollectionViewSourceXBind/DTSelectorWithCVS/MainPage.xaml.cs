@@ -63,9 +63,9 @@ namespace DTSelectorWithCVS
              
             groups.Add(test11);
 
-            CVS.Source = groups;
+            //CVS.Source = groups;
            
-            CVS.ItemsPath = new PropertyPath("groupInfoList");
+            //CVS.ItemsPath = new PropertyPath("groupInfoList");
 
             //int t0 = MyGridview.Items.Count;
 

@@ -10,22 +10,22 @@
     <PackageArchitecture>x64</PackageArchitecture>
     <PackageIdentityName>130d8aa8-8a56-42de-a2a9-e29b7edd4ee8</PackageIdentityName>
     <PackageIdentityPublisher>CN=v-jizuo</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\fapeng\Desktop\DTSelectorWithCVS\DTSelectorWithCVS\obj\x64\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\CollectionViewSourceXBind\DTSelectorWithCVS\obj\x64\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType></RemoteDeploymentType>
     <PackageRegistrationPath></PackageRegistrationPath>
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\fapeng\Desktop\DTSelectorWithCVS\DTSelectorWithCVS\bin\x64\Debug\AppX</LayoutDir>
+    <LayoutDir>C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\CollectionViewSourceXBind\DTSelectorWithCVS\bin\x64\Debug\AppX</LayoutDir>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\fapeng\Desktop\DTSelectorWithCVS\DTSelectorWithCVS\bin\x64\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\CollectionViewSourceXBind\DTSelectorWithCVS\bin\x64\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\fapeng\Desktop\DTSelectorWithCVS\DTSelectorWithCVS\bin\x64\Debug\DTSelectorWithCVS.exe">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\CollectionViewSourceXBind\DTSelectorWithCVS\bin\x64\Debug\DTSelectorWithCVS.exe">
       <PackagePath>entrypoint\DTSelectorWithCVS.exe</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fapeng\.nuget\packages\Microsoft.CSharp\4.0.1\lib\netcore50\Microsoft.CSharp.dll">
@@ -370,47 +370,47 @@
     <AppxPackagedFile Include="C:\Users\fapeng\.nuget\packages\System.Xml.XmlSerializer\4.0.11\lib\netcore50\System.Xml.XmlSerializer.dll">
       <PackagePath>System.Xml.XmlSerializer.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\fapeng\Desktop\DTSelectorWithCVS\DTSelectorWithCVS\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\CollectionViewSourceXBind\DTSelectorWithCVS\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\fapeng\Desktop\DTSelectorWithCVS\DTSelectorWithCVS\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\CollectionViewSourceXBind\DTSelectorWithCVS\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\fapeng\Desktop\DTSelectorWithCVS\DTSelectorWithCVS\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\CollectionViewSourceXBind\DTSelectorWithCVS\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\fapeng\Desktop\DTSelectorWithCVS\DTSelectorWithCVS\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\CollectionViewSourceXBind\DTSelectorWithCVS\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\fapeng\Desktop\DTSelectorWithCVS\DTSelectorWithCVS\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\CollectionViewSourceXBind\DTSelectorWithCVS\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\fapeng\Desktop\DTSelectorWithCVS\DTSelectorWithCVS\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\CollectionViewSourceXBind\DTSelectorWithCVS\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\fapeng\Desktop\DTSelectorWithCVS\DTSelectorWithCVS\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\CollectionViewSourceXBind\DTSelectorWithCVS\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\fapeng\Desktop\DTSelectorWithCVS\DTSelectorWithCVS\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\CollectionViewSourceXBind\DTSelectorWithCVS\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\fapeng\Desktop\DTSelectorWithCVS\DTSelectorWithCVS\bin\x64\Debug\DTSelectorWithCVS.xr.xml">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\CollectionViewSourceXBind\DTSelectorWithCVS\bin\x64\Debug\DTSelectorWithCVS.xr.xml">
       <PackagePath>DTSelectorWithCVS.xr.xml</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\fapeng\Desktop\DTSelectorWithCVS\DTSelectorWithCVS\bin\x64\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\CollectionViewSourceXBind\DTSelectorWithCVS\bin\x64\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\fapeng\Desktop\DTSelectorWithCVS\DTSelectorWithCVS\bin\x64\Debug\Core\DTSelectorWithCVS.exe">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\CollectionViewSourceXBind\DTSelectorWithCVS\bin\x64\Debug\Core\DTSelectorWithCVS.exe">
       <PackagePath>DTSelectorWithCVS.exe</PackagePath>
     </AppxPackagedFile>
   </ItemGroup>

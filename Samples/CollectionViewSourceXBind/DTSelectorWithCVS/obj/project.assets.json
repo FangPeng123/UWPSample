@@ -22015,10 +22015,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fapeng\\Desktop\\DTSelectorWithCVS\\DTSelectorWithCVS\\DTSelectorWithCVS.csproj",
+      "projectUniqueName": "C:\\Users\\fapeng\\Documents\\GitHub\\UWPSample\\Samples\\CollectionViewSourceXBind\\DTSelectorWithCVS\\DTSelectorWithCVS.csproj",
       "projectName": "DTSelectorWithCVS",
-      "projectPath": "C:\\Users\\fapeng\\Desktop\\DTSelectorWithCVS\\DTSelectorWithCVS\\DTSelectorWithCVS.csproj",
-      "outputPath": "C:\\Users\\fapeng\\Desktop\\DTSelectorWithCVS\\DTSelectorWithCVS\\obj\\",
+      "projectPath": "C:\\Users\\fapeng\\Documents\\GitHub\\UWPSample\\Samples\\CollectionViewSourceXBind\\DTSelectorWithCVS\\DTSelectorWithCVS.csproj",
+      "outputPath": "C:\\Users\\fapeng\\Documents\\GitHub\\UWPSample\\Samples\\CollectionViewSourceXBind\\DTSelectorWithCVS\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "uap10.0.10586"

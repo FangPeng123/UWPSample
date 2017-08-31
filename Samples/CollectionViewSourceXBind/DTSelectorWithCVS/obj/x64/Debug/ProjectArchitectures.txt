@@ -1,1 +1,1 @@
-C:\Users\fapeng\Desktop\DTSelectorWithCVS\DTSelectorWithCVS\DTSelectorWithCVS.csproj;x64
+C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\CollectionViewSourceXBind\DTSelectorWithCVS\DTSelectorWithCVS.csproj;x64
