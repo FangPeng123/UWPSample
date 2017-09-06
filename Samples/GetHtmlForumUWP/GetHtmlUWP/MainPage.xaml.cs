@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using HtmlAgilityPack;
 using Windows.Web.Http;
 using System.Threading.Tasks;
+using GetHtmlUWP.Helper;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -40,74 +41,83 @@ namespace GetHtmlUWP
         }
         
 
-        private async void GetHtmlstringButton_Click(object sender, RoutedEventArgs e)
-        {
-            await htmlsting();
+        //private async void GetHtmlstringButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    await htmlsting();
 
-            HtmlAgilityPack.HtmlDocument htmldoc = new HtmlDocument();
-            htmldoc.LoadHtml(htmlcontent);
-            var node=htmldoc.DocumentNode.Descendants("link").Where(d => d.Attributes.Contains("title")).FirstOrDefault();
-            var value = node.Attributes["title"].Value;
+        //    HtmlAgilityPack.HtmlDocument htmldoc = new HtmlDocument();
+        //    htmldoc.LoadHtml(htmlcontent);
+        //    var node=htmldoc.DocumentNode.Descendants("link").Where(d => d.Attributes.Contains("title")).FirstOrDefault();
+        //    var value = node.Attributes["title"].Value;
 
-            var node1 = htmldoc.DocumentNode.Descendants("ul").Where(d => d.Attributes.Contains("class") && d.Attributes["class"].Value.Contains("history")).FirstOrDefault();
-            var node2 = node1.Descendants("a").Where(d => d.Attributes.Contains("class") && d.Attributes["class"].Value.Contains("author")).FirstOrDefault();
-            var t = node2.Attributes["title"].Value;
-
-
-            List<string> t1= new List<string>(); ;
-            var nodeuserinfor = htmldoc.DocumentNode.Descendants("div").Where(d => d.Attributes.Contains("class") && d.Attributes["class"].Value.Contains("userInfo"));
-            foreach(var mynode in nodeuserinfor)
-            {
-                int conunt = nodeuserinfor.Count();
-                var text = mynode.Descendants("div").Where(d => d.Attributes.Contains("class")).FirstOrDefault();
-                string value1 = text.Attributes["data-profile-usercard-customlink"].Value;
-                var tttuser = value1.Split(',')[1];
-                string user = tttuser.Split(':')[1];
-                int lenth = user.Length;
-                string myuser = user.Substring(1, lenth - 17);
-                t1.Add(myuser);
-
-                var tttuserlink = value1.Split(',')[0];
-                string ttttuserlink1 = tttuserlink.Split('"')[3];
-                //get page and userthread
-                var pagecount=htmldoc
-                int page;
-                string ttttuserlink = ttttuserlink1 + "&amp;brandIgnore=true&amp;page=" + page;
+        //    var node1 = htmldoc.DocumentNode.Descendants("ul").Where(d => d.Attributes.Contains("class") && d.Attributes["class"].Value.Contains("history")).FirstOrDefault();
+        //    var node2 = node1.Descendants("a").Where(d => d.Attributes.Contains("class") && d.Attributes["class"].Value.Contains("author")).FirstOrDefault();
+        //    var t = node2.Attributes["title"].Value;
 
 
-                HttpClient client = new HttpClient();
-                var htmlcontent = await client.GetStringAsync(new Uri(ttttuserlink));
-                HtmlAgilityPack.HtmlDocument htmldoc1 = new HtmlDocument();
-                htmldoc1.LoadHtml(htmlcontent);
+        //    List<string> t1= new List<string>(); ;
+        //    var nodeuserinfor = htmldoc.DocumentNode.Descendants("div").Where(d => d.Attributes.Contains("class") && d.Attributes["class"].Value.Contains("userInfo"));
+        //    foreach(var mynode in nodeuserinfor)
+        //    {
+        //        int conunt = nodeuserinfor.Count();
+        //        var text = mynode.Descendants("div").Where(d => d.Attributes.Contains("class")).FirstOrDefault();
+        //        string value1 = text.Attributes["data-profile-usercard-customlink"].Value;
+        //        var tttuser = value1.Split(',')[1];
+        //        string user = tttuser.Split(':')[1];
+        //        int lenth = user.Length;
+        //        string myuser = user.Substring(1, lenth - 17);
+        //        t1.Add(myuser);
 
-                var userthreads = htmldoc1.DocumentNode.Descendants("div").Where(d => d.Attributes.Contains("class") && d.Attributes["class"].Value.Contains("detailscontainer"));
-                int count = userthreads.Count();
-                foreach (var userthread in userthreads)
-                {
-
-                    var userthreaddetailsurl = userthread.Descendants("a").FirstOrDefault().Attributes["href"].Value;
-                    var userthreaddetailsurltitle = userthread.Descendants("a").FirstOrDefault().InnerText;
-                }
+        //        var tttuserlink = value1.Split(',')[0];
+        //        string ttttuserlink1 = tttuserlink.Split('"')[3];
+        //        //get page and userthread
+        //        var pagecount=htmldoc
+        //        int page;
+        //        string ttttuserlink = ttttuserlink1 + "&amp;brandIgnore=true&amp;page=" + page;
 
 
+        //        HttpClient client = new HttpClient();
+        //        var htmlcontent = await client.GetStringAsync(new Uri(ttttuserlink));
+        //        HtmlAgilityPack.HtmlDocument htmldoc1 = new HtmlDocument();
+        //        htmldoc1.LoadHtml(htmlcontent);
+
+        //        var userthreads = htmldoc1.DocumentNode.Descendants("div").Where(d => d.Attributes.Contains("class") && d.Attributes["class"].Value.Contains("detailscontainer"));
+        //        int count = userthreads.Count();
+        //        foreach (var userthread in userthreads)
+        //        {
+
+        //            var userthreaddetailsurl = userthread.Descendants("a").FirstOrDefault().Attributes["href"].Value;
+        //            var userthreaddetailsurltitle = userthread.Descendants("a").FirstOrDefault().InnerText;
+        //        }
 
 
-            }
 
-            for (int i = 0; i < t1.Count(); i++)
-            {
-                for (int j =t1.Count-1; j>=0; j--)
-                {
-                    if (t1[i] == t1[j]&&i!=j)
-                    {
-                        t1.RemoveAt(j);
-                        break;
-                    }
+
+        //    }
+
+        //    for (int i = 0; i < t1.Count(); i++)
+        //    {
+        //        for (int j =t1.Count-1; j>=0; j--)
+        //        {
+        //            if (t1[i] == t1[j]&&i!=j)
+        //            {
+        //                t1.RemoveAt(j);
+        //                break;
+        //            }
                    
-                }
-            }
+        //        }
+        //    }
 
-            int t2 = t1.Count();
+        //    int t2 = t1.Count();
+        //}
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+          HelperClass test = new HelperClass();
+          Thread t=await test.GetThreadDetials(new Uri("https://social.msdn.microsoft.com/Forums/windowsapps/en-US/049572e1-5248-426b-950a-f886dbfaa784/uwpc-storagefoldergetfilesasync-is-not-working?forum=wpdevelop"));
+          
+         
         }
     }
 }

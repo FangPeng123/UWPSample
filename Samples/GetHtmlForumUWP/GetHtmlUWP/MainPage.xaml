@@ -8,7 +8,8 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button Name="GetHtmlstringButton" Content="GetHtmlString" HorizontalAlignment="Left" Margin="547,210,0,0" VerticalAlignment="Top" Height="158" Width="241" Click="GetHtmlstringButton_Click"/>
+        <Button Name="GetHtmlstringButton" Content="GetHtmlString" HorizontalAlignment="Left" Margin="547,210,0,0" VerticalAlignment="Top" Height="158" Width="241" />
+        <Button Content="Button" HorizontalAlignment="Left" Margin="184,450,0,0" VerticalAlignment="Top" Click="Button_Click"/>
 
     </Grid>
 </Page>

@@ -10,7 +10,7 @@
     <PackageArchitecture>x86</PackageArchitecture>
     <PackageIdentityName>57668d39-89de-4b38-92af-743128867474</PackageIdentityName>
     <PackageIdentityPublisher>CN=fapeng</PackageIdentityPublisher>
-    <IntermediateOutputPath>c:\users\fapeng\documents\visual studio 2017\Projects\GetHtmlUWP\GetHtmlUWP\obj\x86\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\obj\x86\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType>
     </RemoteDeploymentType>
     <PackageRegistrationPath>
@@ -18,7 +18,7 @@
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>c:\users\fapeng\documents\visual studio 2017\Projects\GetHtmlUWP\GetHtmlUWP\bin\x86\Debug\AppX</LayoutDir>
+    <LayoutDir>C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\bin\x86\Debug\AppX</LayoutDir>
     <RegisteredManifestChecksum>5D290422BC2E25AF5978FF03C85A42D59D16A3A3B964E1F4C1251D1FA20FD55B</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>57668d39-89de-4b38-92af-743128867474_1.0.0.0_x86__tvj7mbq66c9np</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>57668d39-89de-4b38-92af-743128867474_tvj7mbq66c9np!App</RegisteredUserModeAppID>
@@ -28,16 +28,16 @@
     <JitOptimizationSuppressed>True</JitOptimizationSuppressed>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="c:\users\fapeng\documents\visual studio 2017\Projects\GetHtmlUWP\GetHtmlUWP\bin\x86\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2017-08-24T09:42:34.975</Modified>
+      <Modified>2017-09-06T08:55:06.971</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="c:\users\fapeng\documents\visual studio 2017\Projects\GetHtmlUWP\GetHtmlUWP\bin\x86\Debug\GetHtmlUWP.exe">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\bin\x86\Debug\GetHtmlUWP.exe">
       <PackagePath>entrypoint\GetHtmlUWP.exe</PackagePath>
-      <Modified>2017-08-24T09:42:34.494</Modified>
+      <Modified>2017-09-06T08:55:06.591</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fapeng\.nuget\packages\HAPUWP\1.0.1\lib\netcore\HtmlAgilityPack.dll">
       <PackagePath>HtmlAgilityPack.dll</PackagePath>
@@ -507,45 +507,45 @@
       <PackagePath>System.Xml.XPath.XmlDocument.dll</PackagePath>
       <Modified>2015-07-22T15:11:16.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\fapeng\documents\visual studio 2017\Projects\GetHtmlUWP\GetHtmlUWP\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
-      <Modified>2017-08-24T05:45:48.330</Modified>
+      <Modified>2017-09-06T08:47:34.025</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\fapeng\documents\visual studio 2017\Projects\GetHtmlUWP\GetHtmlUWP\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
       <Modified>2017-04-14T04:56:40.536</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\fapeng\documents\visual studio 2017\Projects\GetHtmlUWP\GetHtmlUWP\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2017-04-14T04:56:40.536</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\fapeng\documents\visual studio 2017\Projects\GetHtmlUWP\GetHtmlUWP\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2017-04-14T04:56:40.536</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\fapeng\documents\visual studio 2017\Projects\GetHtmlUWP\GetHtmlUWP\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2017-04-14T04:56:40.536</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\fapeng\documents\visual studio 2017\Projects\GetHtmlUWP\GetHtmlUWP\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2017-04-14T04:56:40.536</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\fapeng\documents\visual studio 2017\Projects\GetHtmlUWP\GetHtmlUWP\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2017-04-14T04:56:40.536</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\fapeng\documents\visual studio 2017\Projects\GetHtmlUWP\GetHtmlUWP\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2017-04-14T04:56:40.536</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\fapeng\documents\visual studio 2017\Projects\GetHtmlUWP\GetHtmlUWP\bin\x86\Debug\GetHtmlUWP.xr.xml">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\bin\x86\Debug\GetHtmlUWP.xr.xml">
       <PackagePath>GetHtmlUWP.xr.xml</PackagePath>
       <Modified>2017-08-24T08:05:28.173</Modified>
     </AppxPackagedFile>
@@ -557,14 +557,14 @@
       <PackagePath>HtmlAgilityPack\Properties\HtmlAgilityPack.UWP.rd.xml</PackagePath>
       <Modified>2015-09-06T07:37:04.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\fapeng\documents\visual studio 2017\Projects\GetHtmlUWP\GetHtmlUWP\bin\x86\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2017-08-24T08:16:38.628</Modified>
+      <Modified>2017-09-06T06:33:43.865</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="c:\users\fapeng\documents\visual studio 2017\Projects\GetHtmlUWP\GetHtmlUWP\bin\x86\Debug\Core\GetHtmlUWP.exe">
+    <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\bin\x86\Debug\Core\GetHtmlUWP.exe">
       <PackagePath>GetHtmlUWP.exe</PackagePath>
-      <Modified>2017-08-24T09:42:34.965</Modified>
+      <Modified>2017-09-06T08:55:06.963</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

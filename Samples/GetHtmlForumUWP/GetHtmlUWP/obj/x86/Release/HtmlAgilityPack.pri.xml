@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PriInfo>
+	<ResourceMap name="HtmlAgilityPack" version="1.0" primary="true">
+		<Qualifiers/>
+		<ResourceMapSubtree name="Files">
+			<ResourceMapSubtree name="HtmlAgilityPack">
+				<ResourceMapSubtree name="Properties">
+					<NamedResource name="HtmlAgilityPack.UWP.rd.xml" uri="ms-resource://HtmlAgilityPack/Files/HtmlAgilityPack/Properties/HtmlAgilityPack.UWP.rd.xml">
+						<Candidate type="Path">
+							<Value>HtmlAgilityPack\Properties\HtmlAgilityPack.UWP.rd.xml</Value>
+						</Candidate>
+					</NamedResource>
+				</ResourceMapSubtree>
+			</ResourceMapSubtree>
+		</ResourceMapSubtree>
+	</ResourceMap>
+</PriInfo>

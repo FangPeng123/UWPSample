@@ -22461,10 +22461,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\users\\fapeng\\documents\\visual studio 2017\\Projects\\GetHtmlUWP\\GetHtmlUWP\\GetHtmlUWP.csproj",
+      "projectUniqueName": "C:\\Users\\fapeng\\Documents\\GitHub\\UWPSample\\Samples\\GetHtmlForumUWP\\GetHtmlUWP\\GetHtmlUWP.csproj",
       "projectName": "GetHtmlUWP",
-      "projectPath": "c:\\users\\fapeng\\documents\\visual studio 2017\\Projects\\GetHtmlUWP\\GetHtmlUWP\\GetHtmlUWP.csproj",
-      "outputPath": "c:\\users\\fapeng\\documents\\visual studio 2017\\Projects\\GetHtmlUWP\\GetHtmlUWP\\obj\\",
+      "projectPath": "C:\\Users\\fapeng\\Documents\\GitHub\\UWPSample\\Samples\\GetHtmlForumUWP\\GetHtmlUWP\\GetHtmlUWP.csproj",
+      "outputPath": "C:\\Users\\fapeng\\Documents\\GitHub\\UWPSample\\Samples\\GetHtmlForumUWP\\GetHtmlUWP\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "uap10.0.10586"
