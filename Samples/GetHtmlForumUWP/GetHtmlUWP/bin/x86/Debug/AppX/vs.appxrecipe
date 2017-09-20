@@ -31,13 +31,13 @@
     <AppXManifest Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2017-09-06T08:55:06.971</Modified>
+      <Modified>2017-09-07T07:51:06.154</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\bin\x86\Debug\GetHtmlUWP.exe">
       <PackagePath>entrypoint\GetHtmlUWP.exe</PackagePath>
-      <Modified>2017-09-06T08:55:06.591</Modified>
+      <Modified>2017-09-07T07:51:05.707</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fapeng\.nuget\packages\HAPUWP\1.0.1\lib\netcore\HtmlAgilityPack.dll">
       <PackagePath>HtmlAgilityPack.dll</PackagePath>
@@ -509,7 +509,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
-      <Modified>2017-09-06T08:47:34.025</Modified>
+      <Modified>2017-09-06T09:39:39.303</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
@@ -560,11 +560,11 @@
     <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2017-09-06T06:33:43.865</Modified>
+      <Modified>2017-09-06T09:40:16.082</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\fapeng\Documents\GitHub\UWPSample\Samples\GetHtmlForumUWP\GetHtmlUWP\bin\x86\Debug\Core\GetHtmlUWP.exe">
       <PackagePath>GetHtmlUWP.exe</PackagePath>
-      <Modified>2017-09-06T08:55:06.963</Modified>
+      <Modified>2017-09-07T07:51:06.144</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

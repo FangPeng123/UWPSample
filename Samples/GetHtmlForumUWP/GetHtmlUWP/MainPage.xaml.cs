@@ -39,7 +39,7 @@ namespace GetHtmlUWP
             return htmlcontent;
         
         }
-        
+
 
         //private async void GetHtmlstringButton_Click(object sender, RoutedEventArgs e)
         //{
@@ -104,19 +104,19 @@ namespace GetHtmlUWP
         //                t1.RemoveAt(j);
         //                break;
         //            }
-                   
+
         //        }
         //    }
 
         //    int t2 = t1.Count();
         //}
 
+        public Dictionary<Uri, Dictionary<string, Uri>> MVPThreadList = new Dictionary<Uri, Dictionary<string, Uri>>();
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
 
-          HelperClass test = new HelperClass();
-          Thread t=await test.GetThreadDetials(new Uri("https://social.msdn.microsoft.com/Forums/windowsapps/en-US/049572e1-5248-426b-950a-f886dbfaa784/uwpc-storagefoldergetfilesasync-is-not-working?forum=wpdevelop"));
-          
+            AllForumThread t = new AllForumThread();
+            MVPThreadList = await t.GetForumThreadList(new Uri("https://social.msdn.microsoft.com/Forums/windowsapps/en-US/home?forum=wpdevelop&filter=alltypes&sort=firstpostdesc"));
          
         }
     }

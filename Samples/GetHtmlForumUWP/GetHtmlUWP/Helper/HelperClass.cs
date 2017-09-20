@@ -28,6 +28,9 @@ namespace GetHtmlUWP.Helper
             //get thread title
             var node = htmldoc.DocumentNode.Descendants("link").Where(d => d.Attributes.Contains("title")).FirstOrDefault();
             string threadtitle = node.Attributes["title"].Value;
+            //get thread create date
+            var nodedate = htmldoc.DocumentNode.Descendants("div").Where(d => d.Attributes.Contains("class")&&d.Attributes["class"].Value.Contains("date")).FirstOrDefault();
+            string threaddate = nodedate.InnerText;
             //get users in Thread
             string op = "";
             Dictionary<string, Uri> users = new Dictionary<string, Uri>();
@@ -92,6 +95,10 @@ namespace GetHtmlUWP.Helper
                     thread.ThreadTitle = threadtitle;
                     thread.communitymemebers = users;
                     thread.mvp = MVPList;
+                   
+        
+
+            thread.CreateDate = DateTime.Parse(threaddate);
                     return thread;
                 }
 

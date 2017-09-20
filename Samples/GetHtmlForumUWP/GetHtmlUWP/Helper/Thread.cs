@@ -13,6 +13,7 @@ namespace GetHtmlUWP.Helper
         public Dictionary<string,Uri> mvp { get; set; }
         public string ThreadTitle { get; set; }
         public Uri ThreadURL { get; set; }
+        public DateTime CreateDate { get; set; }
          
     }
 }

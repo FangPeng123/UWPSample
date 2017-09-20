@@ -1,0 +1,15 @@
+﻿<Page
+    x:Class="Escalation_UWP.FirstPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Escalation_UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="Yellow">
+        <Button Name="VendorButton" Content="Vendor" Visibility="Collapsed" FontSize="50" FontWeight="Black" Background="GreenYellow" HorizontalAlignment="Left" Margin="307,196,0,0" VerticalAlignment="Top" Height="300" Width="300" Click="Button_Click"/>
+        <Button Name="FTEButton" Content="FTE" Visibility="Collapsed" FontSize="50" FontWeight="Black" Background="Orange" HorizontalAlignment="Left" Margin="607,196,0,0" VerticalAlignment="Top" Height="300" Width="300" Click="Button_Click_1"/>
+
+    </Grid>
+</Page>
