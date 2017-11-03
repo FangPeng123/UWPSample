@@ -35,8 +35,10 @@ namespace Escalation_UWP
             this.InitializeComponent();
             Windows.Storage.ApplicationDataContainer localSettings =
     Windows.Storage.ApplicationData.Current.LocalSettings;
-            Object value = localSettings.Values["currentUserSetting"];
-            MyTextBlock.Text = "Welcome" +" "+value.ToString();
+            var currentUser = localSettings.Values["currentUser"];
+            var currentUserAlias = localSettings.Values["currentUserAlias"];
+            MyTextBlock.Text = "Welcome" +" "+ currentUser.ToString();
+            ThreadOnwerTxt.Text = currentUserAlias.ToString();
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
@@ -82,48 +84,7 @@ namespace Escalation_UWP
                 MessageDialog dialog = new MessageDialog(ex.Message);
                 await dialog.ShowAsync();
             }
-            //        try
-            //        {
-            //            SmtpMail oMail = new SmtpMail("TryIt");
-            //            SmtpClient oSmtp = new SmtpClient();
-            //            oMail.From = new MailAddress("DevComEN@outlook.com");
-            //            oMail.To.Add(new MailAddress("fapeng@microsoft.com"));
-            //            oMail.Subject = "[Thread Escalation][Barry Wang]Can not connect ot the BLE device after creators update in UWP";
-            //            oMail.TextBody = "Please check the attachment for more detailed information about this Escalation Thread.";
-            //            Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            //            Windows.Storage.StorageFile sampleFile =
-            //await storageFolder.CreateFileAsync("EscalationDetails.txt",
-            //    Windows.Storage.CreationCollisionOption.ReplaceExisting);
-            //            //Windows.Storage.StorageFile sampleFile =await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///test.txt"));
-            //            List<string> lines = new List<string>();
-            //            lines.Add("Thread Title:");
-            //            lines.Add("[RS2:1703]Can not connect ot the BLE device after creators update");
-            //            lines.Add("----------------------------------------------------------------------------------------------------------------------");
-            //            lines.Add("Thread URL:");
-            //            lines.Add("https://social.msdn.microsoft.com/Forums/en-US/winforms/thread/fda7e9db-d2e0-411c-8f4f-75efa7f0af53/");
-            //            lines.Add("----------------------------------------------------------------------------------------------------------------------");
-            //            lines.Add("Issue Description:");
-            //            lines.Add("eeeeeeeeeeeeeeeeeee");
-            //            lines.Add("----------------------------------------------------------------------------------------------------------------------");
-            //            lines.Add("Escalation Reason:");
-            //            lines.Add("dffffffffff");
-            //            //await Windows.Storage.FileIO.WriteLinesAsync(sampleFile,lines);
-            //            await Windows.Storage.FileIO.WriteLinesAsync(sampleFile, lines);
-            //            await oMail.AddAttachmentAsync(sampleFile.Path);
-            //            SmtpServer oServer = new SmtpServer("smtp-mail.outlook.com");              
-            //            oServer.User = "DevComEN@outlook.com";
-            //            oServer.Password = "Password01!";
-            //            oServer.Port = 587;
-            //            oServer.ConnectType = SmtpConnectType.ConnectTryTLS;
-            //            await oSmtp.SendMailAsync(oServer, oMail);
-            //            MessageDialog dialog = new MessageDialog("Send the Escalation Email Successuflly!");
-            //            await dialog.ShowAsync();
-            //        }
-            //        catch(Exception ex)
-            //        {
-            //            MessageDialog dialog = new MessageDialog(ex.Message);
-            //            await dialog.ShowAsync();
-            //        }
+           
         }
 
     }

@@ -27,7 +27,7 @@ namespace Escalation_UWP
             this.InitializeComponent();
             Windows.Storage.ApplicationDataContainer localSettings =
 Windows.Storage.ApplicationData.Current.LocalSettings;
-            Object value = localSettings.Values["currentUserSetting"];
+            Object value = localSettings.Values["currentUser"];
             MyTextBlock.Text = "Welcome" + " " + value.ToString();
         }
     }

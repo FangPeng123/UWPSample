@@ -7,9 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="Yellow">
-        <Button Name="VendorButton" Content="Vendor" Visibility="Collapsed" FontSize="50" FontWeight="Black" Background="GreenYellow" HorizontalAlignment="Left" Margin="307,196,0,0" VerticalAlignment="Top" Height="300" Width="300" Click="Button_Click"/>
-        <Button Name="FTEButton" Content="FTE" Visibility="Collapsed" FontSize="50" FontWeight="Black" Background="Orange" HorizontalAlignment="Left" Margin="607,196,0,0" VerticalAlignment="Top" Height="300" Width="300" Click="Button_Click_1"/>
-
+    <Grid Background="Aqua">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Button Name="VendorButton" Content="Vendor" Visibility="Collapsed" FontSize="50" FontWeight="Black" Background="GreenYellow"  Height="300" Width="300" Click="Button_Click"/>
+        <Button Name="FTEButton" Content="FTE" Visibility="Collapsed" FontSize="50" FontWeight="Black" Background="Orange"  Height="300" Width="300" Click="Button_Click_1"/>
+        </StackPanel>
     </Grid>
 </Page>

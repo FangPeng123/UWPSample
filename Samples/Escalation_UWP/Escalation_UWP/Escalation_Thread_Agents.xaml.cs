@@ -28,6 +28,8 @@ namespace Escalation_UWP
         public Escalation_Thread_Agents()
         {
             this.InitializeComponent();
+            StartDatePicker.Date = DateTime.Today.AddDays(-7);
+            EndDatePicker.Date = DateTime.Today;
             EscalationThreadList = new ObservableCollectionView<Models.EscalationThread>();
             EscalationThread EscalationThread = new EscalationThread();
             EscalationThread.ThreadTitle = "[C++][UWP] MJPEG MediaPlayer support";

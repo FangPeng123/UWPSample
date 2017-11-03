@@ -9,15 +9,77 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel Orientation="Vertical">
-            <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                 <TextBlock Name="MyTextBlock" Foreground="Red" Width="150"  HorizontalAlignment="Left"></TextBlock>
                 <Image Source="Assets/smlie.png" Width="25" Height="25"></Image>
             </StackPanel>
             <TextBlock Height="15"></TextBlock>
-            <MyToolkit:DataGrid>
-            
-        </MyToolkit:DataGrid>
-       </StackPanel>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                <StackPanel Orientation="Horizontal" Width="{Binding ElementName=MyDataGrid,Path=Width}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Start Date" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Width="20"></TextBlock>
+                        <DatePicker Name="StartDatePicker" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center"></DatePicker>
+                    </StackPanel>
+                    <TextBlock Width="100"></TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="End Date" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Width="20"></TextBlock>
+                        <DatePicker Name="EndDatePicker" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center"></DatePicker>
+                    </StackPanel>
+                    <TextBlock Width="100"></TextBlock>
+                    <ComboBox Width="150" PlaceholderText="Select Status">
+                        <ComboBoxItem Content="All"></ComboBoxItem>
+                        <ComboBoxItem Content="Closed"></ComboBoxItem>
+                        <ComboBoxItem Content="Open"></ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock Width="100"></TextBlock>
+                    <Button Content="Query" Background="Beige" Width="90"></Button>
+                </StackPanel>
+            </StackPanel>
+            <Border BorderThickness="2,0,2,2">
+                <StackPanel Orientation="Vertical">
+            <Border BorderThickness="2" HorizontalAlignment="Left">
+                <StackPanel Orientation="Horizontal" Width="1300" Background="Aqua" HorizontalAlignment="Left">
+                    <TextBlock Text="Thread Title" Width="500"></TextBlock>
+                    <TextBlock Text="Escalation Date" Width="200"></TextBlock>
+                    <TextBlock Text="Escalation Status" Width="200"></TextBlock>
+                    <TextBlock Text="Thread URL" Width="150"></TextBlock>
+                    <TextBlock Text="Escalation Details" Width="150"></TextBlock>
+                </StackPanel>
+            </Border>
+                    <ListView Width="1300">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding}" Tag="Thread Title" Width="500"></TextBlock>
+                                    <TextBlock Text="{Binding}" Tag="Escalation Date" Width="200"></TextBlock>
+                                    <TextBlock Text="{Binding}" Tag="Escalation Status" Width="200"></TextBlock>
+                                    <HyperlinkButton NavigateUri="{Binding}" Content="Open It"></HyperlinkButton>
+                                    <Button Tag="{Binding}" Content="More Details"></Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </Border>
+
+            <!--<Mytoolkit:DataGrid  HeaderBackground="Aqua"  RowBackgroundEvenBrush="Beige" RowBackgroundOddBrush="Bisque" HorizontalAlignment="Left" Name="MyDataGrid" Width="1300" ItemsSource="{Binding EscalationThreadList}">
+                <Mytoolkit:DataGrid.Columns>
+                    <Mytoolkit:DataGridTextColumn Header="Thread Title" Width="500" IsAscendingDefault="False" Binding="{Binding ThreadTitle}" d:DataContext="{d:DesignInstance Type=Models.EscalationThread}"></Mytoolkit:DataGridTextColumn>
+                    --><!--<Mytoolkit:DataGridTextColumn Header="Thread Link" Foreground="Green" Binding="{Binding ThreadLink}" d:DataContext="{d:DesignInstance Type=Models.EscalationThread}"></Mytoolkit:DataGridTextColumn>--><!--
+                    <Mytoolkit:DataGridTextColumn Header="FTE Onwer" Width="150" Foreground="Green" Binding="{Binding FTEOnwer}" d:DataContext="{d:DesignInstance Type=Models.EscalationThread}"></Mytoolkit:DataGridTextColumn>
+                    <Mytoolkit:DataGridTextColumn Header="Escalation Date" Width="200" Binding="{Binding EscalationDate}" d:DataContext="{d:DesignInstance Type=Models.EscalationThread}"></Mytoolkit:DataGridTextColumn>
+                    <Mytoolkit:DataGridTextColumn Header="Escalation Status" Width="200" Binding="{Binding EscalationStatus}" d:DataContext="{d:DesignInstance Type=Models.EscalationThread}"></Mytoolkit:DataGridTextColumn>
+                    <Mytoolkit:DataGridTemplatedColumn Header="Thread URl" Width="150" IsAscendingDefault="False">
+                        <Mytoolkit:DataGridTemplatedColumn.CellTemplate >
+                            <DataTemplate>
+                                <HyperlinkButton  NavigateUri="{Binding ThreadLink}" Content="Open Thread" d:DataContext="{d:DesignInstance Type=Models.EscalationThread}"></HyperlinkButton>
+                            </DataTemplate>
+                        </Mytoolkit:DataGridTemplatedColumn.CellTemplate>
+                    </Mytoolkit:DataGridTemplatedColumn>
+                </Mytoolkit:DataGrid.Columns>-->
+        </StackPanel>
     </Grid>
 </Page>

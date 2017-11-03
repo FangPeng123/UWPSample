@@ -27,9 +27,16 @@ namespace Escalation_UWP
         public MainPage()
         {
             this.InitializeComponent();
-
+            this.SizeChanged += MainPage_SizeChanged;
         }
 
+        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (Window.Current.Bounds.Width < 800)
+            {
+                Splitter.IsPaneOpen = false;
+            }
+        }
 
         public List<Scenario> Scenarios
         {

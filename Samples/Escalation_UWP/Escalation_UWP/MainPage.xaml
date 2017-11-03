@@ -6,14 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Grid Background="Yellow">
+    <Grid Background="Aqua">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <SplitView x:Name="Splitter" CompactPaneLength="40" IsPaneOpen="True" Grid.Column="1" DisplayMode="CompactInline"  Grid.Row="1">
             <SplitView.Pane>
-                <RelativePanel Margin="0,0,0,0" Background="Yellow">
+                <RelativePanel Margin="0,0,0,0" Background="Aqua">
                     <TextBlock x:Name="SampleTitle" Text=""  TextWrapping="Wrap" Margin="0,10,0,0"/>
                     <ListBox x:Name="ScenarioControl" SelectionChanged="ScenarioControl_SelectionChanged"
                  SelectionMode="Single" HorizontalAlignment="Left" Background="Transparent" BorderThickness="0"
@@ -48,7 +48,7 @@
         </SplitView>
 
         <StackPanel x:Name="HeaderPanel" Orientation="Horizontal">
-            <Border Background="Yellow"  Grid.Row="0">
+            <Border Background="Aqua"  Grid.Row="0">
                 <ToggleButton Click="Button_Click" VerticalAlignment="Top" Foreground="{ThemeResource ApplicationForegroundThemeBrush}">
                     <ToggleButton.Content>
                         <FontIcon x:Name="Hamburger" FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" Margin="0,10,0,0"/>

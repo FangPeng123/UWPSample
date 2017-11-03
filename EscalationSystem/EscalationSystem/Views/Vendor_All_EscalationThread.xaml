@@ -1,0 +1,261 @@
+﻿<Page
+    x:Class="EscalationSystem.Views.Vendor_All_EscalationThread"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EscalationSystem.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ViewModel="using:EscalationSystem.ViewModels"
+    xmlns:controls="using:MyToolkit.Controls"
+    xmlns:Model="using:EscalationSystem.Models"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <local:URLConverter x:Key="URLConverter"></local:URLConverter>
+
+    </Page.Resources>
+
+    <Grid Background="Azure">
+        <StackPanel HorizontalAlignment="Left" Orientation="Vertical"  Name="RootPanel" Width="{Binding ScreenWidth}">
+
+
+        <StackPanel.DataContext>
+            <ViewModel:SceenSizeViewModel x:Name="SceenSizeViewModel"></ViewModel:SceenSizeViewModel>
+        </StackPanel.DataContext>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Vertical" Grid.Row="0">
+                <StackPanel Width="{Binding ScreenWidth}" Height="50"  Background="#FF7CBDF1"  HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <TextBlock  Text="All Threads List" FontWeight="Black" FontSize="30"  Foreground="White" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel  Orientation="Vertical" HorizontalAlignment="Left">
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Background="#FF2196F3">
+                            <Grid Margin="0,0,0,0" Width="{Binding ScreenWidth}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel  Grid.Column="0"  Orientation="Horizontal">
+                                    <TextBlock  Foreground="White" Text="Start Date"  VerticalAlignment="Center"></TextBlock>
+                                    <DatePicker  Foreground="White" Name="StartDatePicker"  VerticalAlignment="Center"></DatePicker>
+                                </StackPanel>
+
+                                <StackPanel HorizontalAlignment="Right" Grid.Column="1" Orientation="Horizontal">
+                                    <TextBlock  Foreground="White" Text="End Date" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                                    <DatePicker   Foreground="White" Name="EndDatePicker"  HorizontalAlignment="Right" VerticalAlignment="Center"></DatePicker>
+                                </StackPanel>
+                                <StackPanel HorizontalAlignment="Right" Grid.Column="2" Orientation="Horizontal">
+                                    <TextBlock Text="Platform" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White"></TextBlock>
+                                    <ComboBox HorizontalAlignment="Right" Name="PlatformComboBox"   Foreground="White">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Platform}"/>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </StackPanel>
+                                <StackPanel HorizontalAlignment="Right" Grid.Column="3" Orientation="Horizontal">
+                                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center" Text="Status" Foreground="White"></TextBlock>
+                                    <ComboBox Name="StatusComboBox" HorizontalAlignment="Right" Foreground="White">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Status}"/>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </StackPanel>
+
+                                <StackPanel HorizontalAlignment="Right" Grid.Column="4" Orientation="Horizontal">
+                                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center" Text="Items" Foreground="White"></TextBlock>
+                                    <ComboBox Name="PageComboBox" HorizontalAlignment="Right" Foreground="White">
+                                        <ComboBoxItem Content="10"></ComboBoxItem>
+                                        <ComboBoxItem Content="20"></ComboBoxItem>
+                                        <ComboBoxItem Content="50"></ComboBoxItem>
+                                        <ComboBoxItem Content="100"></ComboBoxItem>
+                                    </ComboBox>
+                                </StackPanel>
+                                <Button IsEnabled="False" Name="QueryButton" Click="QueryButton_Click" BorderBrush="#FF145A92" BorderThickness="2" Width="70"  Grid.Column="5" HorizontalAlignment="Right"   Foreground="White" Content="Query" Background="#FF2196F3" ></Button>
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+                <ScrollViewer Name="MyScrollView" VerticalScrollBarVisibility="Visible" VerticalScrollMode="Enabled">
+
+                    <StackPanel Grid.Row="1">
+
+                        <Border Background="Azure" BorderThickness="3,3,3,3" BorderBrush="White">
+
+                            <controls:DataGrid  RowBackgroundEvenBrush="Azure" RowBackgroundOddBrush="#FFD1E5F5" HeaderBackground="#FF7CBDF1" x:Name="DataGrid" DefaultOrderIndex="0">
+
+                                <controls:DataGrid.Columns>
+                                    <controls:DataGridTemplatedColumn CanSort="False" Width="1.1*">
+                                        <controls:DataGridTemplatedColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image  VerticalAlignment="Center"            
+                   Width="22" Height="22" Source="/Assets/Lock.png"></Image>
+                                                    <TextBlock Width="10"></TextBlock>
+                                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Text="{Binding EscalationThread.VendorAlias}"                 
+                  d:DataContext="{d:DesignInstance Type=Model:EscalationAndStatusThread}"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </controls:DataGridTemplatedColumn.CellTemplate>
+                                        <controls:DataGridTemplatedColumn.Header>
+                                            <TextBlock FontSize="15" FontWeight="Bold" Text="Owner"></TextBlock>
+                                        </controls:DataGridTemplatedColumn.Header>
+                                    </controls:DataGridTemplatedColumn>
+
+                                    <controls:DataGridTextColumn FontSize="15" Width="4.5*" CanSort="False"
+                  Binding="{Binding EscalationThread.Title}" d:DataContext="{d:DesignInstance Type=Model:EscalationAndStatusThread}"
+                  >
+                                        <controls:DataGridTextColumn.Header>
+                                            <TextBlock HorizontalAlignment="Right" FontSize="15" FontWeight="Bold" Text="ThreadTitle"></TextBlock>
+                                        </controls:DataGridTextColumn.Header>
+                                    </controls:DataGridTextColumn>
+
+                                    <controls:DataGridTemplatedColumn CanSort="False" Width="4*">
+                                        <controls:DataGridTemplatedColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <HyperlinkButton Foreground="#FF0563C1" FontSize="15" NavigateUri="{Binding EscalationThread.Url,Converter={StaticResource URLConverter}}" Content="{Binding EscalationThread.Url}" 
+                                                         d:DataContext="{d:DesignInstance Type=Model:EscalationAndStatusThread}"></HyperlinkButton>
+                                            </DataTemplate>
+                                        </controls:DataGridTemplatedColumn.CellTemplate>
+                                        <controls:DataGridTemplatedColumn.Header>
+                                            <TextBlock Text="ThreadURL" FontSize="15" FontWeight="Bold"></TextBlock>
+                                        </controls:DataGridTemplatedColumn.Header>
+                                    </controls:DataGridTemplatedColumn>
+
+                                    <controls:DataGridTextColumn FontSize="15" Width="1.7*" IsAscendingDefault="False" Binding="{Binding EscalationThread.EscalatedDatetime}" 
+                d:DataContext="{d:DesignInstance Type=Model:EscalationAndStatusThread}">
+                                        <controls:DataGridTextColumn.Header>
+                                            <TextBlock FontSize="15" FontWeight="Bold" Text="EscalationDate"></TextBlock>
+                                        </controls:DataGridTextColumn.Header>
+                                    </controls:DataGridTextColumn>
+
+
+                                    <controls:DataGridTemplatedColumn Width="1.3*" CanSort="False">
+                                        <controls:DataGridTemplatedColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel VerticalAlignment="Center" Background="#FF2196F3">
+                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="White" FontSize="15" Text="{Binding EscalationThread.Platform}" 
+                d:DataContext="{d:DesignInstance Type=Model:EscalationAndStatusThread}"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </controls:DataGridTemplatedColumn.CellTemplate>
+                                        <controls:DataGridTemplatedColumn.Header>
+
+                                            <TextBlock FontWeight="Bold" FontSize="15"  Text="Platform" Foreground="Black" />
+
+
+                                        </controls:DataGridTemplatedColumn.Header>
+                                    </controls:DataGridTemplatedColumn>
+
+
+                                    <controls:DataGridTemplatedColumn CanSort="False" Width="2.3*">
+                                        <controls:DataGridTemplatedColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <ComboBox Name="DataGridComboBoxStatus" SelectionChanged="DataGridComboBoxStatus_SelectionChanged" DisplayMemberPath="Status" ItemsSource="{Binding EscalationStatusList}" d:DataContext="{d:DesignInstance Type=Model:EscalationAndStatusThread}" PlaceholderText="{Binding EscalationThread.Status}"></ComboBox>
+
+                                            </DataTemplate>
+
+                                        </controls:DataGridTemplatedColumn.CellTemplate>
+                                        <controls:DataGridTemplatedColumn.Header>
+                                            <TextBlock FontWeight="Bold" FontSize="15"  Text="EscalationStatus" Foreground="Black" />
+                                        </controls:DataGridTemplatedColumn.Header>
+
+
+
+
+                                    </controls:DataGridTemplatedColumn>
+                                </controls:DataGrid.Columns>
+                                <controls:DataGrid.ItemDetailsTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Background="#FFDDF9EF"  Orientation="Vertical" Margin="10,0,0,0"
+                        d:DataContext="{d:DesignInstance Type=Model.EscalationAndStatusThread}">
+                                            <Border BorderBrush="White" BorderThickness="3" Margin="3,3,3,3">
+                                                <StackPanel Orientation="Vertical" Margin="3,3,3,3">
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  FontWeight="Black" Text="ThreadOwner:" Width="150"></TextBlock>
+                                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{Binding EscalationThread.VendorAlias}"></TextBlock>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  FontWeight="Black" Text="ThreadTitle:" Width="150"></TextBlock>
+                                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{Binding EscalationThread.Title}"></TextBlock>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  FontWeight="Black" Text="ThreadURL:" Width="150"></TextBlock>
+                                                        <HyperlinkButton Foreground="#FF0563C1"  HorizontalAlignment="Left" VerticalAlignment="Center"  NavigateUri="{Binding EscalationThread.Url,Converter={StaticResource URLConverter}}" Content="{Binding EscalationThread.Url}"></HyperlinkButton>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  FontWeight="Black" Text="EscalationDate:" Width="150"></TextBlock>
+                                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{Binding EscalationThread.EscalatedDatetime}"></TextBlock>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  FontWeight="Black" Text="EscalationReason:" Width="150"></TextBlock>
+                                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{Binding EscalationThread.Reason}"></TextBlock>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  FontWeight="Black" Text="EscalationStatus:" Width="150"></TextBlock>
+                                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{Binding EscalationThread.Status}"></TextBlock>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Border>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </controls:DataGrid.ItemDetailsTemplate>
+                                <controls:DataGrid.RowStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="Margin" Value="0"></Setter>
+                                    </Style>
+                                </controls:DataGrid.RowStyle>
+                            </controls:DataGrid>
+
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <StackPanel Orientation="Horizontal" Width="{Binding ScreenWidth}" HorizontalAlignment="Center" Height="80">
+
+                    <StackPanel Height="80" VerticalAlignment="Center" Grid.Column="1"  Orientation="Horizontal"  HorizontalAlignment="Right">
+                        <Image Width="25" Height="25" Source="/Assets/NavF.PNG" Name="FirstImage" Tapped="FirstImage_Tapped"></Image>
+                        <Image Width="25" Height="25" Source="/Assets/Nav.PNG" Name="PreviousImage" Tapped="PreviousImage_Tapped"></Image>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontWeight="Bold" Foreground="#FF2196F3" Text="0" VerticalAlignment="Center" Height="25" Name="PageTxt"></TextBlock>
+                            <TextBlock Width="5"></TextBlock>
+                            <TextBlock Height="25" VerticalAlignment="Center" Text="to"  ></TextBlock>
+                            <TextBlock Width="5"></TextBlock>
+                            <TextBlock FontWeight="Bold"  Height="25" VerticalAlignment="Center" Foreground="#FF2196F3" Name="AllPageIndex" Text="0"></TextBlock>
+                            <TextBlock Width="5"></TextBlock>
+                            <TextBlock Height="25" VerticalAlignment="Center" Text="of"></TextBlock>
+                            <TextBlock Width="5"></TextBlock>
+                            <TextBlock FontWeight="Bold"  Height="25" Foreground="#FF2196F3" Text="0" Name="AllRecords" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Width="5"></TextBlock>
+                            <TextBlock Height="25" Text="records" VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+
+                        <Image Width="25" Height="25" Source="/Assets/Nav2.PNG" Name="NextImage" Tapped="NextImage_Tapped"></Image>
+                        <Image Width="25" Height="25" Source="/Assets/NavL.PNG" Name="LastImage" Tapped="LastImage_Tapped"></Image>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+
+
+
+        </Grid>
+
+
+    </StackPanel>
+    </Grid>
+</Page>
+

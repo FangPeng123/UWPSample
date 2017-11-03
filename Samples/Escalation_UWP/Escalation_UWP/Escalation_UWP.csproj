@@ -131,8 +131,13 @@
     <Content Include="Assets\create.png" />
     <Content Include="Assets\FTE.png" />
     <Content Include="Assets\microsoft-sdk.png" />
+    <Content Include="Assets\microsoftlogo.png" />
     <Content Include="Assets\report.png" />
     <Content Include="Assets\smlie.png" />
+    <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Assets\SplashScreen.scale-125.png" />
+    <Content Include="Assets\SplashScreen.scale-150.png" />
+    <Content Include="Assets\SplashScreen.scale-400.png" />
     <Content Include="Assets\windows-sdk.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

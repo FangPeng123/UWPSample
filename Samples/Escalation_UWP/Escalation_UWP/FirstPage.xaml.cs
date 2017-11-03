@@ -7,6 +7,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
 using Windows.UI.Popups;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -28,19 +29,27 @@ namespace Escalation_UWP
         {
             this.InitializeComponent();
 
+           
         }
+
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            
             var users = await User.FindAllAsync();
             var currentDomainUser = await users.FirstOrDefault().GetPropertyAsync(KnownUserProperties.DomainName);
 
             //Save Current User
             var currentUser = await users.FirstOrDefault().GetPropertyAsync(KnownUserProperties.DisplayName);
-            Windows.Storage.ApplicationDataContainer localSettings =
+            Windows.Storage.ApplicationDataContainer LocalSettings =
     Windows.Storage.ApplicationData.Current.LocalSettings;
-            localSettings.Values["currentUserSetting"] = currentUser.ToString();
+            LocalSettings.Values["currentUser"] = currentUser.ToString();
+            var currentusersplit = currentDomainUser.ToString().Split('\\');
+            string currentDomain = currentusersplit[0];
+            //store alias
+            string userAlias = currentusersplit[1];
+            LocalSettings.Values["currentUserAlias"] = userAlias.ToString();
 
             if (currentUser.Equals("Fang Peng"))
             {
@@ -51,8 +60,7 @@ namespace Escalation_UWP
             else
             {
                 //Check if it is the Microsoft alias
-                var currentusersplit = currentDomainUser.ToString().Split('\\');
-                string currentDomain = currentusersplit[0];
+              
                 int count = 0;
                 foreach (var item in currentDomain.Split('.'))
                 {

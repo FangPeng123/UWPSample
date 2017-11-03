@@ -8,21 +8,21 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel Orientation="Vertical">
-            <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
             <TextBlock Name="MyTextBlock" Foreground="Red" Width="150"  HorizontalAlignment="Left"></TextBlock>
             <Image Source="Assets/smlie.png" Width="25" Height="25"></Image>
             </StackPanel>
             <TextBlock Height="15"></TextBlock>
-            <StackPanel Name="Thread_Onwer" Orientation="Horizontal">
+            <StackPanel Name="Thread_Onwer" Orientation="Horizontal" HorizontalAlignment="Left">
                 <TextBlock Text="Thread Onwer" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                 <TextBlock Text="" Width="10"></TextBlock>
-                    <TextBox PlaceholderText="Please enter your alias" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
+                <TextBlock Name="ThreadOnwerTxt" FontWeight="Black" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                 </StackPanel>
             
             <TextBlock Height="15"></TextBlock>
-          
-                <StackPanel Name="Platform"  Orientation="Horizontal">
+
+            <StackPanel Name="Platform"  Orientation="Horizontal" HorizontalAlignment="Left">
                     <TextBlock Text="Platform" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Text="" Width="10"></TextBlock>
                     <ComboBox PlaceholderText="Please select a platform" Width="200"></ComboBox>
@@ -31,8 +31,8 @@
                 </StackPanel>
             
             <TextBlock Height="15"></TextBlock>
-         
-                <StackPanel Name="Forum" Orientation="Horizontal">
+
+            <StackPanel Name="Forum" Orientation="Horizontal" HorizontalAlignment="Left">
                     <TextBlock Text="Forum" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Text="" Width="10"></TextBlock>
                     <ComboBox PlaceholderText="Please select a Forum" Width="200"></ComboBox>
@@ -40,8 +40,8 @@
                 </StackPanel>
          
             <TextBlock Height="15"></TextBlock>
-           
-                <StackPanel Name="FTE" Orientation="Horizontal">
+
+            <StackPanel Name="FTE" Orientation="Horizontal" HorizontalAlignment="Left">
                     <TextBlock Text="FTE Onwer" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Text="" Width="10"></TextBlock>
                     <ComboBox PlaceholderText="Please select a FTE" Width="200"></ComboBox>
@@ -49,10 +49,10 @@
                 </StackPanel>
          
             <TextBlock Height="30"></TextBlock>
-           
-                <StackPanel Name="ThreadTitle" Orientation="Vertical">
+
+            <StackPanel Name="ThreadTitle" Orientation="Vertical" HorizontalAlignment="Left">
                     <TextBlock Text="Thread Title" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-                    <RichEditBox Width="500" Height="50" HorizontalAlignment="Left"></RichEditBox>
+                    <RichEditBox Width="450" Height="50" HorizontalAlignment="Left"></RichEditBox>
                     <TextBlock Height="15"></TextBlock>
                     <Line></Line>
                 </StackPanel>
@@ -60,22 +60,22 @@
                 <StackPanel Name="ThreadLink" Orientation="Vertical">
 
                     <TextBlock Text="Thread Link" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-                    <RichEditBox Width="500" Height="50" HorizontalAlignment="Left"></RichEditBox>
+                    <RichEditBox Width="450" Height="50" HorizontalAlignment="Left"></RichEditBox>
                     <TextBlock Height="15"></TextBlock>
                     <Line></Line>
                 </StackPanel>
-          
-                <StackPanel Name="ThreadDescription" Orientation="Vertical">
+
+            <StackPanel Name="ThreadDescription" Orientation="Vertical" HorizontalAlignment="Left">
                     <TextBlock Text="Thread Description" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-                    <RichEditBox Width="500" Height="100" HorizontalAlignment="Left"></RichEditBox>
+                    <RichEditBox Width="450" Height="100" HorizontalAlignment="Left"></RichEditBox>
                     <TextBlock Height="15"></TextBlock>
                     <Line></Line>
                 </StackPanel>
-            
-           
-                <StackPanel Name="EscalationReason" Orientation="Vertical">
+
+
+            <StackPanel Name="EscalationReason" Orientation="Vertical" HorizontalAlignment="Left">
                     <TextBlock Text="Escalation Reason" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-                    <RichEditBox Width="500" Height="100" HorizontalAlignment="Left"></RichEditBox>
+                    <RichEditBox Width="450" Height="100" HorizontalAlignment="Left"></RichEditBox>
                     <TextBlock Height="15"></TextBlock>
                     <Line></Line>
 

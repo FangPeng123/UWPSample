@@ -7,6 +7,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -41,6 +42,9 @@ namespace Escalation_UWP
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
+            
+            
+
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
@@ -67,9 +71,15 @@ namespace Escalation_UWP
                     // configuring the new page by passing required information as a navigation
                     // parameter
                     rootFrame.Navigate(typeof(FirstPage), e.Arguments);
+                 
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
+                ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(500, 500));
+                ApplicationView.PreferredLaunchViewSize = new Size(1000, 1000);
+                ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+              
+
             }
         }
 
