@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Web.Http;
 using EscalationSystem.ViewModels;
+using System.Threading.Tasks;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace EscalationSystem.Views
@@ -30,47 +31,47 @@ namespace EscalationSystem.Views
     public sealed partial class Vendor_All_EscalationThread : Page
     {
 
-
-        public ObservableCollection<EscalationStatus> EscalatonStatusList { get; set; }
-        public ObservableCollection<Product> AllMyPlatform { get; set; }
+        public EscalationStatusWithSelectedItem EscalatonStatusList { get; set; }
+        public ProductWithSelectedItem AllMyPlatform { get; set; }
         public ObservableCollectionView<EscalationAndStatusThread> EscalationThreadList { get; set; }
         public ObservableCollectionView<EscalationAndStatusThread> EscalationThreadListPage { get; set; }
+        public EscalationThread EscalationThread { get; set; }
+        public VendorEscalationThreadViewModel VendorEscalationThreadViewModel { get; set; }
         public int pageSize;
-
+        public static int i = 0;
         public Vendor_All_EscalationThread()
         {
             this.InitializeComponent();
-
-
-
-
             this.EndDatePicker.Date = DateTime.Today;
             int date = DateTime.Today.Day;
             this.StartDatePicker.Date = DateTime.Today.AddDays(-(date - 1));
             this.SizeChanged += Vendor_All_EscalationThread_SizeChanged;
-
-            EscalatonStatusList = new ObservableCollection<EscalationStatus>();
-            AllMyPlatform = new ObservableCollection<Product>();
+            EscalatonStatusList = new EscalationStatusWithSelectedItem();
+            AllMyPlatform = new ProductWithSelectedItem();
             EscalationThreadList = new ObservableCollectionView<EscalationAndStatusThread>();
             EscalationThreadListPage = new ObservableCollectionView<EscalationAndStatusThread>();
+            VendorEscalationThreadViewModel = new VendorEscalationThreadViewModel();
+            EscalationThread = new EscalationThread();
             this.Loaded += Vendor_All_EscalationThread_Loaded;
+            this.DataContext = VendorEscalationThreadViewModel;
 
-            this.DataContext = this;
         }
+
+
 
         private async void Vendor_All_EscalationThread_Loaded(object sender, RoutedEventArgs e)
         {
-            var FTEEscalationThreadViewModel = new FTEEscalationThreadViewModel();
-            EscalatonStatusList = await FTEEscalationThreadViewModel.GetAllEScalationStatus();
-            AllMyPlatform = await FTEEscalationThreadViewModel.GetAllPlaform();
-            StatusComboBox.ItemsSource = EscalatonStatusList;
-            StatusComboBox.SelectedIndex = 0;
-            PlatformComboBox.ItemsSource = AllMyPlatform;
-            PlatformComboBox.SelectedIndex = 0;
+            VendorEscalationThreadViewModel = await VendorEscalationThreadViewModel.GetVendorEscalationThreadViewModel();
+            EscalatonStatusList = VendorEscalationThreadViewModel.AllEscalationStatusList;
+            StatusComboBox.DataContext = EscalatonStatusList;
+            AllMyPlatform = VendorEscalationThreadViewModel.AllPratfromList;
+            PlatformComboBox.DataContext = AllMyPlatform;
             PageComboBox.SelectedIndex = 0;
-            QueryButton.IsEnabled = true;
+            QueryButton_Click(sender, e);
+
 
         }
+
 
         private void Vendor_All_EscalationThread_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -79,37 +80,17 @@ namespace EscalationSystem.Views
 
         private async void QueryButton_Click(object sender, RoutedEventArgs e)
         {
+            MyProgressRing.IsActive = true;
+            DataGrid.ItemsSource = null;
+            AllRecords.Text = "0";
+            AllPageIndex.Text = "0";
+            PageTxt.Text = "0";
 
-
-            HttpClient HttpClient = new HttpClient();
-            Product MyProduct = new Product();
-            MyProduct = PlatformComboBox.SelectedItem as Product;
-            string plaform = MyProduct.Platform;
-            EscalationStatus MyEscalationStatus = new EscalationStatus();
-            MyEscalationStatus = StatusComboBox.SelectedItem as EscalationStatus;
-            string status = MyEscalationStatus.Status;
             DateTime startDate = DateTime.Parse(StartDatePicker.Date.ToString());
             string startDatestring = startDate.ToString("MM-dd-yyyy");
             DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
             string endDatestring = endDate.ToString("MM-dd-yyyy");
-
-
-            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/ethreads?etime1={0}&etime2={1}&alias={2}&platform={3}&forum={4}&status={5}", startDatestring, endDatestring, "fapeng", plaform, "", status)));
-            ObservableCollection<EscalationThread> AllMyEscalationThread = new ObservableCollection<EscalationThread>();
-            if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
-            {
-                EscalationThreadList.Items.Clear();
-                var result = await HttpResponseMessage.Content.ReadAsStringAsync();
-                AllMyEscalationThread = JsonConvert.DeserializeObject<ObservableCollection<EscalationThread>>(result);
-                foreach (var escalationthread in AllMyEscalationThread)
-                {
-                    EscalationAndStatusThread EscalationAndStatusThread = new EscalationAndStatusThread();
-                    EscalationAndStatusThread.EscalationThread = escalationthread;
-                    EscalationAndStatusThread.EscalationStatusList = EscalatonStatusList;
-                    EscalationThreadList.Items.Add(EscalationAndStatusThread);
-                }
-
-            }
+            EscalationThreadList = await VendorEscalationThreadViewModel.QueryAllEscalationAndStatusThread(AllMyPlatform, EscalatonStatusList, startDatestring, endDatestring);
             ComboBoxItem curItem = (ComboBoxItem)PageComboBox.SelectedItem;
             pageSize = Convert.ToInt32(curItem.Content.ToString());
             if (EscalationThreadList.Count == 0)
@@ -117,14 +98,24 @@ namespace EscalationSystem.Views
                 AllRecords.Text = "0";
                 AllPageIndex.Text = "0";
                 PageTxt.Text = "0";
+                DataGrid.ItemsSource = EscalationThreadList;
+                MyScrollView.Height = 100;
+            }
 
+            else if (EscalationThreadList.Count < 10)
+            {
+                DataGrid.ItemsSource = EscalationThreadList;
+                MyScrollView.Height = (EscalationThreadList.Count + 1) * 60;
+                AllRecords.Text = EscalationThreadList.Count.ToString();
+                AllPageIndex.Text = VendorEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
+                PageTxt.Text = VendorEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
             }
 
             else
             {
                 AllRecords.Text = EscalationThreadList.Count.ToString();
-                AllPageIndex.Text = GetPageIndex().ToString();
-                int AllPagesIndex = GetPageIndex();
+                AllPageIndex.Text = VendorEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
+                int AllPagesIndex = VendorEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize);
                 PageTxt.Text = "1";
                 if (EscalationThreadList.Count >= 10)
                 {
@@ -142,6 +133,9 @@ namespace EscalationSystem.Views
 
                 }
             }
+            await Task.Delay(new TimeSpan(3000));
+            MyProgressRing.IsActive = false;
+
         }
 
         public void setScrollViewheight(List<EscalationAndStatusThread> MyList)
@@ -156,115 +150,118 @@ namespace EscalationSystem.Views
             }
         }
 
-        private async void DataGridComboBoxStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBox DataGridComboBoxStatus = new ComboBox();
-            DataGridComboBoxStatus = sender as ComboBox;
+       
 
-            EscalationAndStatusThread EscalationAndStatusThread = (EscalationAndStatusThread)(sender as ComboBox).DataContext;
-            string ThreadId = EscalationAndStatusThread.EscalationThread.ThreadID;
-            string ThreadUrl = EscalationAndStatusThread.EscalationThread.Url;
-            DateTime CreatedDateTime = DateTime.Now;
-            string CreatedBy = EscalationAndStatusThread.EscalationThread.FteAlias;
-            EscalationStatus MyEscalationStatus = new EscalationStatus();
-            MyEscalationStatus = DataGridComboBoxStatus.SelectedItem as EscalationStatus;
-            string Status = MyEscalationStatus.Status;
-            string SrescalationId = "N/A";
-            MessageDialog dialog = new MessageDialog("Modify the Status Successfully");
-            await dialog.ShowAsync();
-        }
-
-        public int GetPageIndex()
-        {
-            int AllPageIndex;
-            if (EscalationThreadList.Count > pageSize)
-            {
-
-                if (EscalationThreadList.Count / pageSize == 0)
-                {
-                    AllPageIndex = EscalationThreadList.Count / pageSize;
-                }
-                else
-                {
-                    AllPageIndex = (EscalationThreadList.Count / pageSize) + 1;
-                }
-            }
-
-            else
-            {
-                AllPageIndex = 1;
-            }
-
-            return AllPageIndex;
-        }
+   
         private void NextImage_Tapped(object sender, TappedRoutedEventArgs e)
         {
-
-            int AllPageIndex = GetPageIndex();
-            int index = Convert.ToInt32(PageTxt.Text.ToString());
-            index++;
-            if (index < AllPageIndex)
+            if (EscalationThreadList.Count == 0)
             {
-                var EscalationThreadListPage = EscalationThreadList.Skip((index - 1) * pageSize).Take(pageSize).ToList();
-                DataGrid.ItemsSource = EscalationThreadListPage;
-                setScrollViewheight(EscalationThreadListPage);
-                PageTxt.Text = index.ToString();
+                this.PageTxt.Text = "0";
+                MyScrollView.Height = 100;
+                DataGrid.ItemsSource = null;
             }
 
             else
             {
-                var EscalationThreadListPage = EscalationThreadList.Skip((AllPageIndex - 1) * pageSize).Take(pageSize).ToList();
-                DataGrid.ItemsSource = EscalationThreadListPage;
-                setScrollViewheight(EscalationThreadListPage);
-                int count = EscalationThreadList.Count;
-                PageTxt.Text = AllPageIndex.ToString();
+                int AllPageIndex = VendorEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize);
+                int index = Convert.ToInt32(PageTxt.Text.ToString());
+                index++;
+                if (index < AllPageIndex)
+                {
+                    var EscalationThreadListPage = EscalationThreadList.Skip((index - 1) * pageSize).Take(pageSize).ToList();
+                    DataGrid.ItemsSource = EscalationThreadListPage;
+                    setScrollViewheight(EscalationThreadListPage);
+                    PageTxt.Text = index.ToString();
+                }
 
+                else
+                {
+                    var EscalationThreadListPage = EscalationThreadList.Skip((AllPageIndex - 1) * pageSize).Take(pageSize).ToList();
+                    DataGrid.ItemsSource = EscalationThreadListPage;
+                    setScrollViewheight(EscalationThreadListPage);
+                    int count = EscalationThreadList.Count;
+                    PageTxt.Text = AllPageIndex.ToString();
+
+                }
             }
-
         }
 
         private void PreviousImage_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (Convert.ToInt32(PageTxt.Text.ToString()) == 1)
+            if (EscalationThreadList.Count == 0)
             {
-                var EscalationThreadListPage1 = EscalationThreadList.Skip(0 * pageSize).Take(pageSize).ToList();
-                DataGrid.ItemsSource = EscalationThreadListPage1;
-                setScrollViewheight(EscalationThreadListPage1);
-                PageTxt.Text = "1";
-
+                this.PageTxt.Text = "0";
+                MyScrollView.Height = 100;
+                DataGrid.ItemsSource = null;
             }
-
             else
             {
-                var EscalationThreadListPage = EscalationThreadList.Skip((Convert.ToInt32(PageTxt.Text.ToString())) - 1 * pageSize).Take(pageSize).ToList();
-                DataGrid.ItemsSource = EscalationThreadListPage;
-                setScrollViewheight(EscalationThreadListPage);
-                PageTxt.Text = ((Convert.ToInt32(PageTxt.Text.ToString())) - 1).ToString();
+                if (Convert.ToInt32(PageTxt.Text.ToString()) == 1)
+                {
+                    var EscalationThreadListPage1 = EscalationThreadList.Skip(0 * pageSize).Take(pageSize).ToList();
+                    DataGrid.ItemsSource = EscalationThreadListPage1;
+                    setScrollViewheight(EscalationThreadListPage1);
+                    PageTxt.Text = "1";
 
+                }
+                else
+                {
+                    var EscalationThreadListPage = EscalationThreadList.Skip((Convert.ToInt32(PageTxt.Text.ToString())) - 1 * pageSize).Take(pageSize).ToList();
+                    DataGrid.ItemsSource = EscalationThreadListPage;
+                    setScrollViewheight(EscalationThreadListPage);
+                    PageTxt.Text = ((Convert.ToInt32(PageTxt.Text.ToString())) - 1).ToString();
+
+                }
             }
         }
 
         private void LastImage_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            int AllPageIndex = GetPageIndex();
-            PageTxt.Text = AllPageIndex.ToString();
-            var EscalationThreadListPage = EscalationThreadList.Skip((AllPageIndex - 1) * pageSize).Take(pageSize).ToList();
-            DataGrid.ItemsSource = EscalationThreadListPage;
-            setScrollViewheight(EscalationThreadListPage);
-            PageTxt.Text = AllPageIndex.ToString();
-
+            if (EscalationThreadList.Count == 0)
+            {
+                this.PageTxt.Text = "0";
+                MyScrollView.Height = 100;
+                DataGrid.ItemsSource = null;
+            }
+            else
+            {
+                int AllPageIndex = VendorEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize);
+                PageTxt.Text = AllPageIndex.ToString();
+                var EscalationThreadListPage = EscalationThreadList.Skip((AllPageIndex - 1) * pageSize).Take(pageSize).ToList();
+                DataGrid.ItemsSource = EscalationThreadListPage;
+                setScrollViewheight(EscalationThreadListPage);
+                PageTxt.Text = AllPageIndex.ToString();
+            }
         }
 
         private void FirstImage_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            var EscalationThreadListPage1 = EscalationThreadList.Skip(0 * pageSize).Take(pageSize).ToList();
-            DataGrid.ItemsSource = EscalationThreadListPage1;
-            setScrollViewheight(EscalationThreadListPage1);
-            PageTxt.Text = "1";
+
+
+            if (EscalationThreadList.Count == 0)
+            {
+                this.PageTxt.Text = "0";
+                MyScrollView.Height = 100;
+                DataGrid.ItemsSource = null;
+            }
+            else
+            {
+                var EscalationThreadListPage1 = EscalationThreadList.Skip(0 * pageSize).Take(pageSize).ToList();
+                DataGrid.ItemsSource = EscalationThreadListPage1;
+                setScrollViewheight(EscalationThreadListPage1);
+                PageTxt.Text = "1";
+            }
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DataGrid.Items.Count < 10)
+            {
+                MyScrollView.Height = 600;
+            }
         }
     }
-
-
     public class URLConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
@@ -277,7 +274,6 @@ namespace EscalationSystem.Views
             throw new NotImplementedException();
         }
     }
-
 }
 
 

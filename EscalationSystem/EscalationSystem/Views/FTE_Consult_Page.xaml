@@ -31,7 +31,7 @@
                 </StackPanel>
             </StackPanel>
         </Popup>
-        <StackPanel Opacity="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}"  HorizontalAlignment="Left" Orientation="Vertical"  Name="RootPanel" Width="{Binding ScreenWidth}">
+        <StackPanel  HorizontalAlignment="Left" Orientation="Vertical"  Name="RootPanel" Width="{Binding ScreenWidth}">
             <StackPanel.DataContext>
                 <ViewModel:SceenSizeViewModel x:Name="SceenSizeViewModel"></ViewModel:SceenSizeViewModel>
             </StackPanel.DataContext>
@@ -45,7 +45,7 @@
                     <StackPanel Width="{Binding ScreenWidth}" Height="50"  Background="#FF7CBDF1"  HorizontalAlignment="Left" VerticalAlignment="Top">
                         <TextBlock  Text="Consult Threads Records" FontWeight="Black" FontSize="30"  Foreground="White" VerticalAlignment="Center" />
                     </StackPanel>
-                    <StackPanel Margin="5,0,0,0" Orientation="Vertical" HorizontalAlignment="Left">
+                    <StackPanel Opacity="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}"  Margin="5,0,0,0" Orientation="Vertical" HorizontalAlignment="Left">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
                             <TextBlock Height="5"></TextBlock>
                             <StackPanel Background="#FF2196F3" Orientation="Horizontal">
@@ -209,45 +209,7 @@
                                             </controls:DataGridTemplatedColumn.Header>
                                         </controls:DataGridTemplatedColumn>
                                     </controls:DataGrid.Columns>
-                                    <controls:DataGrid.ItemDetailsTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Background="#FFDDF9EF"  Orientation="Vertical" Margin="10,0,0,0"
-                        d:DataContext="{d:DesignInstance Type=Model.EscalationAndStatusThread}">
-                                                <Border BorderBrush="White" BorderThickness="3" Margin="3,3,3,3">
-                                                    <StackPanel Orientation="Vertical" Margin="3,3,3,3">
-                                                        <StackPanel Orientation="Vertical">
-                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  FontWeight="Black" Text="ThreadOwner:" Width="150"></TextBlock>
-                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{Binding EscalationThread.VendorAlias}"></TextBlock>
-                                                        </StackPanel>
-                                                        <StackPanel Orientation="Vertical">
-                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  FontWeight="Black" Text="ThreadTitle:" Width="150"></TextBlock>
-                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{Binding EscalationThread.Title}"></TextBlock>
-                                                        </StackPanel>
-                                                        <StackPanel Orientation="Vertical">
-                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  FontWeight="Black" Text="ThreadURL:" Width="150"></TextBlock>
-                                                            <HyperlinkButton Foreground="#FF0563C1"  HorizontalAlignment="Left" VerticalAlignment="Center"  NavigateUri="{Binding EscalationThread.Url,Converter={StaticResource URLConverter}}" Content="{Binding EscalationThread.Url}"></HyperlinkButton>
-                                                        </StackPanel>
-                                                        <StackPanel Orientation="Vertical">
-                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  FontWeight="Black" Text="EscalationDate:" Width="150"></TextBlock>
-                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{Binding EscalationThread.EscalatedDatetime}"></TextBlock>
-                                                        </StackPanel>
-                                                        <StackPanel Orientation="Vertical">
-                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  FontWeight="Black" Text="EscalationReason:" Width="150"></TextBlock>
-                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{Binding EscalationThread.Reason}"></TextBlock>
-                                                        </StackPanel>
-                                                        <StackPanel Orientation="Vertical">
-                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  FontWeight="Black" Text="EscalationStatus:" Width="150"></TextBlock>
-                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{Binding EscalationThread.Status}"></TextBlock>
-                                                        </StackPanel>
-                                                        <StackPanel Orientation="Vertical">
-                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  FontWeight="Black" Text="EscalationSRID:" Width="150"></TextBlock>
-                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{Binding EscalationThread.SREscalationId}"></TextBlock>
-                                                        </StackPanel>
-                                                    </StackPanel>
-                                                </Border>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </controls:DataGrid.ItemDetailsTemplate>
+                                   
                                     <controls:DataGrid.RowStyle>
                                         <Style TargetType="ListBoxItem">
                                             <Setter Property="Margin" Value="0"></Setter>
