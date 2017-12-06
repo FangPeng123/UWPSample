@@ -114,9 +114,9 @@ namespace EscalationSystem.Views
             {
                 DataGrid.ItemsSource = EscalationThreadList;
                 MyScrollView.Height = (EscalationThreadList.Count + 1) * 60;
-                AllRecords.Text = EscalationThreadList.Count.ToString();
-                AllPageIndex.Text = FTEEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString(); 
-                PageTxt.Text = FTEEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString(); 
+                AllRecords.Text =FTEEscalationThreadViewModel.GetPageIndex(EscalationThreadList,pageSize).ToString(); ;
+                AllPageIndex.Text = "1";
+                PageTxt.Text = "1";
             }
 
             else
@@ -158,6 +158,9 @@ namespace EscalationSystem.Views
               }
             }
 
+
+        // 提交修改状态功能----------------------------------------------------
+
         private void DataGridComboBoxStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox DataGridComboBoxStatus = new ComboBox();
@@ -188,6 +191,10 @@ namespace EscalationSystem.Views
         {
             EscalationPopup.IsOpen = false;           
         }
+
+
+
+        // 分页功能-----------------------------------------------
         private void NextImage_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (EscalationThreadList.Count == 0)
@@ -286,14 +293,6 @@ namespace EscalationSystem.Views
                 DataGrid.ItemsSource = EscalationThreadListPage1;
                 setScrollViewheight(EscalationThreadListPage1);
                 PageTxt.Text = "1";
-            }
-        }
-
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (DataGrid.Items.Count < 10)
-            {
-                MyScrollView.Height = 600;
             }
         }
     }

@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EscalationSystem", "EscalationSystem\EscalationSystem.csproj", "{AECA01CF-766C-4C8C-A36E-BD0877337886}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EscalationSystemBackgroundTask", "..\..\..\..\Desktop\UWPSample-master\EscalationSystem\EscalationSystemBackgroundTask\EscalationSystemBackgroundTask.csproj", "{2758EFAA-5765-4574-9D90-2269B61BCAE8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EscalationSystemBackgroundTask", "EscalationSystemBackgroundTask\EscalationSystemBackgroundTask.csproj", "{2758EFAA-5765-4574-9D90-2269B61BCAE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

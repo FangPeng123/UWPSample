@@ -26,7 +26,7 @@ namespace EscalationSystem.Views
     /// </summary>
     public sealed partial class Vendor_Reports_EscalationThread : Page
     {
-        public VendorEscalationReportViewModel VendorEscalationReportViewModel { get; set; }
+        public FTEEscalationReportViewModel FTEEscalationReportViewModel { get; set; }
         public ProductWithSelectedItem AllMyPlatform { get; set; }
         public ObservableCollectionView<Report> AllMyReport { get; set; }
         public Vendor_Reports_EscalationThread()
@@ -35,7 +35,7 @@ namespace EscalationSystem.Views
             this.EndDatePicker.Date = DateTime.Today;
             int date = DateTime.Today.Day;
             this.StartDatePicker.Date = DateTime.Today.AddDays(-(date - 1));
-            VendorEscalationReportViewModel = new VendorEscalationReportViewModel();
+            FTEEscalationReportViewModel = new FTEEscalationReportViewModel();
             AllMyPlatform = new ProductWithSelectedItem();
             this.SizeChanged += Vendor_Reports_EscalationThread_SizeChanged;
             this.Loaded += Vendor_Reports_EscalationThread_Loaded;
@@ -43,8 +43,8 @@ namespace EscalationSystem.Views
 
         private async void Vendor_Reports_EscalationThread_Loaded(object sender, RoutedEventArgs e)
         {
-            VendorEscalationReportViewModel = await VendorEscalationReportViewModel.GetVendorEscalationReportViewModel();
-            AllMyPlatform = VendorEscalationReportViewModel.AllPratfromList;
+            FTEEscalationReportViewModel = await FTEEscalationReportViewModel.GetFTEEscalationReportViewModel();
+            AllMyPlatform = FTEEscalationReportViewModel.AllPratfromList;
             PlatformComboBox.DataContext = AllMyPlatform;
             QueryButton_Click(sender, e);
         }
@@ -62,7 +62,7 @@ namespace EscalationSystem.Views
             string startDatestring = startDate.ToString("MM-dd-yyyy");
             DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
             string endDatestring = endDate.ToString("MM-dd-yyyy");
-            AllMyReport = await VendorEscalationReportViewModel.QueryAllEscalationReport(AllMyPlatform, startDatestring, endDatestring);
+            AllMyReport = await FTEEscalationReportViewModel.QueryAllEscalationReport(AllMyPlatform, startDatestring, endDatestring);
             DataGrid.ItemsSource = AllMyReport;
             await Task.Delay(new TimeSpan(3));
             MyProgressRing.IsActive = false;

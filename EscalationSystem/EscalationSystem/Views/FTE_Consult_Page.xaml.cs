@@ -109,9 +109,9 @@ namespace EscalationSystem.Views
             {
                 DataGrid.ItemsSource = EscalationThreadList;
                 MyScrollView.Height = (EscalationThreadList.Count + 1) * 60;
-                AllRecords.Text = EscalationThreadList.Count.ToString();
-                AllPageIndex.Text = FTEEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
-                PageTxt.Text = FTEEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
+                AllRecords.Text = FTEEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString(); ;
+                AllPageIndex.Text = "1";
+                PageTxt.Text = "1";
             }
 
             else
@@ -297,7 +297,6 @@ namespace EscalationSystem.Views
                 rotateTransform.CenterY = 10;
                 ShowAddImage.RenderTransform = rotateTransform;
                 AddRecordsPanle.Visibility = Visibility.Collapsed;
-                MyScrollView.Height = 650;
             }
             else
             {
@@ -308,7 +307,6 @@ namespace EscalationSystem.Views
                 rotateTransform.CenterY = 10;
                 ShowAddImage.RenderTransform = rotateTransform;
                 AddRecordsPanle.Visibility = Visibility.Visible;
-                MyScrollView.Height = 500;
             }
            
          

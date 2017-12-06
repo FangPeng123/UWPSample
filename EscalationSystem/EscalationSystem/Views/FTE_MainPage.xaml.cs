@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -48,7 +50,7 @@ Windows.Storage.ApplicationData.Current.LocalSettings;
             get { return this.scenarios; }
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
 
             // Populate the scenario list from the SampleConfiguration.cs file
@@ -61,20 +63,73 @@ Windows.Storage.ApplicationData.Current.LocalSettings;
             {
                 ScenarioControl.SelectedIndex = 0;
             }
+
+            var access = await BackgroundExecutionManager.RequestAccessAsync();
+            if(access==BackgroundAccessStatus.Denied)
+            {
+                await new MessageDialog("Denied").ShowAsync();
+            }
+            else
+            {
+                RegisterBackgroundTask();
+            }
+
         }
+
+        private void RegisterBackgroundTask()
+        {
+            try
+            {
+
+                foreach (var cur in BackgroundTaskRegistration.AllTasks)
+                {
+                    if (cur.Value.Name == "FTE_All_EscalationThread_Notification")
+                    {
+                        cur.Value.Unregister(true);
+                    }
+                }
+
+                bool isregister = BackgroundTaskRegistration.AllTasks.Any(x => x.Value.Name
+           == "FTE_All_EscalationThread_Notification");
+                if (!isregister)
+                {
+                    BackgroundTaskBuilder builder = new BackgroundTaskBuilder { Name = "FTE_All_EscalationThread_Notification", TaskEntryPoint = "EscalationSystemBackgroundTask.FTE_All_EscalationThread_Notification" };
+                    MaintenanceTrigger trigger = new MaintenanceTrigger(15, false);
+                    builder.SetTrigger(trigger);
+                    BackgroundTaskRegistration task = builder.Register();
+                }
+
+              
+            }
+            catch
+            {
+
+            }
+           
+
+
+
+        }
+
+
         private void ScenarioControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Clear the status block when navigating scenarios.
-            ListBox scenarioListBox = sender as ListBox;
-            FTEScenario s = scenarioListBox.SelectedItem as FTEScenario;
-            if (s != null)
+            try
             {
-                ScenarioFrame.Navigate(s.ClassType);
-                if (Window.Current.Bounds.Width < 640)
+                ListBox scenarioListBox = sender as ListBox;
+                FTEScenario s = scenarioListBox.SelectedItem as FTEScenario;
+                if (s != null)
                 {
-                    Splitter.IsPaneOpen = false;
+                    ScenarioFrame.Navigate(s.ClassType);
+                    if (Window.Current.Bounds.Width < 640)
+                    {
+                        Splitter.IsPaneOpen = false;
+                    }
                 }
             }
+            catch
+            { }
         }
 
         private async void Footer_Click(object sender, RoutedEventArgs e)
@@ -85,9 +140,8 @@ Windows.Storage.ApplicationData.Current.LocalSettings;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Splitter.IsPaneOpen = !Splitter.IsPaneOpen;
-
-
         }
+
     }
 
     public class FTEScenario
