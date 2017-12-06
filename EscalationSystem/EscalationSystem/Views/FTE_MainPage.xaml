@@ -182,7 +182,7 @@
             <Image Grid.Row="0" Width="25" Height="25" HorizontalAlignment="Right" Source="ms-appx:///Assets/avatar.png"></Image>
             <TextBlock Foreground="Red" Name="UserTxt"></TextBlock>
         </StackPanel>
-        <SplitView x:Name="Splitter" Grid.Row="1" CompactPaneLength="40" IsPaneOpen="True" Grid.Column="1" DisplayMode="CompactInline" >
+        <SplitView OpenPaneLength="270" x:Name="Splitter" Grid.Row="1" CompactPaneLength="40" IsPaneOpen="True" Grid.Column="1" DisplayMode="CompactInline" >
             <SplitView.Pane>
                 <RelativePanel  Margin="0,0,0,0" Background="#FF7CBDF1">
                     <TextBlock x:Name="SampleTitle" Text=""  TextWrapping="Wrap" Height="1" Width="0"/>
