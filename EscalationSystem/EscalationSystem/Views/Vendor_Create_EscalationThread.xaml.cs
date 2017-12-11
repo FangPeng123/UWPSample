@@ -15,7 +15,6 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using LightBuzz.SMTP;
-<<<<<<< HEAD
 using System.Threading.Tasks;
 using Windows.Web.Http;
 using Windows.Web.Http.Headers;
@@ -31,9 +30,8 @@ using System.Text;
 using System.Runtime.Serialization;
 using System.Collections.ObjectModel;
 using EscalationSystem.Models;
-=======
 
->>>>>>> d13ccf52df376d3194d132ac5178cf624feb68c8
+
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace EscalationSystem.Views
@@ -53,7 +51,6 @@ namespace EscalationSystem.Views
             ThreadOnwerTxt.Text = currentUserAlias.ToString();
         }
 
-<<<<<<< HEAD
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -115,7 +112,7 @@ namespace EscalationSystem.Views
                     var result = await HttpResponseMessage.Content.ReadAsStringAsync();
                     AllMyPlatformforums = JsonConvert.DeserializeObject<ObservableCollection<Product>>(result);
                     comForum.DataContext = AllMyPlatformforums;
-                    
+                    comForum.SelectedIndex = 0;
                 }
             }
             catch
@@ -174,7 +171,7 @@ namespace EscalationSystem.Views
                     comFTES.DataContext = ftes;
                     comFTES.DisplayMemberPath = "Name";
                     comFTES.SelectedValuePath = "Alias";
-                  
+                    comFTES.SelectedIndex = 0;
                 }
             }
             catch
@@ -277,19 +274,15 @@ namespace EscalationSystem.Views
         public async Task<bool> SendEscalationEmail()
         {
             bool result = false;
-=======
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
->>>>>>> d13ccf52df376d3194d132ac5178cf624feb68c8
 
             SmtpClient client = new SmtpClient("smtp-mail.outlook.com", 587, false, "DevComEN@outlook.com", "Password01!");
-
             try
             {
                 EmailMessage emailMessage = new EmailMessage();
-
-                emailMessage.To.Add(new EmailRecipient("fapeng@microsoft.com"));
-                emailMessage.CC.Add(new EmailRecipient("fapeng@microsoft.com"));
+                //emailMessage.To.Add(new EmailRecipient("fapeng@microsoft.com"));
+                //emailMessage.CC.Add(new EmailRecipient("fapeng@microsoft.com"));
+                emailMessage.To.Add(new EmailRecipient("v-luyong@microsoft.com"));
+                emailMessage.CC.Add(new EmailRecipient("v-luyong@microsoft.com"));
                 emailMessage.Subject = "[Thread Escalation][Barry Wang]Can not connect ot the BLE device after creators update in UWP";
                 emailMessage.Body = "Please check the attachment for more detailed information about this Escalation Thread.";
                 Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
@@ -317,10 +310,14 @@ namespace EscalationSystem.Views
                 await client.SendMailAsync(emailMessage);
                 MessageDialog dialog = new MessageDialog("Send the Escalation Email Successuflly!");
                 await dialog.ShowAsync();
+
+                //Task<bool> tk = AddEscalationAndStatusThread();
+                //bool a = await tk;
+                // new MessageDialog(a.ToString()).ShowAsync();
+                result = true;
             }
             catch (Exception ex)
             {
-<<<<<<< HEAD
                 result = false;
             }
             return await Task.FromResult(result);
@@ -357,18 +354,18 @@ namespace EscalationSystem.Views
             return await Task.FromResult(result);
         }
 
-        //private async void Addcase(object sender, RoutedEventArgs e)
-        //{
+        private async void Addcase(object sender, RoutedEventArgs e)
+        {
 
-        //    //Task<bool> tk = AddEscalationAndStatusThread();
-        //    //bool a = await tk;
-        //    //new MessageDialog(a.ToString()).ShowAsync();
+            //Task<bool> tk = AddEscalationAndStatusThread();
+            //bool a = await tk;
+            //new MessageDialog(a.ToString()).ShowAsync();
 
-        //    createchanneltoAuzreHub();
-        //}
+            createchanneltoAuzreHub();
+        }
 
 
-       NotificationHub hub;
+        NotificationHub hub;
         PushNotificationChannel channel;
         string tokenaccess = "";
         /// <summary>
@@ -490,15 +487,25 @@ namespace EscalationSystem.Views
             catch (Exception ex)
             {
                 return await Task.FromResult(0);
-=======
-                MessageDialog dialog = new MessageDialog(ex.Message);
-                await dialog.ShowAsync();
->>>>>>> d13ccf52df376d3194d132ac5178cf624feb68c8
             }
-
         }
 
-<<<<<<< HEAD
+        private string CreateXMLtemplet(string xml)
+        {
+            ToastTemplateType toastTemplate = ToastTemplateType.ToastImageAndText01;
+            XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(toastTemplate);
+            XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
+            toastTextElements[0].AppendChild(toastXml.CreateTextNode(xml));
+            XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
+            ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///assets/Edit.png");
+            ((XmlElement)toastImageAttributes[0]).SetAttribute("alt", "Logo");
+
+            IXmlNode toastNode = toastXml.SelectSingleNode("/toast");
+            ((XmlElement)toastNode).SetAttribute("duration", "short");
+            ((XmlElement)toastNode).SetAttribute("launch", "{\"type\":\"toast\", \"param1\": \"3697\"}");
+            return toastXml.GetXml();
+        }
+
 
     }
 
@@ -530,7 +537,6 @@ namespace EscalationSystem.Views
         public string SrescalationId { get; set; }
         public string Status { get; set; }
         public bool IsManaged { get; set; }
-=======
->>>>>>> d13ccf52df376d3194d132ac5178cf624feb68c8
     }
+
 }

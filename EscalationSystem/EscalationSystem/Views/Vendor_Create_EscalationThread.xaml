@@ -5,7 +5,7 @@
     xmlns:local="using:EscalationSystem.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Loaded="Page_Loaded">
 
     <Grid Background="Azure">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -25,9 +25,13 @@
                 <StackPanel Name="Platform"  Orientation="Horizontal" HorizontalAlignment="Left">
                     <TextBlock Text="Platform" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Text="" Width="10"></TextBlock>
-                    <ComboBox PlaceholderText="Please select a platform" Width="200"></ComboBox>
-
-
+                    <ComboBox x:Name="complatform" PlaceholderText="Please select a platform" Width="200" ItemsSource="{Binding}" SelectionChanged="complatform_SelectionChanged" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Platform}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </StackPanel>
 
                 <TextBlock Height="15"></TextBlock>
@@ -35,7 +39,13 @@
                 <StackPanel Name="Forum" Orientation="Horizontal" HorizontalAlignment="Left">
                     <TextBlock Text="Forum" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Text="" Width="10"></TextBlock>
-                    <ComboBox PlaceholderText="Please select a Forum" Width="200"></ComboBox>
+                    <ComboBox  x:Name="comForum" PlaceholderText="Please select a Forum" Width="200" ItemsSource="{Binding}" SelectionChanged="comForum_SelectionChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Forum}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
 
                 </StackPanel>
 
@@ -44,7 +54,13 @@
                 <StackPanel Name="FTE" Orientation="Horizontal" HorizontalAlignment="Left">
                     <TextBlock Text="FTE Onwer" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Text="" Width="10"></TextBlock>
-                    <ComboBox PlaceholderText="Please select a FTE" Width="200"></ComboBox>
+                    <ComboBox x:Name="comFTES" PlaceholderText="Please select a FTE" Width="200" ItemsSource="{Binding}">
+                        <!--<ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Alias}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>-->
+                    </ComboBox>
 
                 </StackPanel>
 
@@ -52,41 +68,35 @@
 
                 <StackPanel Name="ThreadTitle" Orientation="Vertical" HorizontalAlignment="Left">
                     <TextBlock Text="Thread Title" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-                    <RichEditBox Width="450" Height="50" HorizontalAlignment="Left"></RichEditBox>
-                    <TextBlock Height="15"></TextBlock>
+                    <RichEditBox x:Name="txttitle" Width="450" Height="50" HorizontalAlignment="Left"></RichEditBox>
+                    <TextBlock  Height="15"></TextBlock>
                     <Line></Line>
                 </StackPanel>
 
                 <StackPanel Name="ThreadLink" Orientation="Vertical">
-
                     <TextBlock Text="Thread Link" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-                    <RichEditBox Width="450" Height="50" HorizontalAlignment="Left"></RichEditBox>
+                    <RichEditBox  x:Name="txtlink" Width="450" Height="50" HorizontalAlignment="Left"></RichEditBox>
                     <TextBlock Height="15"></TextBlock>
                     <Line></Line>
                 </StackPanel>
 
                 <StackPanel Name="ThreadDescription" Orientation="Vertical" HorizontalAlignment="Left">
                     <TextBlock Text="Thread Description" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-                    <RichEditBox Width="450" Height="100" HorizontalAlignment="Left"></RichEditBox>
-                    <TextBlock Height="15"></TextBlock>
+                    <RichEditBox x:Name="txtDescription" Width="450" Height="100" HorizontalAlignment="Left"></RichEditBox>
+                    <TextBlock  Height="15"></TextBlock>
                     <Line></Line>
                 </StackPanel>
 
-
                 <StackPanel Name="EscalationReason" Orientation="Vertical" HorizontalAlignment="Left">
                     <TextBlock Text="Escalation Reason" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-                    <RichEditBox Width="450" Height="100" HorizontalAlignment="Left"></RichEditBox>
+                    <RichEditBox x:Name="txtReason" Width="450" Height="100" HorizontalAlignment="Left"></RichEditBox>
                     <TextBlock Height="15"></TextBlock>
                     <Line></Line>
-
                 </StackPanel>
                 <Button Content="Submit" Background="#FF7CBDF1" Width="100" Margin="200,0,0,0" Click="Button_Click"/>
             </StackPanel>
         </StackPanel>
-<<<<<<< HEAD
-       
-=======
->>>>>>> d13ccf52df376d3194d132ac5178cf624feb68c8
+        <Button Opacity="0" Content="Test WNS Notification" HorizontalAlignment="Left" Margin="212,738,0,0" VerticalAlignment="Top" Click="Addcase"/>
     </Grid>
 </Page>
 
