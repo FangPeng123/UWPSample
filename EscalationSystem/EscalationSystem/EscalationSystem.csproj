@@ -11,14 +11,13 @@
     <AssemblyName>EscalationSystem</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.15063.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
-    <PackageCertificateKeyFile>EscalationSystem_StoreKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>50C8F48F28ABE921EE0106A70551D3ADDC7BD4FA</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>EscalationSystem_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -96,7 +95,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\EscalationListView.cs" />
     <Compile Include="Controls\MyProgressRing.xaml.cs">
       <DependentUpon>MyProgressRing.xaml</DependentUpon>
     </Compile>
@@ -108,12 +106,10 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MessageNotification\SHToastNotification.cs" />
     <Compile Include="Models\EscalationAndStatusThread.cs" />
     <Compile Include="Models\EscalationStatus.cs" />
     <Compile Include="Models\EscalationStatusWithSelectedItem.cs" />
     <Compile Include="Models\EscalationThread.cs" />
-    <Compile Include="Models\Ftes.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductWithSelectedItem.cs" />
     <Compile Include="Models\Report.cs" />
@@ -121,6 +117,8 @@
     <Compile Include="ViewModels\FTEEscalationReportViewModel.cs" />
     <Compile Include="ViewModels\FTEEscalationThreadViewModel.cs" />
     <Compile Include="ViewModels\SceenSizeViewModel.cs" />
+    <Compile Include="ViewModels\VendorEscalationReportViewModel.cs" />
+    <Compile Include="ViewModels\VendorEscalationThreadViewModel.cs" />
     <Compile Include="Views\FTE_All_EscalationThread.xaml.cs">
       <DependentUpon>FTE_All_EscalationThread.xaml</DependentUpon>
     </Compile>
@@ -132,9 +130,6 @@
     </Compile>
     <Compile Include="Views\FTE_Reports_EscalationThread.xaml.cs">
       <DependentUpon>FTE_Reports_EscalationThread.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ShowNotificationForm.xaml.cs">
-      <DependentUpon>ShowNotificationForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Vendor_All_EscalationThread.xaml.cs">
       <DependentUpon>Vendor_All_EscalationThread.xaml</DependentUpon>
@@ -153,7 +148,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="EscalationSystem_StoreKey.pfx" />
     <None Include="EscalationSystem_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -177,8 +171,6 @@
     <Content Include="Assets\SplashScreen.scale-400.png" />
     <Content Include="Assets\triangle.png" />
     <Content Include="Assets\windows-sdk.png" />
-    <Content Include="Lock.png" />
-    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -217,10 +209,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ShowNotificationForm.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Vendor_All_EscalationThread.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -254,24 +242,8 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>10.0.3</Version>
     </PackageReference>
-    <PackageReference Include="WindowsAzure.Messaging.Managed">
-      <Version>0.1.7.9</Version>
-    </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\EscalationSystemBackgroundTask\EscalationSystemBackgroundTask.csproj">
-      <Project>{2758efaa-5765-4574-9d90-2269b61bcae8}</Project>
-      <Name>EscalationSystemBackgroundTask</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">
-      <Name>Microsoft Engagement Framework</Name>
-    </SDKReference>
-    <SDKReference Include="Microsoft.VCLibs, Version=14.0">
-      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
-    </SDKReference>
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
