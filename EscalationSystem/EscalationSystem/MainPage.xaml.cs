@@ -46,6 +46,7 @@ namespace EscalationSystem
             string userAlias = currentusersplit[1];
             LocalSettings.Values["currentUserAlias"] = userAlias.ToString();
 
+<<<<<<< HEAD
             int count = 0;
             foreach (var item in currentDomain.Split('.'))
             {
@@ -60,6 +61,13 @@ namespace EscalationSystem
                         //new Views.ShowNotificationForm("Login Successful").show();
                         //SHToastNotification.ShowToastNotification("Square150x150Logo.scale-200.png", $"已复制 {val}", NotificationAudioNames.Default,true);
                     }
+=======
+            if (currentUser.Equals("Fang Peng"))
+            {
+                VendorButton.Visibility = Visibility.Visible;
+                FTEButton.Visibility = Visibility.Visible;
+            }
+>>>>>>> d13ccf52df376d3194d132ac5178cf624feb68c8
 
                     else if (userAlias.Equals("fapeng"))
                     {

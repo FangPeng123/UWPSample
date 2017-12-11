@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -50,7 +48,7 @@ Windows.Storage.ApplicationData.Current.LocalSettings;
             get { return this.scenarios; }
         }
 
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
 
             // Populate the scenario list from the SampleConfiguration.cs file
@@ -63,6 +61,7 @@ Windows.Storage.ApplicationData.Current.LocalSettings;
             {
                 ScenarioControl.SelectedIndex = 0;
             }
+<<<<<<< HEAD
 
             var access = await BackgroundExecutionManager.RequestAccessAsync();
             if (access == BackgroundAccessStatus.Denied)
@@ -109,27 +108,22 @@ Windows.Storage.ApplicationData.Current.LocalSettings;
 
 
 
+=======
+>>>>>>> d13ccf52df376d3194d132ac5178cf624feb68c8
         }
-
-
         private void ScenarioControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Clear the status block when navigating scenarios.
-            try
+            ListBox scenarioListBox = sender as ListBox;
+            FTEScenario s = scenarioListBox.SelectedItem as FTEScenario;
+            if (s != null)
             {
-                ListBox scenarioListBox = sender as ListBox;
-                FTEScenario s = scenarioListBox.SelectedItem as FTEScenario;
-                if (s != null)
+                ScenarioFrame.Navigate(s.ClassType);
+                if (Window.Current.Bounds.Width < 640)
                 {
-                    ScenarioFrame.Navigate(s.ClassType);
-                    if (Window.Current.Bounds.Width < 640)
-                    {
-                        Splitter.IsPaneOpen = false;
-                    }
+                    Splitter.IsPaneOpen = false;
                 }
             }
-            catch
-            { }
         }
 
         private async void Footer_Click(object sender, RoutedEventArgs e)
@@ -140,8 +134,9 @@ Windows.Storage.ApplicationData.Current.LocalSettings;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Splitter.IsPaneOpen = !Splitter.IsPaneOpen;
-        }
 
+
+        }
     }
 
     public class FTEScenario
