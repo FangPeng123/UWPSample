@@ -7,20 +7,18 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ViewModel="using:EscalationSystem.ViewModels"
     xmlns:controls="using:MyToolkit.Controls"
-    xmlns:Converter="using:EscalationSystem.Converter" 
     xmlns:Model="using:EscalationSystem.Models"
     mc:Ignorable="d">
     <Page.Resources>
         <local:URLConverter x:Key="URLConverter"></local:URLConverter>
-        <Converter:DataGridVisibleConverter x:Key="DataGridVisibleConverter"></Converter:DataGridVisibleConverter>
-        <Converter:ProgreeRingActionConverter x:Key="ProgreeRingActionConverter"></Converter:ProgreeRingActionConverter>
-        <Converter:ProgressRingActionOpacityConverter x:Key="ProgressRingActionOpacityConverter"></Converter:ProgressRingActionOpacityConverter>
+
     </Page.Resources>
 
     <Grid Background="Azure">
-        <ProgressRing IsActive="True" Name="MyProgressRing" Foreground="#FF2196F3" Width="200" Height="200" HorizontalAlignment="Center" VerticalAlignment="Center" ></ProgressRing>
-        <StackPanel  HorizontalAlignment="Left" Orientation="Vertical"  Name="RootPanel" Width="{Binding ScreenWidth}">
-            <StackPanel.DataContext>
+        <StackPanel HorizontalAlignment="Left" Orientation="Vertical"  Name="RootPanel" Width="{Binding ScreenWidth}">
+
+
+        <StackPanel.DataContext>
             <ViewModel:SceenSizeViewModel x:Name="SceenSizeViewModel"></ViewModel:SceenSizeViewModel>
         </StackPanel.DataContext>
 
@@ -30,12 +28,11 @@
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="100"></RowDefinition>
             </Grid.RowDefinitions>
-               
-                <StackPanel Orientation="Vertical" Grid.Row="0">
+            <StackPanel Orientation="Vertical" Grid.Row="0">
                 <StackPanel Width="{Binding ScreenWidth}" Height="50"  Background="#FF7CBDF1"  HorizontalAlignment="Left" VerticalAlignment="Top">
                     <TextBlock  Text="All Threads List" FontWeight="Black" FontSize="30"  Foreground="White" VerticalAlignment="Center" />
                 </StackPanel>
-                    <StackPanel Opacity="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}" Orientation="Vertical" HorizontalAlignment="Left">
+                <StackPanel  Orientation="Vertical" HorizontalAlignment="Left">
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
                         <StackPanel Orientation="Horizontal" Background="#FF2196F3">
                             <Grid Margin="0,0,0,0" Width="{Binding ScreenWidth}">
@@ -58,24 +55,24 @@
                                 </StackPanel>
                                 <StackPanel HorizontalAlignment="Right" Grid.Column="2" Orientation="Horizontal">
                                     <TextBlock Text="Platform" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White"></TextBlock>
-                                        <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding MyProductList}" SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Right" Name="PlatformComboBox"   Foreground="White">
-                                            <ComboBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding Platform}"/>
-                                                </DataTemplate>
-                                            </ComboBox.ItemTemplate>
-                                        </ComboBox>
-                                    </StackPanel>
+                                    <ComboBox HorizontalAlignment="Right" Name="PlatformComboBox"   Foreground="White">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Platform}"/>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </StackPanel>
                                 <StackPanel HorizontalAlignment="Right" Grid.Column="3" Orientation="Horizontal">
                                     <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center" Text="Status" Foreground="White"></TextBlock>
-                                        <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding MyEscalationStatusList}" SelectedItem="{Binding SelectedItem}" Name="StatusComboBox" HorizontalAlignment="Right" Foreground="White">
-                                            <ComboBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding Status}"/>
-                                                </DataTemplate>
-                                            </ComboBox.ItemTemplate>
-                                        </ComboBox>
-                                    </StackPanel>
+                                    <ComboBox Name="StatusComboBox" HorizontalAlignment="Right" Foreground="White">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Status}"/>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </StackPanel>
 
                                 <StackPanel HorizontalAlignment="Right" Grid.Column="4" Orientation="Horizontal">
                                     <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center" Text="Items" Foreground="White"></TextBlock>
@@ -86,7 +83,7 @@
                                         <ComboBoxItem Content="100"></ComboBoxItem>
                                     </ComboBox>
                                 </StackPanel>
-                                <Button IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Name="QueryButton" Click="QueryButton_Click" BorderBrush="#FF145A92" BorderThickness="2" Width="70"  Grid.Column="5" HorizontalAlignment="Right"   Foreground="White" Content="Query" Background="#FF2196F3" ></Button>
+                                <Button IsEnabled="False" Name="QueryButton" Click="QueryButton_Click" BorderBrush="#FF145A92" BorderThickness="2" Width="70"  Grid.Column="5" HorizontalAlignment="Right"   Foreground="White" Content="Query" Background="#FF2196F3" ></Button>
                             </Grid>
                         </StackPanel>
                     </StackPanel>
@@ -98,7 +95,7 @@
 
                         <Border Background="Azure" BorderThickness="3,3,3,3" BorderBrush="White">
 
-                            <controls:DataGrid IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Visibility="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource DataGridVisibleConverter}}" SelectionChanged="DataGrid_SelectionChanged" RowBackgroundEvenBrush="Azure" RowBackgroundOddBrush="#FFD1E5F5" HeaderBackground="#FF7CBDF1" x:Name="DataGrid" DefaultOrderIndex="0">
+                            <controls:DataGrid  RowBackgroundEvenBrush="Azure" RowBackgroundOddBrush="#FFD1E5F5" HeaderBackground="#FF7CBDF1" x:Name="DataGrid" DefaultOrderIndex="0">
 
                                 <controls:DataGrid.Columns>
                                     <controls:DataGridTemplatedColumn CanSort="False" Width="1.1*">
@@ -157,20 +154,30 @@
                                         </controls:DataGridTemplatedColumn.CellTemplate>
                                         <controls:DataGridTemplatedColumn.Header>
 
-                                                <TextBlock FontWeight="Bold" FontSize="15"  Text="Platform" Foreground="Black" />
-                                            </controls:DataGridTemplatedColumn.Header>
+                                            <TextBlock FontWeight="Bold" FontSize="15"  Text="Platform" Foreground="Black" />
+
+
+                                        </controls:DataGridTemplatedColumn.Header>
                                     </controls:DataGridTemplatedColumn>
 
 
-                                        <controls:DataGridTextColumn CanSort="False" Width="2.3*"  FontSize="15" Binding="{Binding EscalationThread.Status}" 
-                d:DataContext="{d:DesignInstance Type=Model:EscalationAndStatusThread}">
+                                    <controls:DataGridTemplatedColumn CanSort="False" Width="2.3*">
+                                        <controls:DataGridTemplatedColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <ComboBox Name="DataGridComboBoxStatus" SelectionChanged="DataGridComboBoxStatus_SelectionChanged" DisplayMemberPath="Status" ItemsSource="{Binding EscalationStatusList}" d:DataContext="{d:DesignInstance Type=Model:EscalationAndStatusThread}" PlaceholderText="{Binding EscalationThread.Status}"></ComboBox>
 
-                                            <controls:DataGridTextColumn.Header>
-                                                <TextBlock FontWeight="Bold" FontSize="15"  Text="EscalationStatus" Foreground="Black" />
-                                            </controls:DataGridTextColumn.Header>
+                                            </DataTemplate>
 
-                                        </controls:DataGridTextColumn>
-                                    </controls:DataGrid.Columns>
+                                        </controls:DataGridTemplatedColumn.CellTemplate>
+                                        <controls:DataGridTemplatedColumn.Header>
+                                            <TextBlock FontWeight="Bold" FontSize="15"  Text="EscalationStatus" Foreground="Black" />
+                                        </controls:DataGridTemplatedColumn.Header>
+
+
+
+
+                                    </controls:DataGridTemplatedColumn>
+                                </controls:DataGrid.Columns>
                                 <controls:DataGrid.ItemDetailsTemplate>
                                     <DataTemplate>
                                         <StackPanel Background="#FFDDF9EF"  Orientation="Vertical" Margin="10,0,0,0"

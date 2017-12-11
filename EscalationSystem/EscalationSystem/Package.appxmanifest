@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="b4d55392-fdc8-4b11-9155-2d6176da04d1" Publisher="CN=fapeng" Version="1.0.0.0" />
-  <mp:PhoneIdentity PhoneProductId="b4d55392-fdc8-4b11-9155-2d6176da04d1" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="37492msdnwp.EscalationSystem" Publisher="CN=0CFC1B84-3BBD-482B-90FE-C72C349F6717" Version="1.1.0.0" />
+  <mp:PhoneIdentity PhoneProductId="19a73a76-6abe-43ee-8a1d-0873afa2178c" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>EscalationSystem</DisplayName>
-    <PublisherDisplayName>fapeng</PublisherDisplayName>
+    <PublisherDisplayName>msdnwp</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -20,6 +20,13 @@
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="white" />
       </uap:VisualElements>
+      <Extensions>
+        <Extension Category="windows.backgroundTasks" EntryPoint="EscalationSystemBackgroundTask.FTE_All_EscalationThread_Notification">
+          <BackgroundTasks>
+            <Task Type="timer" />
+          </BackgroundTasks>
+        </Extension>
+      </Extensions>
     </Application>
   </Applications>
   <Capabilities>

@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Microsoft.Services.Store.Engagement;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Notifications;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -100,5 +103,39 @@ namespace EscalationSystem
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            base.OnActivated(args);
+
+            if (args is ToastNotificationActivatedEventArgs)
+            {
+                var toastActivationArgs = args as ToastNotificationActivatedEventArgs;
+
+                StoreServicesEngagementManager engagementManager = StoreServicesEngagementManager.GetDefault();
+                string originalArgs = engagementManager.ParseArgumentsAndTrackAppLaunch(
+                    toastActivationArgs.Argument);
+
+                // Use the originalArgs variable to access the original arguments
+                // that were passed to the app.
+
+
+            }
+        }
+
+        public void Run(IBackgroundTaskInstance taskInstance)
+        {
+            var details = taskInstance.TriggerDetails as ToastNotificationActionTriggerDetail;
+
+            if (details != null)
+            {
+                StoreServicesEngagementManager engagementManager = StoreServicesEngagementManager.GetDefault();
+                string originalArgs = engagementManager.ParseArgumentsAndTrackAppLaunch(details.Argument);
+
+                // Use the originalArgs variable to access the original arguments
+                // that were passed to the app.
+            }
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EscalationSystem.MessageNotification;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace EscalationSystem
         public MainPage()
         {
             this.InitializeComponent();
+            
         }
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -46,10 +48,14 @@ namespace EscalationSystem
             string userAlias = currentusersplit[1];
             LocalSettings.Values["currentUserAlias"] = userAlias.ToString();
 
-            if (currentUser.Equals("Fang Peng"))
+            if (userAlias.Equals("v-luyong"))
             {
                 VendorButton.Visibility = Visibility.Visible;
                 FTEButton.Visibility = Visibility.Visible;
+
+                //string val = userAlias;
+                //new Views.ShowNotificationForm("Login Successful").show();
+                //SHToastNotification.ShowToastNotification("Square150x150Logo.scale-200.png", $"已复制 {val}", NotificationAudioNames.Default,true);
             }
 
             else

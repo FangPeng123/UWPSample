@@ -68,7 +68,5 @@ namespace EscalationSystem.Views
             MyProgressRing.IsActive = false;
 
         }
-
-        
     }
 }
