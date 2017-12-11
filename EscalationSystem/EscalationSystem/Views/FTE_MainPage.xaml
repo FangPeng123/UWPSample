@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-   
+
     <Page.Resources>
         <Style x:Key="ToggleButtonStyle1" TargetType="ToggleButton">
             <Setter Property="Background" Value="{ThemeResource ToggleButtonBackground}"/>
@@ -174,14 +174,12 @@
             </Setter>
         </Style>
     </Page.Resources>
-    
-    
     <Grid Background="#FF2196F3">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="17*"/>
         </Grid.RowDefinitions>
-        
+
         <!--show user message-->
         <StackPanel Orientation="Vertical" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right">
             <Image Grid.Row="0" Width="25" Height="25" HorizontalAlignment="Right" Source="ms-appx:///Assets/avatar.png"></Image>
@@ -236,6 +234,6 @@
             <TextBlock x:Name="Header" Text="Escalation System"  Margin="0,10,0,6.667" />
         </StackPanel>
     </Grid>
-    
-    
+
+
 </Page>
