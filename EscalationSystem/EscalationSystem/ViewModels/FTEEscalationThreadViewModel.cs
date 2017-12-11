@@ -11,8 +11,6 @@ using MyToolkit.Collections;
 using Windows.UI.Popups;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight;
-using Windows.Storage;
-using Windows.Storage.Streams;
 
 namespace EscalationSystem.ViewModels
 {
@@ -105,7 +103,9 @@ private EscalationStatusWithSelectedItem AllEscalationStatus_List;
                 MyEscalationStatus.Insert(0,new EscalationStatus() { StatusId = 10, Status = "All", StatusType = "All" });
                 MyEscalationStatus.Insert(1, new EscalationStatus() { StatusId = 11, Status = "Open:All", StatusType = "Open:All" });
                 MyEscalationStatus.Insert(2, new EscalationStatus() { StatusId = 12, Status = "Closed:All", StatusType = "Closed:All" });
+               
             }
+           
             return MyEscalationStatus;
         }
 
@@ -187,50 +187,11 @@ private EscalationStatusWithSelectedItem AllEscalationStatus_List;
                     EscalationAndStatusThread.EscalationThread = escalationthread;
                     EscalationAndStatusThread.EscalationStatusList = EscalatonStatusList.MyEscalationStatusList;
                     EscalationThreadList.Items.Add(EscalationAndStatusThread);
+                   
                 }
-                Task<bool> tk = LogSearchCaseStatesExist(AllMyEscalationThread);
-                bool a = await tk;
             }
+
             return EscalationThreadList;
         }
-
-        /// <summary>
-        /// 记录查询的case记录
-        /// </summary>
-        /// <param name="AllMyEscalationThread"></param>
-        /// <returns></returns>
-        private async Task<bool> LogSearchCaseStatesExist(ObservableCollection<EscalationThread> AllMyEscalationThread)
-        {
-            bool exists = false;
-            try
-            {
-                StringBuilder stringBuilder = new StringBuilder();
-                foreach (var escalationthread in AllMyEscalationThread)
-                {
-                    DateTime escalteDate = DateTime.Parse(escalationthread.EscalatedDatetime.ToString());
-                    if (DateTime.Now.ToString("yyyy-MM-dd") == escalteDate.ToString("yyyy-MM-dd"))
-                    { stringBuilder.Append(escalationthread.Url + ";"); }
-                    
-                    //EscalationAndStatusThread EscalationAndStatusThread = new EscalationAndStatusThread();
-                    //EscalationAndStatusThread.EscalationThread = escalationthread;
-                }
-                if(stringBuilder.Length!=0)
-                {
-                    //Windows.ApplicationModel.Package.Current.InstalledLocation
-                    IStorageFolder applicationFolder = ApplicationData.Current.LocalFolder;
-                    string filename = "NotificationRecords_" + DateTime.Now.ToString("yyyy-MM-dd") + ".txt";
-                    IStorageFile storageFile = await applicationFolder.CreateFileAsync(filename, CreationCollisionOption.OpenIfExists);
-                    IRandomAccessStream accessStream = await storageFile.OpenReadAsync();
-                    await FileIO.WriteTextAsync(storageFile, stringBuilder.ToString());
-                    exists = true;
-                }
-            }
-            catch
-            {
-                exists = false;
-            }
-            return await Task.FromResult(exists); ;
-        }
-
     }
 }
