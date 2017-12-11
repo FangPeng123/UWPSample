@@ -30,8 +30,6 @@ using System.Text;
 using System.Runtime.Serialization;
 using System.Collections.ObjectModel;
 using EscalationSystem.Models;
-
-
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace EscalationSystem.Views
@@ -69,7 +67,7 @@ namespace EscalationSystem.Views
                 {
                     var result = await HttpResponseMessage.Content.ReadAsStringAsync();
                     AllMyPlatform = JsonConvert.DeserializeObject<ObservableCollection<Product>>(result);
-                    if(AllMyPlatform.Count>0)
+                    if (AllMyPlatform.Count > 0)
                     {
                         complatform.DataContext = AllMyPlatform;
                         complatform.SelectedIndex = 0;
@@ -89,13 +87,13 @@ namespace EscalationSystem.Views
                 //string Plaform = complatform.SelectedValue.ToString();
                 //bindcomboxForums(Plaform);
                 string Plaform = ((sender as ComboBox).SelectedItem as Product).Platform as string;
-                if (Plaform != null )
+                if (Plaform != null)
                 {
                     bindcomboxForums(Plaform);
                     bindcomboxFtes();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
             }
         }
@@ -126,7 +124,7 @@ namespace EscalationSystem.Views
             try
             {
                 ObservableCollection<Product> datasources = (ObservableCollection<Product>)(sender as ComboBox).DataContext;
-               string forum = ((sender as ComboBox).SelectedItem as Product).Forum as string;
+                string forum = ((sender as ComboBox).SelectedItem as Product).Forum as string;
                 if (forum != null)
                 {
                     List<Ftes> ftes = new List<Ftes>();
@@ -163,7 +161,7 @@ namespace EscalationSystem.Views
                     List<Ftes> ftes = new List<Ftes>();
                     foreach (Ftes va in AllFtes)
                     {
-                        if( va.Platform== product)
+                        if (va.Platform == product)
                         {
                             ftes.Add(va);
                         }
@@ -177,11 +175,11 @@ namespace EscalationSystem.Views
             catch
             {
             }
-             
+
         }
 
- 
-      
+
+
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             string Platform = "";
@@ -221,9 +219,9 @@ namespace EscalationSystem.Views
             {
                 string pathurlid = "";
                 string[] urlsp = pathurl.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-                foreach(string sr in urlsp)
+                foreach (string sr in urlsp)
                 {
-                    if(sr.Length==36)
+                    if (sr.Length == 36)
                     {
                         pathurlid = sr;
                         break;
@@ -238,7 +236,7 @@ namespace EscalationSystem.Views
                 mes.Title = title;
                 mes.Forum = Forum;
                 mes.Platform = Platform;
-                
+
                 mes.LastreplyFromOp = true;
                 mes.EscalatedDatetime = DateTime.UtcNow.ToString();
                 mes.VendorAlias = ThreadOnwerTxt.Text;
@@ -354,18 +352,18 @@ namespace EscalationSystem.Views
             return await Task.FromResult(result);
         }
 
-        private async void Addcase(object sender, RoutedEventArgs e)
-        {
+        //private async void Addcase(object sender, RoutedEventArgs e)
+        //{
 
-            //Task<bool> tk = AddEscalationAndStatusThread();
-            //bool a = await tk;
-            //new MessageDialog(a.ToString()).ShowAsync();
+        //    //Task<bool> tk = AddEscalationAndStatusThread();
+        //    //bool a = await tk;
+        //    //new MessageDialog(a.ToString()).ShowAsync();
 
-             createchanneltoAuzreHub();
-        }
+        //    createchanneltoAuzreHub();
+        //}
 
 
-        NotificationHub hub;
+       NotificationHub hub;
         PushNotificationChannel channel;
         string tokenaccess = "";
         /// <summary>
@@ -385,9 +383,9 @@ namespace EscalationSystem.Views
                     await dialog.ShowAsync();
                 }
             }
-            else 
+            else
             {
-               await  SetToastNotification("This is my toast message for UWP");
+                await SetToastNotification("This is my toast message for UWP");
             }
         }
 
@@ -409,7 +407,7 @@ namespace EscalationSystem.Views
                 {
                     string secret = "J82cI9OC/my9+a1vw2MmGrAj87YB6nwK";
                     string sid = "ms-app://s-1-15-2-4128186160-1681326203-2788279282-2432225568-1896386270-4060788042-1141638401";
-                    if (tokenaccess=="")
+                    if (tokenaccess == "")
                     {
                         OAuthToken oAuthToken = new OAuthToken();
                         Windows.Web.Http.HttpClient httpClient = new Windows.Web.Http.HttpClient();
@@ -429,7 +427,7 @@ namespace EscalationSystem.Views
                             tokenaccess = oAuthToken.AccessToken;
                         }
                     }
-                    await PostToWns(channel.Uri, tokenaccess, "Push Notification: "+ message+", "+DateTime.Now.ToString(), "wns/toast", "text/xml");
+                    await PostToWns(channel.Uri, tokenaccess, "Push Notification: " + message + ", " + DateTime.Now.ToString(), "wns/toast", "text/xml");
                     return await Task.FromResult("true");
                     //Windows.Web.Http.HttpClient httpClient = new Windows.Web.Http.HttpClient();
                     ////https://{namespace}.servicebus.windows.net/{NotificationHub}/messages/?api-version=2015-01
@@ -506,7 +504,7 @@ namespace EscalationSystem.Views
             return toastXml.GetXml();
         }
 
-       
+
     }
 
     [DataContract]
@@ -533,7 +531,7 @@ namespace EscalationSystem.Views
         public string FteAlias { get; set; }
         public string Reason { get; set; }
         public string Description { get; set; }
-        public int  Labor { get; set; }
+        public int Labor { get; set; }
         public string SrescalationId { get; set; }
         public string Status { get; set; }
         public bool IsManaged { get; set; }

@@ -18,7 +18,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid Name="RootGrid" Background="Azure" >
             <ProgressRing IsActive="True"  Name="MyProgressRing" Foreground="#FF2196F3" Width="200" Height="200" HorizontalAlignment="Center" VerticalAlignment="Center" ></ProgressRing>
-            <StackPanel Opacity="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}" HorizontalAlignment="Left" Orientation="Vertical"  Name="RootPanel" Width="{Binding ScreenWidth}">
+            <StackPanel  HorizontalAlignment="Left" Orientation="Vertical"  Name="RootPanel" Width="{Binding ScreenWidth}">
                 <StackPanel.DataContext>
                     <ViewModel:SceenSizeViewModel x:Name="SceenSizeViewModel"></ViewModel:SceenSizeViewModel>
                 </StackPanel.DataContext>
@@ -31,7 +31,7 @@
                         <StackPanel Width="{Binding ScreenWidth}" Height="50"  Background="#FF7CBDF1"  HorizontalAlignment="Left" VerticalAlignment="Top">
                             <TextBlock  Text="Threads Report" FontWeight="Black" FontSize="30"  Foreground="White" VerticalAlignment="Center" />
                         </StackPanel>
-                        <StackPanel  Orientation="Vertical" HorizontalAlignment="Left">
+                        <StackPanel Opacity="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}" Orientation="Vertical" HorizontalAlignment="Left">
                             <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
                                 <StackPanel Orientation="Horizontal" Background="#FF2196F3">
                                     <Grid Margin="0,0,0,0" Width="{Binding ScreenWidth}">
@@ -66,7 +66,7 @@
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
-                        
+
                     </StackPanel>
 
                     <StackPanel Grid.Row="1">

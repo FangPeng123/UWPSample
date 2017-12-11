@@ -65,7 +65,7 @@ Windows.Storage.ApplicationData.Current.LocalSettings;
             }
 
             var access = await BackgroundExecutionManager.RequestAccessAsync();
-            if(access==BackgroundAccessStatus.Denied)
+            if (access == BackgroundAccessStatus.Denied)
             {
                 await new MessageDialog("Denied").ShowAsync();
             }
@@ -99,13 +99,13 @@ Windows.Storage.ApplicationData.Current.LocalSettings;
                     BackgroundTaskRegistration task = builder.Register();
                 }
 
-              
+
             }
             catch
             {
 
             }
-           
+
 
 
 
