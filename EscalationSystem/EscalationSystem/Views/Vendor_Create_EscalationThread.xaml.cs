@@ -110,7 +110,7 @@ namespace EscalationSystem.Views
                     var result = await HttpResponseMessage.Content.ReadAsStringAsync();
                     AllMyPlatformforums = JsonConvert.DeserializeObject<ObservableCollection<Product>>(result);
                     comForum.DataContext = AllMyPlatformforums;
-                    comForum.SelectedIndex = 0;
+                    
                 }
             }
             catch
@@ -169,7 +169,7 @@ namespace EscalationSystem.Views
                     comFTES.DataContext = ftes;
                     comFTES.DisplayMemberPath = "Name";
                     comFTES.SelectedValuePath = "Alias";
-                    comFTES.SelectedIndex = 0;
+                  
                 }
             }
             catch
