@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
     <Page.Resources>
         <Style x:Key="ToggleButtonStyle1" TargetType="ToggleButton">
             <Setter Property="Background" Value="{ThemeResource ToggleButtonBackground}"/>
@@ -174,72 +173,61 @@
             </Setter>
         </Style>
     </Page.Resources>
-
-
     <Grid Background="#FF2196F3">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="17*"/>
         </Grid.RowDefinitions>
-
         <!--show user message-->
         <StackPanel Orientation="Vertical" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right">
             <Image Grid.Row="0" Width="25" Height="25" HorizontalAlignment="Right" Source="ms-appx:///Assets/avatar.png"></Image>
             <TextBlock Foreground="Red" Name="UserTxt"></TextBlock>
         </StackPanel>
-    
-
         <!--two row define SplitView control-->
-            <SplitView x:Name="Splitter" Grid.Row="1" CompactPaneLength="40" IsPaneOpen="True" Grid.Column="1" DisplayMode="CompactInline" >
-          
-       
-
-                <SplitView.Pane>
-                    <RelativePanel  Margin="0,0,0,0" Background="#FF7CBDF1">
-                        <TextBlock x:Name="SampleTitle" Text=""  TextWrapping="Wrap" Height="1" Width="0"/>
-                        <ListBox x:Name="ScenarioControl" SelectionChanged="ScenarioControl_SelectionChanged"
+        <SplitView x:Name="Splitter" Grid.Row="1" CompactPaneLength="40" IsPaneOpen="True" Grid.Column="1" DisplayMode="CompactInline" >
+            <SplitView.Pane>
+                <RelativePanel  Margin="0,0,0,0" Background="#FF7CBDF1">
+                    <TextBlock x:Name="SampleTitle" Text=""  TextWrapping="Wrap" Height="1" Width="0"/>
+                    <ListBox x:Name="ScenarioControl" SelectionChanged="ScenarioControl_SelectionChanged"
                  SelectionMode="Single" HorizontalAlignment="Left" Background="Transparent" BorderThickness="0"
                  VerticalAlignment="Top" RelativePanel.Below="SampleTitle" Margin="0,0,0,0" RelativePanel.Above="FooterPanel">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Width="25" Height="20" Source="{Binding imagesource}" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
-                                        <TextBlock Width="5"></TextBlock>
-                                        <TextBlock FontSize="15" Text="{Binding Title}" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                        <StackPanel x:Name="FooterPanel" Orientation="Vertical" RelativePanel.AlignBottomWithPanel="True">
-                            <Image Source="Assets/microsoft-sdk.png" AutomationProperties.Name="Microsoft Logo" Stretch="None" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                            <TextBlock x:Name="Copyright" Text="&#xA9; Microsoft Corporation. All rights reserved." Foreground="Red"
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="25" Height="20" Source="{Binding imagesource}" VerticalAlignment="Center" HorizontalAlignment="Center"></Image>
+                                    <TextBlock Width="5"></TextBlock>
+                                    <TextBlock FontSize="15" Text="{Binding Title}" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel x:Name="FooterPanel" Orientation="Vertical" RelativePanel.AlignBottomWithPanel="True">
+                        <Image Source="Assets/microsoft-sdk.png" AutomationProperties.Name="Microsoft Logo" Stretch="None" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                        <TextBlock x:Name="Copyright" Text="&#xA9; Microsoft Corporation. All rights reserved." Foreground="Red"
                                    RelativePanel.Above="LinksPanel" Margin="10,10,0,0"
                                    TextWrapping="Wrap"/>
-                            <StackPanel x:Name="LinksPanel" Orientation="Horizontal" Margin="10,10,0,10">
-                                <HyperlinkButton Content="Trademarks" Tag="http://go.microsoft.com/fwlink/?LinkID=623755"
+                        <StackPanel x:Name="LinksPanel" Orientation="Horizontal" Margin="10,10,0,10">
+                            <HyperlinkButton Content="Trademarks" Tag="http://go.microsoft.com/fwlink/?LinkID=623755"
                         Click="Footer_Click" FontSize="12" />
-                                <TextBlock Text="|" VerticalAlignment="Center" />
-                                <HyperlinkButton x:Name="PrivacyLink" Content="Privacy" Tag="http://privacy.microsoft.com" Click="Footer_Click" FontSize="12"/>
-                            </StackPanel>
+                            <TextBlock Text="|" VerticalAlignment="Center" />
+                            <HyperlinkButton x:Name="PrivacyLink" Content="Privacy" Tag="http://privacy.microsoft.com" Click="Footer_Click" FontSize="12"/>
                         </StackPanel>
-                    </RelativePanel>
-                </SplitView.Pane>
-                <Frame x:Name="ScenarioFrame" Margin="0,0,0,0"/>
-            </SplitView>
-
-            <!--ToggleButton -->
-            <StackPanel x:Name="HeaderPanel"  VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal"  Grid.Row="0" >
-                <Border VerticalAlignment="Center">
-                    <ToggleButton  Background="#FF2196F3" Click="Button_Click"  VerticalAlignment="Center" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Style="{StaticResource ToggleButtonStyle1}">
-                        <ToggleButton.Content>
-                            <FontIcon x:Name="Hamburger" Foreground="White" FontSize="20" FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" Margin="0"/>
-                        </ToggleButton.Content>
-                    </ToggleButton>
-                </Border>
-                <Image x:Name="WindowsLogo" Stretch="None" Source="Assets/windows-sdk.png" Margin="0,15,0,0" />
-                <TextBlock x:Name="Header" Text="Escalation System"  Margin="0,10,0,6.667" />
-            </StackPanel>
+                    </StackPanel>
+                </RelativePanel>
+            </SplitView.Pane>
+            <Frame x:Name="ScenarioFrame" Margin="0,0,0,0"/>
+        </SplitView>
+        <!--ToggleButton -->
+        <StackPanel x:Name="HeaderPanel"  VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal"  Grid.Row="0" >
+            <Border VerticalAlignment="Center">
+                <ToggleButton  Background="#FF2196F3" Click="Button_Click"  VerticalAlignment="Center" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Style="{StaticResource ToggleButtonStyle1}">
+                    <ToggleButton.Content>
+                        <FontIcon x:Name="Hamburger" Foreground="White" FontSize="20" FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" Margin="0"/>
+                    </ToggleButton.Content>
+                </ToggleButton>
+            </Border>
+            <Image x:Name="WindowsLogo" Stretch="None" Source="Assets/windows-sdk.png" Margin="0,15,0,0" />
+            <TextBlock x:Name="Header" Text="Escalation System"  Margin="0,10,0,6.667" />
+        </StackPanel>
     </Grid>
-
-
 </Page>
