@@ -86,7 +86,26 @@ namespace EscalationSystem.ViewModels
             return FTEConsultThreadViewModel;
         }
 
-
+        public async Task<ObservableCollection<string>> GetAllForum(string PlatForm)
+        {
+            ObservableCollection<string> Forumlist = new ObservableCollection<string>();
+            HttpClient HttpClient = new HttpClient();
+            var HttpResponseMessage = await HttpClient.GetAsync(new Uri("http://escalationmanagerwebapi.azurewebsites.net/api/products"));
+            ObservableCollection<Product> AllMyPlatform = new ObservableCollection<Product>();
+            if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
+            {
+                var result = await HttpResponseMessage.Content.ReadAsStringAsync();
+                AllMyPlatform = JsonConvert.DeserializeObject<ObservableCollection<Product>>(result);
+                foreach (var prouct in AllMyPlatform)
+                {
+                    if (prouct.Platform.Equals(PlatForm))
+                    {
+                        Forumlist.Add(prouct.Forum);
+                    }
+                }
+            }
+            return Forumlist;
+        }
         public async Task<ObservableCollection<Product>> GetAllPlaform()
         {
             HttpClient HttpClient = new HttpClient();

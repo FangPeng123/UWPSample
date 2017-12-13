@@ -57,24 +57,18 @@ namespace EscalationSystem.Views
             EscalationThread = new EscalationThread();
             this.Loaded += FTE_Consult_Page_Loaded;
             this.DataContext = FTEConsultThreadViewModel;
-
         }
-
-
-
         private async void FTE_Consult_Page_Loaded(object sender, RoutedEventArgs e)
         {
             FTEConsultThreadViewModel = await FTEConsultThreadViewModel.GetFTEConsultThreadViewModel();
             EscalatonStatusList = FTEConsultThreadViewModel.AllEscalationStatusList;
-            AddRecordsPanle.Visibility = Visibility.Collapsed;
+          
             AllMyPlatform = FTEConsultThreadViewModel.AllPratfromList;
             PlatformComboBox.DataContext = AllMyPlatform;
+            AddPanelPlatformCombox.DataContext = AllMyPlatform;
             PageComboBox.SelectedIndex = 0;
             QueryButton_Click(sender, e);
-
-
         }
-
 
         private void FTE_Consult_Page_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -152,11 +146,6 @@ namespace EscalationSystem.Views
                 MyScrollView.Height = (MyList.Count + 1) * 60;
             }
         }
-
-       
- 
-
-   
         private void NextImage_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (EscalationThreadList.Count == 0)
@@ -241,8 +230,6 @@ namespace EscalationSystem.Views
 
         private void FirstImage_Tapped(object sender, TappedRoutedEventArgs e)
         {
-
-
             if (EscalationThreadList.Count == 0)
             {
                 this.PageTxt.Text = "0";
@@ -286,6 +273,14 @@ namespace EscalationSystem.Views
             }
            
          
+        }
+
+        private async void AddPanelPlatformCombox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+         
+                Product product = (Product)PlatformComboBox.SelectedValue;
+                ObservableCollection<string> Allforum = await FTEConsultThreadViewModel.GetAllForum(product.Platform);
+                AddPanelForumCombox.DataContext = Allforum;           
         }
     }
 }

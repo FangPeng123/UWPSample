@@ -47,22 +47,22 @@
                                 <TextBlock Width="5"></TextBlock>
                                 <TextBlock Foreground="White" FontWeight="Bold" Text="Add Consult Thread"></TextBlock>
                             </StackPanel>
-                            <StackPanel Visibility="Visible" Background="#FF7CBDF1" Name="AddRecordsPanle" Orientation="Vertical" >
+                            <StackPanel Visibility="Collapsed" Background="#FF7CBDF1" Name="AddRecordsPanle" Orientation="Vertical" >
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Width="80" Foreground="White" Text="Case Link"  VerticalAlignment="Center"></TextBlock>
-                                    <TextBox Width="300" ></TextBox>
+                                    <TextBox Width="500" ></TextBox>
                                 </StackPanel>
                                 <TextBlock Height="15"></TextBlock>
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
                                     <TextBlock Width="80" Foreground="White" Text="Case Onwer" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
-                                    <TextBox Width="300" ></TextBox>
+                                    <TextBox Width="500" ></TextBox>
                                 </StackPanel>
                                 <TextBlock Height="15"></TextBlock>
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
                                     <TextBlock Width="80"  Text="Platform" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White"></TextBlock>
-                                    <ComboBox  IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding MyProductList}" SelectedItem="{Binding SelectedItem}" Foreground="White">
+                                    <ComboBox Name="AddPanelPlatformCombox" PlaceholderText="Please Choose Plaform" SelectionChanged="AddPanelPlatformCombox_SelectionChanged" IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding MyProductList}"  Foreground="White">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <TextBlock Text="{Binding Platform}"/>
@@ -71,15 +71,17 @@
                                     </ComboBox>
                               
                                 <TextBlock Width="30"></TextBlock>
+                                 <StackPanel Orientation="Horizontal"  Name="ForumStackPanel">
                                 <TextBlock Text="Forum" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White"></TextBlock>
-                                <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}"  Foreground="White">
+                                <ComboBox Name="AddPanelForumCombox" PlaceholderText="Please Choose Forum" IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}"  Foreground="White">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding}"/>
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
-                            </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
                             <Image HorizontalAlignment="Left" Width="35" Height="35" Source="/Assets/add.png"></Image>
                                
                             </StackPanel>
