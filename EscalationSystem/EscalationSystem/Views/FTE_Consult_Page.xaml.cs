@@ -60,25 +60,34 @@ namespace EscalationSystem.Views
         }
         private async void FTE_Consult_Page_Loaded(object sender, RoutedEventArgs e)
         {
-            FTEConsultThreadViewModel = await FTEConsultThreadViewModel.GetFTEConsultThreadViewModel();
-            EscalatonStatusList = FTEConsultThreadViewModel.AllEscalationStatusList;
-           
-            AllMyPlatform = FTEConsultThreadViewModel.AllPratfromList;
-            PlatformComboBox.DataContext = AllMyPlatform;
-
-            ObservableCollection<Product> ProductList = new ObservableCollection<Product>();
-            foreach(var item in AllMyPlatform.MyProductList)
+            try
             {
-            
-                if(item.Platform!="All")
+                FTEConsultThreadViewModel = await FTEConsultThreadViewModel.GetFTEConsultThreadViewModel();
+                EscalatonStatusList = FTEConsultThreadViewModel.AllEscalationStatusList;
+
+                AllMyPlatform = FTEConsultThreadViewModel.AllPratfromList;
+                PlatformComboBox.DataContext = AllMyPlatform;
+
+                ObservableCollection<Product> ProductList = new ObservableCollection<Product>();
+                foreach (var item in AllMyPlatform.MyProductList)
                 {
-                    ProductList.Add(item);
+
+                    if (item.Platform != "All")
+                    {
+                        ProductList.Add(item);
+                    }
                 }
+                AllMyPlatform.MyProductList = ProductList;
+                AddPanelPlatformCombox.DataContext = AllMyPlatform;
+                PageComboBox.SelectedIndex = 0;
+                QueryButton_Click(sender, e);
             }
-            AllMyPlatform.MyProductList = ProductList;
-            AddPanelPlatformCombox.DataContext = AllMyPlatform;
-            PageComboBox.SelectedIndex = 0;
-            QueryButton_Click(sender, e);
+            catch (Exception ex)
+            {
+                MessageDialog messageDialog = new MessageDialog(ex.Message.ToString());
+                await messageDialog.ShowAsync();
+                MyProgressRing.IsActive = false;
+            }
         }
 
         private void FTE_Consult_Page_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -88,62 +97,70 @@ namespace EscalationSystem.Views
 
         private async void QueryButton_Click(object sender, RoutedEventArgs e)
         {
-            MyProgressRing.IsActive = true;
-            DataGrid.ItemsSource = null;
-            AllRecords.Text = "0";
-            AllPageIndex.Text = "0";
-            PageTxt.Text = "0";
-
-            DateTime startDate = DateTime.Parse(StartDatePicker.Date.ToString());
-            string startDatestring = startDate.ToString("MM-dd-yyyy");
-            DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
-            string endDatestring = endDate.ToString("MM-dd-yyyy");
-            EscalationThreadList = await FTEConsultThreadViewModel.QueryAllEscalationAndStatusThread(AllMyPlatform,  startDatestring, endDatestring);
-            ComboBoxItem curItem = (ComboBoxItem)PageComboBox.SelectedItem;
-            pageSize = Convert.ToInt32(curItem.Content.ToString());
-            if (EscalationThreadList.Count == 0)
+            try
             {
+                MyProgressRing.IsActive = true;
+                DataGrid.ItemsSource = null;
                 AllRecords.Text = "0";
                 AllPageIndex.Text = "0";
                 PageTxt.Text = "0";
-                DataGrid.ItemsSource = EscalationThreadList;
-                MyScrollView.Height = 100;
-            }
 
-            else if (EscalationThreadList.Count < 10)
-            {
-                DataGrid.ItemsSource = EscalationThreadList;
-                MyScrollView.Height = (EscalationThreadList.Count + 1) * 60;
-                AllRecords.Text = EscalationThreadList.Count.ToString();
-                AllPageIndex.Text = FTEConsultThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
-                PageTxt.Text = FTEConsultThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
-            }
-
-            else
-            {
-                AllRecords.Text = EscalationThreadList.Count.ToString();
-                AllPageIndex.Text = FTEConsultThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
-                int AllPagesIndex = FTEConsultThreadViewModel.GetPageIndex(EscalationThreadList, pageSize);
-                PageTxt.Text = "1";
-                if (EscalationThreadList.Count >= 10)
+                DateTime startDate = DateTime.Parse(StartDatePicker.Date.ToString());
+                string startDatestring = startDate.ToString("MM-dd-yyyy");
+                DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
+                string endDatestring = endDate.ToString("MM-dd-yyyy");
+                EscalationThreadList = await FTEConsultThreadViewModel.QueryAllEscalationAndStatusThread(AllMyPlatform, startDatestring, endDatestring);
+                ComboBoxItem curItem = (ComboBoxItem)PageComboBox.SelectedItem;
+                pageSize = Convert.ToInt32(curItem.Content.ToString());
+                if (EscalationThreadList.Count == 0)
                 {
-                    MyScrollView.Height = 650;
+                    AllRecords.Text = "0";
+                    AllPageIndex.Text = "0";
+                    PageTxt.Text = "0";
+                    DataGrid.ItemsSource = EscalationThreadList;
+                    MyScrollView.Height = 100;
                 }
-                if (AllPagesIndex == 1)
+
+                else if (EscalationThreadList.Count < 10)
                 {
                     DataGrid.ItemsSource = EscalationThreadList;
-
+                    MyScrollView.Height = (EscalationThreadList.Count + 1) * 60;
+                    AllRecords.Text = EscalationThreadList.Count.ToString();
+                    AllPageIndex.Text = FTEConsultThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
+                    PageTxt.Text = FTEConsultThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
                 }
+
                 else
                 {
-                    var EscalationThreadListPage = EscalationThreadList.Skip(0 * pageSize).Take(pageSize).ToList();
-                    DataGrid.ItemsSource = EscalationThreadListPage;
+                    AllRecords.Text = EscalationThreadList.Count.ToString();
+                    AllPageIndex.Text = FTEConsultThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
+                    int AllPagesIndex = FTEConsultThreadViewModel.GetPageIndex(EscalationThreadList, pageSize);
+                    PageTxt.Text = "1";
+                    if (EscalationThreadList.Count >= 10)
+                    {
+                        MyScrollView.Height = 650;
+                    }
+                    if (AllPagesIndex == 1)
+                    {
+                        DataGrid.ItemsSource = EscalationThreadList;
 
+                    }
+                    else
+                    {
+                        var EscalationThreadListPage = EscalationThreadList.Skip(0 * pageSize).Take(pageSize).ToList();
+                        DataGrid.ItemsSource = EscalationThreadListPage;
+
+                    }
                 }
-            }
-            await Task.Delay(new TimeSpan(3000));
-            MyProgressRing.IsActive = false;
+                await Task.Delay(new TimeSpan(3000));
+                MyProgressRing.IsActive = false;
 
+            }
+            catch (Exception ex)
+            {
+                MessageDialog messageDialog = new MessageDialog(ex.Message.ToString());
+                await messageDialog.ShowAsync();
+            }
         }
 
         public void setScrollViewheight(List<EscalationAndStatusThread> MyList)
@@ -295,38 +312,49 @@ namespace EscalationSystem.Views
             AddPanelForumCombox.DataContext = Allforum;           
         }
 
+        public static int id= 0;
         private async void AddConsultThread_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(CaseLinkTxt.Text.ToString()) == false && string.IsNullOrEmpty(VendorAliasTxt.Text.ToString()) && AddPanelPlatformCombox.SelectedIndex >= 0 && AddPanelForumCombox.SelectedIndex >= 0)
+            try
             {
-                ConsultThread consultThread = new ConsultThread();
-                consultThread.Description = "";
-                consultThread.Forum = AddPanelForumCombox.SelectedValue.ToString();
-                consultThread.Platform = ((Product)AddPanelPlatformCombox.SelectedValue).Platform;
-                consultThread.Reason = "";
-                consultThread.SrescalationId = "";
-                consultThread.Status = "";
-                consultThread.Title = "";
-                consultThread.ThreadId = "";
-                consultThread.Url = CaseLinkTxt.Text.ToString();
-                Windows.Storage.ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-                string userAlias = LocalSettings.Values["currentUserAlias"].ToString();
-                consultThread.FteAlias = userAlias;
-                consultThread.VendorAlias = VendorAliasTxt.Text.ToString();
-                consultThread.EscalatedDatetime = DateTime.Now;
-                consultThread.IsManaged = false;
-                consultThread.Labor = "";
-                consultThread.LastreplyDatetime = DateTime.Now;
-                consultThread.LastreplyFromOp = DateTime.Now;
-                consultThread.ThreadCreatedDatetime = DateTime.Now;
-                FTEConsultThreadViewModel.AddConsultThread(consultThread);
-            }
+                if (string.IsNullOrEmpty(CaseLinkTxt.Text.ToString()) == false && string.IsNullOrEmpty(VendorAliasTxt.Text.ToString()) == false && AddPanelPlatformCombox.SelectedIndex >= 0 && AddPanelForumCombox.SelectedIndex >= 0)
+                {
+                    ConsultThread consultThread = new ConsultThread();
+                    consultThread.Description = "N/A";
+                    consultThread.Forum = AddPanelForumCombox.SelectedValue.ToString();
+                    consultThread.Platform = ((Product)AddPanelPlatformCombox.SelectedValue).Platform;
+                    consultThread.Reason = "N/A";
+                    consultThread.SrescalationId = "N/A";
+                    consultThread.Status = "N/A";
+                    consultThread.Title = "N/A";
+                    consultThread.ThreadId = (id++).ToString();
+                    consultThread.Url = CaseLinkTxt.Text.ToString();
+                    Windows.Storage.ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                    string userAlias = LocalSettings.Values["currentUserAlias"].ToString();
+                    consultThread.FteAlias = userAlias;
+                    consultThread.VendorAlias = VendorAliasTxt.Text.ToString();
+                    consultThread.EscalatedDatetime = DateTime.Now;
+                    consultThread.IsManaged = false;
+                    consultThread.Labor = "N/A";
+                    consultThread.LastreplyDatetime = DateTime.Now;
+                    consultThread.LastreplyFromOp = DateTime.Now;
+                    consultThread.ThreadCreatedDatetime = DateTime.Now;
+                    FTEConsultThreadViewModel.AddConsultThread(consultThread);
+                }
 
-            else
+                else
+                {
+                    MessageDialog messageDialog = new MessageDialog("Please fill all the fields!!!");
+                    await messageDialog.ShowAsync();
+                }
+            }
+            catch (Exception ex)
             {
-                MessageDialog messageDialog = new MessageDialog("Please fill all the fields!!!");
+                MessageDialog messageDialog = new MessageDialog(ex.Message.ToString());
                 await messageDialog.ShowAsync();
+                MyProgressRing.IsActive = false;
             }
         }
+
     }
 }

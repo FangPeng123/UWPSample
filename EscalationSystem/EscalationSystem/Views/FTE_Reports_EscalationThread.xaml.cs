@@ -16,6 +16,7 @@ using EscalationSystem.ViewModels;
 using EscalationSystem.Models;
 using MyToolkit.Collections;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -43,10 +44,19 @@ namespace EscalationSystem.Views
 
         private async void FTE_Reports_EscalationThread_Loaded(object sender, RoutedEventArgs e)
         {
-            FTEEscalationReportViewModel = await FTEEscalationReportViewModel.GetFTEEscalationReportViewModel();
-            AllMyPlatform = FTEEscalationReportViewModel.AllPratfromList;
-            PlatformComboBox.DataContext = AllMyPlatform;
-            QueryButton_Click(sender, e);
+            try
+            {
+                FTEEscalationReportViewModel = await FTEEscalationReportViewModel.GetFTEEscalationReportViewModel();
+                AllMyPlatform = FTEEscalationReportViewModel.AllPratfromList;
+                PlatformComboBox.DataContext = AllMyPlatform;
+                QueryButton_Click(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MessageDialog messageDialog = new MessageDialog(ex.Message.ToString());
+                await messageDialog.ShowAsync();
+                MyProgressRing.IsActive = false;
+            }
         }
 
         private void FTE_Reports_EscalationThread_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -56,19 +66,28 @@ namespace EscalationSystem.Views
 
         private async void QueryButton_Click(object sender, RoutedEventArgs e)
         {
-            MyProgressRing.IsActive = true;
-            DataGrid.ItemsSource = null;
-            DateTime startDate = DateTime.Parse(StartDatePicker.Date.ToString());
-            string startDatestring = startDate.ToString("MM-dd-yyyy");
-            DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
-            string endDatestring = endDate.ToString("MM-dd-yyyy");
-            AllMyReport = await FTEEscalationReportViewModel.QueryAllEscalationReport(AllMyPlatform,startDatestring,endDatestring);
-            DataGrid.ItemsSource = AllMyReport;
-            await Task.Delay(new TimeSpan(3));
-            MyProgressRing.IsActive = false;
+            try
+            {
+                MyProgressRing.IsActive = true;
+                DataGrid.ItemsSource = null;
+                DateTime startDate = DateTime.Parse(StartDatePicker.Date.ToString());
+                string startDatestring = startDate.ToString("MM-dd-yyyy");
+                DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
+                string endDatestring = endDate.ToString("MM-dd-yyyy");
+                AllMyReport = await FTEEscalationReportViewModel.QueryAllEscalationReport(AllMyPlatform, startDatestring, endDatestring);
+                DataGrid.ItemsSource = AllMyReport;
+                await Task.Delay(new TimeSpan(3));
+                MyProgressRing.IsActive = false;
 
+            }
+
+            catch (Exception ex)
+            {
+                MessageDialog messageDialog = new MessageDialog(ex.Message.ToString());
+                await messageDialog.ShowAsync();
+                MyProgressRing.IsActive = false;
+            }
         }
 
-        
     }
 }

@@ -10,6 +10,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -47,14 +48,25 @@ namespace EscalationSystem.Views
 
         private async void Vendor_Reports_EscalationThread_Loaded(object sender, RoutedEventArgs e)
         {
-            VendorEscalationReportViewModel = await VendorEscalationReportViewModel.GetVendorEscalationReportViewModel();
-            AllMyPlatform = VendorEscalationReportViewModel.AllPratfromList;
-            AllMyForum.Add("All");
-            PlatformComboBox.DataContext = AllMyPlatform;
-            ForumCombobox.DataContext = AllMyForum;
-            ForumCombobox.SelectedIndex = 0;
-            ForumCombobox.DataContext = AllMyPlatform;
-            QueryButton_Click(sender, e);
+            try
+            {
+
+
+                VendorEscalationReportViewModel = await VendorEscalationReportViewModel.GetVendorEscalationReportViewModel();
+                AllMyPlatform = VendorEscalationReportViewModel.AllPratfromList;
+                AllMyForum.Add("All");
+                PlatformComboBox.DataContext = AllMyPlatform;
+                ForumCombobox.DataContext = AllMyForum;
+                ForumCombobox.SelectedIndex = 0;
+                ForumCombobox.DataContext = AllMyPlatform;
+                QueryButton_Click(sender, e);
+            }
+            catch (Exception ex)
+            {
+                MessageDialog messageDialog = new MessageDialog(ex.Message.ToString());
+                await messageDialog.ShowAsync();
+                MyProgressRing.IsActive = false;
+            }
         }
 
         private void Vendor_Reports_EscalationThread_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -64,20 +76,28 @@ namespace EscalationSystem.Views
 
         private async void QueryButton_Click(object sender, RoutedEventArgs e)
         {
-            MyProgressRing.IsActive = true;
-            DataGrid.ItemsSource = null;
-            DateTime startDate = DateTime.Parse(StartDatePicker.Date.ToString());
-            string startDatestring = startDate.ToString("MM-dd-yyyy");
-            DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
-            string endDatestring = endDate.ToString("MM-dd-yyyy");
-            Product product = (Product)PlatformComboBox.SelectedValue;
-            string platform = product.Platform;
-            string forum =ForumCombobox.SelectedValue.ToString();
-            AllMyReport = await VendorEscalationReportViewModel.QueryAllEscalationReport(platform,forum, startDatestring, endDatestring);
-            DataGrid.ItemsSource = AllMyReport;
-            await Task.Delay(new TimeSpan(3));
-            MyProgressRing.IsActive = false;
-
+            try
+            {
+                MyProgressRing.IsActive = true;
+                DataGrid.ItemsSource = null;
+                DateTime startDate = DateTime.Parse(StartDatePicker.Date.ToString());
+                string startDatestring = startDate.ToString("MM-dd-yyyy");
+                DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
+                string endDatestring = endDate.ToString("MM-dd-yyyy");
+                Product product = (Product)PlatformComboBox.SelectedValue;
+                string platform = product.Platform;
+                string forum = ForumCombobox.SelectedValue.ToString();
+                AllMyReport = await VendorEscalationReportViewModel.QueryAllEscalationReport(platform, forum, startDatestring, endDatestring);
+                DataGrid.ItemsSource = AllMyReport;
+                await Task.Delay(new TimeSpan(3));
+                MyProgressRing.IsActive = false;
+            }
+            catch (Exception ex)
+            {
+                MessageDialog messageDialog = new MessageDialog(ex.Message.ToString());
+                await messageDialog.ShowAsync();
+                MyProgressRing.IsActive = false;
+            }
         }
 
         private async void PlatformComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

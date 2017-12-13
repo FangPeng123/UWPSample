@@ -62,16 +62,24 @@ namespace EscalationSystem.Views
 
         private async void Vendor_All_EscalationThread_Loaded(object sender, RoutedEventArgs e)
         {
-            VendorEscalationThreadViewModel = await VendorEscalationThreadViewModel.GetVendorEscalationThreadViewModel();
-            EscalatonStatusList = VendorEscalationThreadViewModel.AllEscalationStatusList;
-            StatusComboBox.DataContext = EscalatonStatusList;
-            AllMyPlatform = VendorEscalationThreadViewModel.AllPratfromList;
-            PlatformComboBox.DataContext = AllMyPlatform;
-            PageComboBox.SelectedIndex = 0;
-            //ForumComboBox.DataContext = AllMyPlatform;
-            QueryButton_Click(sender, e);
+            try
+            {
+                VendorEscalationThreadViewModel = await VendorEscalationThreadViewModel.GetVendorEscalationThreadViewModel();
+                EscalatonStatusList = VendorEscalationThreadViewModel.AllEscalationStatusList;
+                StatusComboBox.DataContext = EscalatonStatusList;
+                AllMyPlatform = VendorEscalationThreadViewModel.AllPratfromList;
+                PlatformComboBox.DataContext = AllMyPlatform;
+                PageComboBox.SelectedIndex = 0;
+                //ForumComboBox.DataContext = AllMyPlatform;
+                QueryButton_Click(sender, e);
 
-
+            }
+            catch (Exception ex)
+            {
+                MessageDialog messageDialog = new MessageDialog(ex.Message.ToString());
+                await messageDialog.ShowAsync();
+                MyProgressRing.IsActive = false;
+            }
         }
 
 
@@ -82,62 +90,70 @@ namespace EscalationSystem.Views
 
         private async void QueryButton_Click(object sender, RoutedEventArgs e)
         {
-            MyProgressRing.IsActive = true;
-            DataGrid.ItemsSource = null;
-            AllRecords.Text = "0";
-            AllPageIndex.Text = "0";
-            PageTxt.Text = "0";
-
-            DateTime startDate = DateTime.Parse(StartDatePicker.Date.ToString());
-            string startDatestring = startDate.ToString("MM-dd-yyyy");
-            DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
-            string endDatestring = endDate.ToString("MM-dd-yyyy");
-            EscalationThreadList = await VendorEscalationThreadViewModel.QueryAllEscalationAndStatusThread(AllMyPlatform, EscalatonStatusList, startDatestring, endDatestring);
-            ComboBoxItem curItem = (ComboBoxItem)PageComboBox.SelectedItem;
-            pageSize = Convert.ToInt32(curItem.Content.ToString());
-            if (EscalationThreadList.Count == 0)
+            try
             {
+                MyProgressRing.IsActive = true;
+                DataGrid.ItemsSource = null;
                 AllRecords.Text = "0";
                 AllPageIndex.Text = "0";
                 PageTxt.Text = "0";
-                DataGrid.ItemsSource = EscalationThreadList;
-                MyScrollView.Height = 100;
-            }
 
-            else if (EscalationThreadList.Count < 10)
-            {
-                DataGrid.ItemsSource = EscalationThreadList;
-                MyScrollView.Height = (EscalationThreadList.Count + 1) * 60;
-                AllRecords.Text = EscalationThreadList.Count.ToString();
-                AllPageIndex.Text = VendorEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
-                PageTxt.Text = VendorEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
-            }
-
-            else
-            {
-                AllRecords.Text = EscalationThreadList.Count.ToString();
-                AllPageIndex.Text = VendorEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
-                int AllPagesIndex = VendorEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize);
-                PageTxt.Text = "1";
-                if (EscalationThreadList.Count >= 10)
+                DateTime startDate = DateTime.Parse(StartDatePicker.Date.ToString());
+                string startDatestring = startDate.ToString("MM-dd-yyyy");
+                DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
+                string endDatestring = endDate.ToString("MM-dd-yyyy");
+                EscalationThreadList = await VendorEscalationThreadViewModel.QueryAllEscalationAndStatusThread(AllMyPlatform, EscalatonStatusList, startDatestring, endDatestring);
+                ComboBoxItem curItem = (ComboBoxItem)PageComboBox.SelectedItem;
+                pageSize = Convert.ToInt32(curItem.Content.ToString());
+                if (EscalationThreadList.Count == 0)
                 {
-                    MyScrollView.Height = 650;
+                    AllRecords.Text = "0";
+                    AllPageIndex.Text = "0";
+                    PageTxt.Text = "0";
+                    DataGrid.ItemsSource = EscalationThreadList;
+                    MyScrollView.Height = 100;
                 }
-                if (AllPagesIndex == 1)
+
+                else if (EscalationThreadList.Count < 10)
                 {
                     DataGrid.ItemsSource = EscalationThreadList;
-
+                    MyScrollView.Height = (EscalationThreadList.Count + 1) * 60;
+                    AllRecords.Text = EscalationThreadList.Count.ToString();
+                    AllPageIndex.Text = VendorEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
+                    PageTxt.Text = VendorEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
                 }
+
                 else
                 {
-                    var EscalationThreadListPage = EscalationThreadList.Skip(0 * pageSize).Take(pageSize).ToList();
-                    DataGrid.ItemsSource = EscalationThreadListPage;
+                    AllRecords.Text = EscalationThreadList.Count.ToString();
+                    AllPageIndex.Text = VendorEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
+                    int AllPagesIndex = VendorEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize);
+                    PageTxt.Text = "1";
+                    if (EscalationThreadList.Count >= 10)
+                    {
+                        MyScrollView.Height = 650;
+                    }
+                    if (AllPagesIndex == 1)
+                    {
+                        DataGrid.ItemsSource = EscalationThreadList;
 
+                    }
+                    else
+                    {
+                        var EscalationThreadListPage = EscalationThreadList.Skip(0 * pageSize).Take(pageSize).ToList();
+                        DataGrid.ItemsSource = EscalationThreadListPage;
+
+                    }
                 }
+                await Task.Delay(new TimeSpan(3000));
+                MyProgressRing.IsActive = false;
             }
-            await Task.Delay(new TimeSpan(3000));
-            MyProgressRing.IsActive = false;
-
+            catch (Exception ex)
+            {
+                MessageDialog messageDialog = new MessageDialog(ex.Message.ToString());
+                await messageDialog.ShowAsync();
+                MyProgressRing.IsActive = false;
+            }
         }
 
         public void setScrollViewheight(List<EscalationAndStatusThread> MyList)
