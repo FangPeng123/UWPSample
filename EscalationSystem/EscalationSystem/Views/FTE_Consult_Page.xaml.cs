@@ -39,7 +39,7 @@ namespace EscalationSystem.Views
         public ObservableCollectionView<EscalationAndStatusThread> EscalationThreadList { get; set; }
         public ObservableCollectionView<EscalationAndStatusThread> EscalationThreadListPage { get; set; }
         public EscalationThread EscalationThread { get; set; }
-        public FTEEscalationThreadViewModel FTEEscalationThreadViewModel { get; set; }
+        public FTEConsultThreadViewModel FTEConsultThreadViewModel { get; set; }
         public int pageSize;
         public static int i = 0;
         public FTE_Consult_Page()
@@ -53,10 +53,10 @@ namespace EscalationSystem.Views
             AllMyPlatform = new ProductWithSelectedItem();
             EscalationThreadList = new ObservableCollectionView<EscalationAndStatusThread>();
             EscalationThreadListPage = new ObservableCollectionView<EscalationAndStatusThread>();
-            FTEEscalationThreadViewModel = new FTEEscalationThreadViewModel();
+            FTEConsultThreadViewModel = new FTEConsultThreadViewModel();
             EscalationThread = new EscalationThread();
             this.Loaded += FTE_Consult_Page_Loaded;
-            this.DataContext = FTEEscalationThreadViewModel;
+            this.DataContext = FTEConsultThreadViewModel;
 
         }
 
@@ -64,10 +64,10 @@ namespace EscalationSystem.Views
 
         private async void FTE_Consult_Page_Loaded(object sender, RoutedEventArgs e)
         {
-            FTEEscalationThreadViewModel = await FTEEscalationThreadViewModel.GetFTEEscalationThreadViewModel();
-            EscalatonStatusList = FTEEscalationThreadViewModel.AllEscalationStatusList;
-            StatusComboBox.DataContext = EscalatonStatusList;
-            AllMyPlatform = FTEEscalationThreadViewModel.AllPratfromList;
+            FTEConsultThreadViewModel = await FTEConsultThreadViewModel.GetFTEConsultThreadViewModel();
+            EscalatonStatusList = FTEConsultThreadViewModel.AllEscalationStatusList;
+            
+            AllMyPlatform = FTEConsultThreadViewModel.AllPratfromList;
             PlatformComboBox.DataContext = AllMyPlatform;
             PageComboBox.SelectedIndex = 0;
             QueryButton_Click(sender, e);
@@ -93,7 +93,7 @@ namespace EscalationSystem.Views
             string startDatestring = startDate.ToString("MM-dd-yyyy");
             DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
             string endDatestring = endDate.ToString("MM-dd-yyyy");
-            EscalationThreadList = await FTEEscalationThreadViewModel.QueryAllEscalationAndStatusThread(AllMyPlatform, EscalatonStatusList, startDatestring, endDatestring);
+            EscalationThreadList = await FTEConsultThreadViewModel.QueryAllEscalationAndStatusThread(AllMyPlatform,  startDatestring, endDatestring);
             ComboBoxItem curItem = (ComboBoxItem)PageComboBox.SelectedItem;
             pageSize = Convert.ToInt32(curItem.Content.ToString());
             if (EscalationThreadList.Count == 0)
@@ -110,15 +110,15 @@ namespace EscalationSystem.Views
                 DataGrid.ItemsSource = EscalationThreadList;
                 MyScrollView.Height = (EscalationThreadList.Count + 1) * 60;
                 AllRecords.Text = EscalationThreadList.Count.ToString();
-                AllPageIndex.Text = FTEEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
-                PageTxt.Text = FTEEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
+                AllPageIndex.Text = FTEConsultThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
+                PageTxt.Text = FTEConsultThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
             }
 
             else
             {
                 AllRecords.Text = EscalationThreadList.Count.ToString();
-                AllPageIndex.Text = FTEEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
-                int AllPagesIndex = FTEEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize);
+                AllPageIndex.Text = FTEConsultThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
+                int AllPagesIndex = FTEConsultThreadViewModel.GetPageIndex(EscalationThreadList, pageSize);
                 PageTxt.Text = "1";
                 if (EscalationThreadList.Count >= 10)
                 {
@@ -153,36 +153,10 @@ namespace EscalationSystem.Views
             }
         }
 
-        private void DataGridComboBoxStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBox DataGridComboBoxStatus = new ComboBox();
-            DataGridComboBoxStatus = sender as ComboBox;
-            EscalationStatus statusitem = DataGridComboBoxStatus.SelectedItem as EscalationStatus;
-            EscalationAndStatusThread escalationAndStatusThread = DataGridComboBoxStatus.DataContext as EscalationAndStatusThread;
-            EscalationThread = escalationAndStatusThread.EscalationThread;
-            EscalationThread.Status = statusitem.Status;
-            if (statusitem.Status.Equals("Closed: Escalated"))
-            {
-                EscalationPopup.IsOpen = true;
+       
+ 
 
-            }
-            else
-            {
-                FTEEscalationThreadViewModel.ModifyStatus(EscalationThread);
-            }
-        }
-
-        private void SubmitButton_Click(object sender, RoutedEventArgs e)
-        {
-            EscalationPopup.IsOpen = false;
-            EscalationThread.SREscalationId = SRTextBox.Text.ToString();
-            FTEEscalationThreadViewModel.ModifyStatus(EscalationThread);
-        }
-
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            EscalationPopup.IsOpen = false;
-        }
+   
         private void NextImage_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (EscalationThreadList.Count == 0)
@@ -194,7 +168,7 @@ namespace EscalationSystem.Views
 
             else
             {
-                int AllPageIndex = FTEEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize);
+                int AllPageIndex = FTEConsultThreadViewModel.GetPageIndex(EscalationThreadList, pageSize);
                 int index = Convert.ToInt32(PageTxt.Text.ToString());
                 index++;
                 if (index < AllPageIndex)
@@ -256,7 +230,7 @@ namespace EscalationSystem.Views
             }
             else
             {
-                int AllPageIndex = FTEEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize);
+                int AllPageIndex = FTEConsultThreadViewModel.GetPageIndex(EscalationThreadList, pageSize);
                 PageTxt.Text = AllPageIndex.ToString();
                 var EscalationThreadListPage = EscalationThreadList.Skip((AllPageIndex - 1) * pageSize).Take(pageSize).ToList();
                 DataGrid.ItemsSource = EscalationThreadListPage;

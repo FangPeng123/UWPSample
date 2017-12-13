@@ -55,7 +55,7 @@ namespace EscalationSystem
                     {
                         VendorButton.Visibility = Visibility.Visible;
                         FTEButton.Visibility = Visibility.Visible;
-
+                        count = 1;
                         //string val = userAlias;
                         //new Views.ShowNotificationForm("Login Successful").show();
                         //SHToastNotification.ShowToastNotification("Square150x150Logo.scale-200.png", $"已复制 {val}", NotificationAudioNames.Default,true);
@@ -63,9 +63,11 @@ namespace EscalationSystem
 
                     else if (userAlias.Equals("fapeng"))
                     {
-                        //VendorButton.Visibility = Visibility.Visible;
-                        //FTEButton.Visibility = Visibility.Visible;
-                        this.Frame.Navigate(typeof(LoginPage));
+                        VendorButton.Visibility = Visibility.Visible;
+                        FTEButton.Visibility = Visibility.Visible;
+                        count = 1;
+
+                        
 
                         //string val = userAlias;
                         //new Views.ShowNotificationForm("Login Successful").show();
@@ -75,6 +77,7 @@ namespace EscalationSystem
                     else if (userAlias.Contains("v-"))
                     {
                         this.Frame.Navigate(typeof(Vendor_MainPage));
+                        count = 1;
                         //string val = userAlias;
                         //new Views.ShowNotificationForm("Login Successful").show();
                         //SHToastNotification.ShowToastNotification("Square150x150Logo.scale-200.png", $"已复制 {val}", NotificationAudioNames.Default,true);
@@ -83,19 +86,21 @@ namespace EscalationSystem
                     else
                     {
                         this.Frame.Navigate(typeof(FTE_MainPage));
+                        count = 1;
                         //string val = userAlias;
                         //new Views.ShowNotificationForm("Login Successful").show();
                         //SHToastNotification.ShowToastNotification("Square150x150Logo.scale-200.png", $"已复制 {val}", NotificationAudioNames.Default,true);
                     }
-                    count = 1;
+                    
                 }
 
             }
 
             if (count == 0)
             {
-                MessageDialog Message = new MessageDialog("You do not have the premission for this App, please log in your PC with your Microsoft Alias!!! ");
+                MessageDialog Message = new MessageDialog("You do not have the premission for this App, please log in your PC with your Microsoft Alias!!! or you will go to this Login Page ");
                 await Message.ShowAsync();
+                this.Frame.Navigate(typeof(LoginPage));
             }
 
 

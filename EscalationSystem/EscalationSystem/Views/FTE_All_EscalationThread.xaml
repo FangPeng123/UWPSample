@@ -118,7 +118,7 @@
                                                 </DataTemplate>
                                             </controls:DataGridTemplatedColumn.CellTemplate>
                                             <controls:DataGridTemplatedColumn.Header>
-                                                <TextBlock FontSize="15" FontWeight="Bold" Text="Owner"></TextBlock>
+                                                <TextBlock FontSize="15" FontWeight="Bold" Text="VendorOwner"></TextBlock>
                                             </controls:DataGridTemplatedColumn.Header>
                                         </controls:DataGridTemplatedColumn>
                                         <controls:DataGridTextColumn FontSize="15" Width="4.5*" CanSort="False"

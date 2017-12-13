@@ -8,11 +8,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 using Windows.Web.Http;
 
 namespace EscalationSystem.ViewModels
 {
-   public class VendorEscalationThreadViewModel : ViewModelBase
+    public class FTEConsultThreadViewModel : ViewModelBase
     {
         private bool _isLoading;
         public bool IsLoading
@@ -66,45 +67,23 @@ namespace EscalationSystem.ViewModels
             }
         }
 
-        public VendorEscalationThreadViewModel()
+        public FTEConsultThreadViewModel()
         {
             IsLoading = true;
         }
 
-        public static async Task<VendorEscalationThreadViewModel> GetVendorEscalationThreadViewModel()
+        public static async Task<FTEConsultThreadViewModel> GetFTEConsultThreadViewModel()
         {
-            var VendorEscalationThreadViewModel = new VendorEscalationThreadViewModel();
+            var FTEConsultThreadViewModel = new FTEConsultThreadViewModel();
+            FTEConsultThreadViewModel.AllEscalationStatusList.MyEscalationStatusList = new ObservableCollection<EscalationStatus>();
+           
 
-            VendorEscalationThreadViewModel.AllEscalationStatusList = new EscalationStatusWithSelectedItem();
-            VendorEscalationThreadViewModel.AllEscalationStatusList.MyEscalationStatusList = new ObservableCollection<EscalationStatus>();
-            VendorEscalationThreadViewModel.AllEscalationStatusList.MyEscalationStatusList = await VendorEscalationThreadViewModel.GetAllEScalationStatus();
-            VendorEscalationThreadViewModel.AllEscalationStatusList.SelectedItem = new EscalationStatus();
-            VendorEscalationThreadViewModel.AllEscalationStatusList.SelectedItem = VendorEscalationThreadViewModel.AllEscalationStatusList.MyEscalationStatusList[0];
-
-            VendorEscalationThreadViewModel.AllPratfromList = new ProductWithSelectedItem();
-            VendorEscalationThreadViewModel.AllPratfromList.MyProductList = new ObservableCollection<Product>();
-            VendorEscalationThreadViewModel.AllPratfromList.MyProductList = await VendorEscalationThreadViewModel.GetAllPlaform();
-            VendorEscalationThreadViewModel.AllPratfromList.SelectedItem = new Product();
-            VendorEscalationThreadViewModel.AllPratfromList.SelectedItem = VendorEscalationThreadViewModel.AllPratfromList.MyProductList[0];
-            return VendorEscalationThreadViewModel;
-        }
-
-        public async Task<ObservableCollection<EscalationStatus>> GetAllEScalationStatus()
-        {
-            HttpClient HttpClient = new HttpClient();
-            var HttpResponseMessage = await HttpClient.GetAsync(new Uri("http://escalationmanagerwebapi.azurewebsites.net/api/statuses"));
-            ObservableCollection<EscalationStatus> MyEscalationStatus = new ObservableCollection<EscalationStatus>();
-            if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
-            {
-                var result = await HttpResponseMessage.Content.ReadAsStringAsync();
-                MyEscalationStatus = JsonConvert.DeserializeObject<ObservableCollection<EscalationStatus>>(result);
-                MyEscalationStatus.Insert(0, new EscalationStatus() { StatusId = 10, Status = "All", StatusType = "All" });
-                MyEscalationStatus.Insert(1, new EscalationStatus() { StatusId = 11, Status = "Open:All", StatusType = "Open:All" });
-                MyEscalationStatus.Insert(2, new EscalationStatus() { StatusId = 12, Status = "Closed:All", StatusType = "Closed:All" });
-
-            }
-
-            return MyEscalationStatus;
+            FTEConsultThreadViewModel.AllPratfromList = new ProductWithSelectedItem();
+            FTEConsultThreadViewModel.AllPratfromList.MyProductList = new ObservableCollection<Product>();
+            FTEConsultThreadViewModel.AllPratfromList.MyProductList = await FTEConsultThreadViewModel.GetAllPlaform();
+            FTEConsultThreadViewModel.AllPratfromList.SelectedItem = new Product();
+            FTEConsultThreadViewModel.AllPratfromList.SelectedItem = FTEConsultThreadViewModel.AllPratfromList.MyProductList[0];
+            return FTEConsultThreadViewModel;
         }
 
 
@@ -124,7 +103,7 @@ namespace EscalationSystem.ViewModels
             return AllMyPlatform;
         }
 
-     
+ 
         public int GetPageIndex(ObservableCollectionView<EscalationAndStatusThread> EscalationThreadList, int pageSize)
         {
             int AllPageIndex;
@@ -148,20 +127,18 @@ namespace EscalationSystem.ViewModels
 
             return AllPageIndex;
         }
-        public async Task<ObservableCollectionView<EscalationAndStatusThread>> QueryAllEscalationAndStatusThread(ProductWithSelectedItem AllMyPlatform, EscalationStatusWithSelectedItem EscalatonStatusList, string startDatestring, string endDatestring)
+        public async Task<ObservableCollectionView<EscalationAndStatusThread>> QueryAllEscalationAndStatusThread(ProductWithSelectedItem AllMyPlatform, string startDatestring, string endDatestring)
         {
-            Windows.Storage.ApplicationDataContainer LocalSettings =Windows.Storage.ApplicationData.Current.LocalSettings;
+            Windows.Storage.ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             string userAlias = LocalSettings.Values["currentUserAlias"].ToString();
             ObservableCollectionView<EscalationAndStatusThread> EscalationThreadList = new ObservableCollectionView<EscalationAndStatusThread>();
             HttpClient HttpClient = new HttpClient();
             Product MyProduct = new Product();
             MyProduct = AllMyPlatform.SelectedItem;
             string plaform = MyProduct.Platform;
-            EscalationStatus MyEscalationStatus = new EscalationStatus();
-            MyEscalationStatus = EscalatonStatusList.SelectedItem;
-            string status = MyEscalationStatus.Status;
-            
-            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/ethreads?etime1={0}&etime2={1}&alias={2}&platform={3}&forum={4}&status={5}", startDatestring, endDatestring, userAlias, plaform, "", status)));
+  
+          
+            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/ethreads?etime1={0}&etime2={1}&alias={2}&platform={3}&forum={4}&status={5}", startDatestring, endDatestring, userAlias, plaform, "", "All")));
             ObservableCollection<EscalationThread> AllMyEscalationThread = new ObservableCollection<EscalationThread>();
             if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
             {
@@ -172,7 +149,6 @@ namespace EscalationSystem.ViewModels
                 {
                     EscalationAndStatusThread EscalationAndStatusThread = new EscalationAndStatusThread();
                     EscalationAndStatusThread.EscalationThread = escalationthread;
-                    EscalationAndStatusThread.EscalationStatusList = EscalatonStatusList.MyEscalationStatusList;
                     EscalationThreadList.Items.Add(EscalationAndStatusThread);
 
                 }

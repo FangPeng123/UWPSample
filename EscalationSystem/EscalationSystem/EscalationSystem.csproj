@@ -115,6 +115,7 @@
     <Compile Include="Models\ProductWithSelectedItem.cs" />
     <Compile Include="Models\Report.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\FTEConsultThreadViewModel.cs" />
     <Compile Include="ViewModels\FTEEscalationReportViewModel.cs" />
     <Compile Include="ViewModels\FTEEscalationThreadViewModel.cs" />
     <Compile Include="ViewModels\SceenSizeViewModel.cs" />

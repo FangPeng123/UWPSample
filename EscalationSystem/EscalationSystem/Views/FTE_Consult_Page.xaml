@@ -20,17 +20,7 @@
     </Page.Resources>
     <Grid Name="RootGrid" Background="Azure" >
         <ProgressRing IsActive="{Binding IsLoading,Mode=TwoWay}" Name="MyProgressRing" Foreground="#FF2196F3" Width="200" Height="200" HorizontalAlignment="Center" VerticalAlignment="Center" ></ProgressRing>
-        <Popup Margin="100,100,100,100"  IsOpen="False" Name="EscalationPopup">
-            <StackPanel Background="#FF7CBDF1" Orientation="Vertical" Width="300" Height="150">
-                <TextBlock Text="Please enter Escalation SR ID"></TextBlock>
-                <TextBox Name="SRTextBox" Width="250" Height="80" HorizontalAlignment="Left"></TextBox>
-                <StackPanel  Orientation="Horizontal">
-                    <Button Content="Submit" Name="SubmitButton" HorizontalAlignment="Left" Click="SubmitButton_Click"></Button>
-                    <TextBlock Width="20"></TextBlock>
-                    <Button Content="Cancel" Name="CancelButton" Click="CancelButton_Click"></Button>
-                </StackPanel>
-            </StackPanel>
-        </Popup>
+ 
         <StackPanel  HorizontalAlignment="Left" Orientation="Vertical"  Name="RootPanel" Width="{Binding ScreenWidth}">
             <StackPanel.DataContext>
                 <ViewModel:SceenSizeViewModel x:Name="SceenSizeViewModel"></ViewModel:SceenSizeViewModel>
@@ -93,7 +83,7 @@
                                         <ColumnDefinition Width="1.5*"></ColumnDefinition>
                                         <ColumnDefinition Width="2*"></ColumnDefinition>
                                         <ColumnDefinition Width="1.5*"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                  
                                     </Grid.ColumnDefinitions>
                                     <StackPanel  Grid.Column="0"  Orientation="Horizontal">
                                         <TextBlock  Foreground="White" Text="Start Date"  VerticalAlignment="Center"></TextBlock>
@@ -115,17 +105,8 @@
                                             </ComboBox.ItemTemplate>
                                         </ComboBox>
                                     </StackPanel>
+                                
                                     <StackPanel HorizontalAlignment="Right" Grid.Column="3" Orientation="Horizontal">
-                                        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center" Text="Status" Foreground="White"></TextBlock>
-                                        <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding MyEscalationStatusList}" SelectedItem="{Binding SelectedItem}" Name="StatusComboBox" HorizontalAlignment="Right" Foreground="White">
-                                            <ComboBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <TextBlock Text="{Binding Status}"/>
-                                                </DataTemplate>
-                                            </ComboBox.ItemTemplate>
-                                        </ComboBox>
-                                    </StackPanel>
-                                    <StackPanel HorizontalAlignment="Right" Grid.Column="4" Orientation="Horizontal">
                                         <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center" Text="Items" Foreground="White"></TextBlock>
                                         <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Name="PageComboBox" HorizontalAlignment="Right" Foreground="White">
                                             <ComboBoxItem Content="10"></ComboBoxItem>
@@ -134,7 +115,7 @@
                                             <ComboBoxItem Content="100"></ComboBoxItem>
                                         </ComboBox>
                                     </StackPanel>
-                                    <Button IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Name="QueryButton" Click="QueryButton_Click" BorderBrush="#FF145A92" BorderThickness="2" Width="70"  Grid.Column="5" HorizontalAlignment="Right"   Foreground="White" Content="Query" Background="#FF2196F3" ></Button>
+                                    <Button IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Name="QueryButton" Click="QueryButton_Click" BorderBrush="#FF145A92" BorderThickness="2" Width="70"  Grid.Column="4" HorizontalAlignment="Right"   Foreground="White" Content="Query" Background="#FF2196F3" ></Button>
                                 </Grid>
                             </StackPanel>
                         </StackPanel>
@@ -198,16 +179,7 @@
                                                 <TextBlock FontWeight="Bold" FontSize="15"  Text="Platform" Foreground="Black" />
                                             </controls:DataGridTemplatedColumn.Header>
                                         </controls:DataGridTemplatedColumn>
-                                        <controls:DataGridTemplatedColumn CanSort="False" Width="2.3*">
-                                            <controls:DataGridTemplatedColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <ComboBox Name="DataGridComboBoxStatus" SelectionChanged="DataGridComboBoxStatus_SelectionChanged" DisplayMemberPath="Status" ItemsSource="{Binding EscalationStatusList}" d:DataContext="{d:DesignInstance Type=Model:EscalationAndStatusThread}" PlaceholderText="{Binding EscalationThread.Status}"></ComboBox>
-                                                </DataTemplate>
-                                            </controls:DataGridTemplatedColumn.CellTemplate>
-                                            <controls:DataGridTemplatedColumn.Header>
-                                                <TextBlock FontWeight="Bold" FontSize="15"  Text="EscalationStatus" Foreground="Black" />
-                                            </controls:DataGridTemplatedColumn.Header>
-                                        </controls:DataGridTemplatedColumn>
+                                     
                                     </controls:DataGrid.Columns>
                                    
                                     <controls:DataGrid.RowStyle>
