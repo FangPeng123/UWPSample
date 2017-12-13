@@ -61,17 +61,11 @@ namespace EscalationSystem
                         //SHToastNotification.ShowToastNotification("Square150x150Logo.scale-200.png", $"已复制 {val}", NotificationAudioNames.Default,true);
                     }
 
-            if (currentUser.Equals("Fang Peng"))
-            {
-                VendorButton.Visibility = Visibility.Visible;
-                FTEButton.Visibility = Visibility.Visible;
-            }
-
-
                     else if (userAlias.Equals("fapeng"))
                     {
-                        VendorButton.Visibility = Visibility.Visible;
-                        FTEButton.Visibility = Visibility.Visible;
+                        //VendorButton.Visibility = Visibility.Visible;
+                        //FTEButton.Visibility = Visibility.Visible;
+                        this.Frame.Navigate(typeof(LoginPage));
 
                         //string val = userAlias;
                         //new Views.ShowNotificationForm("Login Successful").show();

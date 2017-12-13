@@ -8,6 +8,17 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <StackPanel Width="500" Height="300"  Background="#FFCBF7F7"  Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <TextBlock Text="Login" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="Black" FontSize="30" Margin="0,0,0,41"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <RadioButton Name="FTERadioButton" Width="350" FontWeight="Bold">FTE</RadioButton>
+                <RadioButton Name="VendorRadioButton" Width="150" FontWeight="Bold">Vendor</RadioButton>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Alias:" FontWeight="Bold" Margin="0,32,0,0"></TextBlock>
+                <TextBox Name="AliasTxt" Margin="0,0,56,0"></TextBox>
+                <Button Content="Submit" Name="Submit" Click="Submit_Click" FontWeight="Bold" HorizontalAlignment="Center" Background="Aqua" Margin="0,48,0,0"></Button>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Page>

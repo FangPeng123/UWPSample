@@ -26,5 +26,13 @@ namespace EscalationSystem.Views
         {
             this.InitializeComponent();
         }
+
+        private void Submit_Click(object sender, RoutedEventArgs e)
+        {
+            if(FTERadioButton.IsChecked==false&&VendorRadioButton.IsChecked==false&&)
+            {
+
+            }
+        }
     }
 }
