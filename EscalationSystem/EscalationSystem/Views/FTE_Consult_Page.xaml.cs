@@ -220,21 +220,7 @@ namespace EscalationSystem.Views
             }
         }
 
-        public async void AddConsultThread(ConsultThread consultThread)
-        {
-            HttpClient HttpClient = new HttpClient();
-            var json = JsonConvert.SerializeObject(consultThread);
-            var stringContent = new HttpStringContent(json,
-                         Windows.Storage.Streams.UnicodeEncoding.Utf8,
-                         "application/json");
-            var HttpResponseMessage = await HttpClient.PutAsync(new Uri("http://escalationmanagerwebapi.azurewebsites.net/Help/Api/POST-api-cthreads"), stringContent);
-            if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
-            {
-                MessageDialog messageDialog = new MessageDialog("Add the consult thread Sucessfully!!");
-                await messageDialog.ShowAsync();
-            }
-
-        }
+   
         private void LastImage_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (EscalationThreadList.Count == 0)
@@ -307,6 +293,40 @@ namespace EscalationSystem.Views
             Product product = (Product)AddPanelPlatformCombox.SelectedValue;
             ObservableCollection<string> Allforum = await FTEConsultThreadViewModel.GetAllForum(product.Platform);
             AddPanelForumCombox.DataContext = Allforum;           
+        }
+
+        private async void AddConsultThread_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(CaseLinkTxt.Text.ToString()) == false && string.IsNullOrEmpty(VendorAliasTxt.Text.ToString()) && AddPanelPlatformCombox.SelectedIndex >= 0 && AddPanelForumCombox.SelectedIndex >= 0)
+            {
+                ConsultThread consultThread = new ConsultThread();
+                consultThread.Description = "";
+                consultThread.Forum = AddPanelForumCombox.SelectedValue.ToString();
+                consultThread.Platform = ((Product)AddPanelPlatformCombox.SelectedValue).Platform;
+                consultThread.Reason = "";
+                consultThread.SrescalationId = "";
+                consultThread.Status = "";
+                consultThread.Title = "";
+                consultThread.ThreadId = "";
+                consultThread.Url = CaseLinkTxt.Text.ToString();
+                Windows.Storage.ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                string userAlias = LocalSettings.Values["currentUserAlias"].ToString();
+                consultThread.FteAlias = userAlias;
+                consultThread.VendorAlias = VendorAliasTxt.Text.ToString();
+                consultThread.EscalatedDatetime = DateTime.Now;
+                consultThread.IsManaged = false;
+                consultThread.Labor = "";
+                consultThread.LastreplyDatetime = DateTime.Now;
+                consultThread.LastreplyFromOp = DateTime.Now;
+                consultThread.ThreadCreatedDatetime = DateTime.Now;
+                FTEConsultThreadViewModel.AddConsultThread(consultThread);
+            }
+
+            else
+            {
+                MessageDialog messageDialog = new MessageDialog("Please fill all the fields!!!");
+                await messageDialog.ShowAsync();
+            }
         }
     }
 }

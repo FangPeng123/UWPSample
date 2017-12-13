@@ -51,12 +51,12 @@
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Width="80" Foreground="White" Text="Case Link"  VerticalAlignment="Center"></TextBlock>
-                                    <TextBox Width="500" ></TextBox>
+                                    <TextBox Name="CaseLinkTxt" Width="500" ></TextBox>
                                 </StackPanel>
                                 <TextBlock Height="15"></TextBlock>
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
                                     <TextBlock Width="80" Foreground="White" Text="Vendor Alias" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
-                                    <TextBox Width="500" ></TextBox>
+                                    <TextBox Name="VendorAliasTxt" Width="500" ></TextBox>
                                 </StackPanel>
                                 <TextBlock Height="15"></TextBlock>
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
@@ -82,7 +82,7 @@
                                 </ComboBox>
                                     </StackPanel>
                                 </StackPanel>
-                            <Image HorizontalAlignment="Left" Width="35" Height="35" Source="/Assets/add.png"></Image>
+                            <Image Name="AddConsultThread" Tapped="AddConsultThread_Tapped" HorizontalAlignment="Left" Width="35" Height="35" Source="/Assets/add.png"></Image>
                                
                             </StackPanel>
 

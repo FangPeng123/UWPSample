@@ -146,6 +146,22 @@ namespace EscalationSystem.ViewModels
 
             return AllPageIndex;
         }
+
+        public async void AddConsultThread(ConsultThread consultThread)
+        {
+            HttpClient HttpClient = new HttpClient();
+            var json = JsonConvert.SerializeObject(consultThread);
+            var stringContent = new HttpStringContent(json,
+                         Windows.Storage.Streams.UnicodeEncoding.Utf8,
+                         "application/json");
+            var HttpResponseMessage = await HttpClient.PutAsync(new Uri("http://escalationmanagerwebapi.azurewebsites.net/Help/Api/POST-api-cthreads"), stringContent);
+            if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
+            {
+                MessageDialog messageDialog = new MessageDialog("Add the consult thread Sucessfully!!");
+                await messageDialog.ShowAsync();
+            }
+
+        }
         public async Task<ObservableCollectionView<EscalationAndStatusThread>> QueryAllEscalationAndStatusThread(ProductWithSelectedItem AllMyPlatform, string startDatestring, string endDatestring)
         {
             Windows.Storage.ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
