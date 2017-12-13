@@ -71,9 +71,9 @@
                                     </ComboBox>
                               
                                 <TextBlock Width="30"></TextBlock>
-                                 <StackPanel Orientation="Horizontal"  Name="ForumStackPanel">
+                                 <StackPanel Orientation="Horizontal"  Name="ForumStackPanel" Visibility="Collapsed">
                                 <TextBlock Text="Forum" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White"></TextBlock>
-                                <ComboBox Name="AddPanelForumCombox" PlaceholderText="Please Choose Forum" IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}"  Foreground="White">
+                                <ComboBox Name="AddPanelForumCombox" ItemsSource="{Binding}" PlaceholderText="Please Choose Forum" IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}"  Foreground="White">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding}"/>

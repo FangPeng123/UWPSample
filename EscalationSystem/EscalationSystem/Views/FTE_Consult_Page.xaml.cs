@@ -62,9 +62,20 @@ namespace EscalationSystem.Views
         {
             FTEConsultThreadViewModel = await FTEConsultThreadViewModel.GetFTEConsultThreadViewModel();
             EscalatonStatusList = FTEConsultThreadViewModel.AllEscalationStatusList;
-          
+           
             AllMyPlatform = FTEConsultThreadViewModel.AllPratfromList;
             PlatformComboBox.DataContext = AllMyPlatform;
+
+            ObservableCollection<Product> ProductList = new ObservableCollection<Product>();
+            foreach(var item in AllMyPlatform.MyProductList)
+            {
+            
+                if(item.Platform!="All")
+                {
+                    ProductList.Add(item);
+                }
+            }
+            AllMyPlatform.MyProductList = ProductList;
             AddPanelPlatformCombox.DataContext = AllMyPlatform;
             PageComboBox.SelectedIndex = 0;
             QueryButton_Click(sender, e);
@@ -209,6 +220,21 @@ namespace EscalationSystem.Views
             }
         }
 
+        public async void AddConsultThread(EscalationThread escalationThread)
+        {
+            HttpClient HttpClient = new HttpClient();
+            var json = JsonConvert.SerializeObject(escalationThread);
+            var stringContent = new HttpStringContent(json,
+                         Windows.Storage.Streams.UnicodeEncoding.Utf8,
+                         "application/json");
+            var HttpResponseMessage = await HttpClient.PutAsync(new Uri("http://escalationmanagerwebapi.azurewebsites.net/api/ethreads"), stringContent);
+            if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
+            {
+                MessageDialog messageDialog = new MessageDialog("Modify the Status Sucessfully!!");
+                await messageDialog.ShowAsync();
+            }
+
+        }
         private void LastImage_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (EscalationThreadList.Count == 0)
@@ -277,10 +303,10 @@ namespace EscalationSystem.Views
 
         private async void AddPanelPlatformCombox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-         
-                Product product = (Product)PlatformComboBox.SelectedValue;
-                ObservableCollection<string> Allforum = await FTEConsultThreadViewModel.GetAllForum(product.Platform);
-                AddPanelForumCombox.DataContext = Allforum;           
+            ForumStackPanel.Visibility = Visibility.Visible;
+            Product product = (Product)AddPanelPlatformCombox.SelectedValue;
+            ObservableCollection<string> Allforum = await FTEConsultThreadViewModel.GetAllForum(product.Platform);
+            AddPanelForumCombox.DataContext = Allforum;           
         }
     }
 }
