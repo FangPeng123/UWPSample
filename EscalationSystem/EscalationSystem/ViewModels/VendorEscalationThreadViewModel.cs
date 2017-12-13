@@ -150,6 +150,8 @@ namespace EscalationSystem.ViewModels
         }
         public async Task<ObservableCollectionView<EscalationAndStatusThread>> QueryAllEscalationAndStatusThread(ProductWithSelectedItem AllMyPlatform, EscalationStatusWithSelectedItem EscalatonStatusList, string startDatestring, string endDatestring)
         {
+            Windows.Storage.ApplicationDataContainer LocalSettings =Windows.Storage.ApplicationData.Current.LocalSettings;
+            string userAlias = LocalSettings.Values["currentUserAlias"].ToString();
             ObservableCollectionView<EscalationAndStatusThread> EscalationThreadList = new ObservableCollectionView<EscalationAndStatusThread>();
             HttpClient HttpClient = new HttpClient();
             Product MyProduct = new Product();
@@ -158,7 +160,7 @@ namespace EscalationSystem.ViewModels
             EscalationStatus MyEscalationStatus = new EscalationStatus();
             MyEscalationStatus = EscalatonStatusList.SelectedItem;
             string status = MyEscalationStatus.Status;
-            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/ethreads?etime1={0}&etime2={1}&alias={2}&platform={3}&forum={4}&status={5}", startDatestring, endDatestring, "fapeng", plaform, "", status)));
+            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/ethreads?etime1={0}&etime2={1}&alias={2}&platform={3}&forum={4}&status={5}", startDatestring, endDatestring, "v-luyong", plaform, "", status)));
             ObservableCollection<EscalationThread> AllMyEscalationThread = new ObservableCollection<EscalationThread>();
             if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
             {

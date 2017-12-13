@@ -36,9 +36,10 @@
                                 <StackPanel Orientation="Horizontal" Background="#FF2196F3">
                                     <Grid Margin="0,0,0,0" Width="{Binding ScreenWidth}">
                                         <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                                            <ColumnDefinition Width="1.5*"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="1.5*"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
                                         <StackPanel  Grid.Column="0"  Orientation="Horizontal">
@@ -53,7 +54,7 @@
                                         <StackPanel HorizontalAlignment="Right" Grid.Column="2" Orientation="Horizontal">
 
                                             <TextBlock Text="Platform" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White"></TextBlock>
-                                            <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding MyProductList}" SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Right" Name="PlatformComboBox"   Foreground="White">
+                                            <ComboBox SelectionChanged="PlatformComboBox_SelectionChanged" IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding MyProductList}" SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Right" Name="PlatformComboBox"   Foreground="White">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Text="{Binding Platform}"/>
@@ -61,7 +62,17 @@
                                                 </ComboBox.ItemTemplate>
                                             </ComboBox>
                                         </StackPanel>
-                                        <Button IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Click="QueryButton_Click" Name="QueryButton"  BorderBrush="#FF145A92" BorderThickness="2" Width="70"  Grid.Column="3" HorizontalAlignment="Right"   Foreground="White" Content="Query" Background="#FF2196F3" ></Button>
+                                        <StackPanel HorizontalAlignment="Right" Grid.Column="3" Orientation="Horizontal">
+                                            <TextBlock Text="Forum" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White"></TextBlock>
+                                            <ComboBox  Name="ForumCombobox" IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding}"  HorizontalAlignment="Right" Foreground="White">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding}"/>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <Button IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Click="QueryButton_Click" Name="QueryButton"  BorderBrush="#FF145A92" BorderThickness="2" Width="70"  Grid.Column="4" HorizontalAlignment="Right"   Foreground="White" Content="Query" Background="#FF2196F3" ></Button>
                                     </Grid>
                                 </StackPanel>
                             </StackPanel>

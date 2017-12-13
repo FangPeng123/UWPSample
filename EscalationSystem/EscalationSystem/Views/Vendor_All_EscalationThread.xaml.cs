@@ -48,6 +48,7 @@ namespace EscalationSystem.Views
             this.SizeChanged += Vendor_All_EscalationThread_SizeChanged;
             EscalatonStatusList = new EscalationStatusWithSelectedItem();
             AllMyPlatform = new ProductWithSelectedItem();
+
             EscalationThreadList = new ObservableCollectionView<EscalationAndStatusThread>();
             EscalationThreadListPage = new ObservableCollectionView<EscalationAndStatusThread>();
             VendorEscalationThreadViewModel = new VendorEscalationThreadViewModel();
@@ -67,6 +68,7 @@ namespace EscalationSystem.Views
             AllMyPlatform = VendorEscalationThreadViewModel.AllPratfromList;
             PlatformComboBox.DataContext = AllMyPlatform;
             PageComboBox.SelectedIndex = 0;
+            //ForumComboBox.DataContext = AllMyPlatform;
             QueryButton_Click(sender, e);
 
 

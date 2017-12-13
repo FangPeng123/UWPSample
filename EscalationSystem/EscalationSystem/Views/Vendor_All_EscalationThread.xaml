@@ -44,6 +44,7 @@
                                     <ColumnDefinition Width="3*"></ColumnDefinition>
                                     <ColumnDefinition Width="1.5*"></ColumnDefinition>
                                     <ColumnDefinition Width="2*"></ColumnDefinition>
+                                  
                                     <ColumnDefinition Width="1.5*"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
@@ -66,7 +67,8 @@
                                             </ComboBox.ItemTemplate>
                                         </ComboBox>
                                     </StackPanel>
-                                <StackPanel HorizontalAlignment="Right" Grid.Column="3" Orientation="Horizontal">
+                                   
+                                    <StackPanel HorizontalAlignment="Right" Grid.Column="3" Orientation="Horizontal">
                                     <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center" Text="Status" Foreground="White"></TextBlock>
                                         <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding MyEscalationStatusList}" SelectedItem="{Binding SelectedItem}" Name="StatusComboBox" HorizontalAlignment="Right" Foreground="White">
                                             <ComboBox.ItemTemplate>
@@ -108,13 +110,13 @@
                                                     <Image  VerticalAlignment="Center"            
                    Width="22" Height="22" Source="/Assets/Lock.png"></Image>
                                                     <TextBlock Width="10"></TextBlock>
-                                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Text="{Binding EscalationThread.VendorAlias}"                 
+                                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Text="{Binding EscalationThread.FteAlias}"                 
                   d:DataContext="{d:DesignInstance Type=Model:EscalationAndStatusThread}"></TextBlock>
                                                 </StackPanel>
                                             </DataTemplate>
                                         </controls:DataGridTemplatedColumn.CellTemplate>
                                         <controls:DataGridTemplatedColumn.Header>
-                                            <TextBlock FontSize="15" FontWeight="Bold" Text="Owner"></TextBlock>
+                                            <TextBlock FontSize="15" FontWeight="Bold" Text="FTEOwner"></TextBlock>
                                         </controls:DataGridTemplatedColumn.Header>
                                     </controls:DataGridTemplatedColumn>
 
