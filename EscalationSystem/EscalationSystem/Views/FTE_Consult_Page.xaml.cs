@@ -66,7 +66,7 @@ namespace EscalationSystem.Views
         {
             FTEConsultThreadViewModel = await FTEConsultThreadViewModel.GetFTEConsultThreadViewModel();
             EscalatonStatusList = FTEConsultThreadViewModel.AllEscalationStatusList;
-            
+            AddRecordsPanle.Visibility = Visibility.Collapsed;
             AllMyPlatform = FTEConsultThreadViewModel.AllPratfromList;
             PlatformComboBox.DataContext = AllMyPlatform;
             PageComboBox.SelectedIndex = 0;

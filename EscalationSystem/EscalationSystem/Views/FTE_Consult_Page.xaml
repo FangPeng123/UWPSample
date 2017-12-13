@@ -47,7 +47,7 @@
                                 <TextBlock Width="5"></TextBlock>
                                 <TextBlock Foreground="White" FontWeight="Bold" Text="Add Consult Thread"></TextBlock>
                             </StackPanel>
-                            <StackPanel Visibility="Collapsed" Background="#FF7CBDF1" Name="AddRecordsPanle" Orientation="Vertical" >
+                            <StackPanel Visibility="Visible" Background="#FF7CBDF1" Name="AddRecordsPanle" Orientation="Vertical" >
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Width="80" Foreground="White" Text="Case Link"  VerticalAlignment="Center"></TextBlock>
@@ -62,15 +62,25 @@
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
                                     <TextBlock Width="80"  Text="Platform" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White"></TextBlock>
-                                    <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding MyProductList}" SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Right"    Foreground="White">
+                                    <ComboBox  IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding MyProductList}" SelectedItem="{Binding SelectedItem}" Foreground="White">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
                                                 <TextBlock Text="{Binding Platform}"/>
                                             </DataTemplate>
                                         </ComboBox.ItemTemplate>
                                     </ComboBox>
-                                </StackPanel>
-                                <Image HorizontalAlignment="Left" Width="35" Height="35" Source="/Assets/add.png"></Image>
+                              
+                                <TextBlock Width="30"></TextBlock>
+                                <TextBlock Text="Forum" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White"></TextBlock>
+                                <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}"  Foreground="White">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </StackPanel>
+                            <Image HorizontalAlignment="Left" Width="35" Height="35" Source="/Assets/add.png"></Image>
                                
                             </StackPanel>
 
