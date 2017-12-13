@@ -220,17 +220,17 @@ namespace EscalationSystem.Views
             }
         }
 
-        public async void AddConsultThread(EscalationThread escalationThread)
+        public async void AddConsultThread(ConsultThread consultThread)
         {
             HttpClient HttpClient = new HttpClient();
-            var json = JsonConvert.SerializeObject(escalationThread);
+            var json = JsonConvert.SerializeObject(consultThread);
             var stringContent = new HttpStringContent(json,
                          Windows.Storage.Streams.UnicodeEncoding.Utf8,
                          "application/json");
-            var HttpResponseMessage = await HttpClient.PutAsync(new Uri("http://escalationmanagerwebapi.azurewebsites.net/api/ethreads"), stringContent);
+            var HttpResponseMessage = await HttpClient.PutAsync(new Uri("http://escalationmanagerwebapi.azurewebsites.net/Help/Api/POST-api-cthreads"), stringContent);
             if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
             {
-                MessageDialog messageDialog = new MessageDialog("Modify the Status Sucessfully!!");
+                MessageDialog messageDialog = new MessageDialog("Add the consult thread Sucessfully!!");
                 await messageDialog.ShowAsync();
             }
 

@@ -55,7 +55,7 @@
                                 </StackPanel>
                                 <TextBlock Height="15"></TextBlock>
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                                    <TextBlock Width="80" Foreground="White" Text="Case Onwer" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                                    <TextBlock Width="80" Foreground="White" Text="Vendor Alias" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
                                     <TextBox Width="500" ></TextBox>
                                 </StackPanel>
                                 <TextBlock Height="15"></TextBlock>
