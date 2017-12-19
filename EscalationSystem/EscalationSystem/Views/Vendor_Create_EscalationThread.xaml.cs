@@ -254,7 +254,7 @@ namespace EscalationSystem.Views
                 {
                     await new MessageDialog("Add Escalation Thread Failed! ").ShowAsync();
                 }
-                //bool resultemail = await SendEscalationEmail();
+               
             }
             else
             {
@@ -428,25 +428,5 @@ namespace EscalationSystem.Views
         public string TokenType { get; set; }
     }
 
-    //public class SendMes
-    //{
-    //    public string ThreadId { get; set; }
-    //    public string Url { get; set; }
-    //    public string Title { get; set; }
-    //    public string Forum { get; set; }
-    //    public string Platform { get; set; }
-    //    public string ThreadCreatedDatetime { get; set; }
-    //    public string LastreplyDatetime { get; set; }
-    //    public bool LastreplyFromOp { get; set; }
-    //    public string EscalatedDatetime { get; set; }
-    //    public string VendorAlias { get; set; }
-    //    public string FteAlias { get; set; }
-    //    public string Reason { get; set; }
-    //    public string Description { get; set; }
-    //    public int Labor { get; set; }
-    //    public string SrescalationId { get; set; }
-    //    public string Status { get; set; }
-    //    public bool IsManaged { get; set; }
-    //}
-
+   
 }
