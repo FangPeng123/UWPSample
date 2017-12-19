@@ -25,7 +25,7 @@
                 <StackPanel Name="Platform"  Orientation="Horizontal" HorizontalAlignment="Left">
                     <TextBlock Text="Platform" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Text="" Width="10"></TextBlock>
-                    <ComboBox x:Name="complatform" PlaceholderText="Please select a platform" Width="200" ItemsSource="{Binding}" SelectionChanged="complatform_SelectionChanged" >
+                    <ComboBox x:Name="complatform"  PlaceholderText="Please select a platform" Width="200" ItemsSource="{Binding}" SelectionChanged="complatform_SelectionChanged" >
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Platform}"/>
@@ -39,7 +39,7 @@
                 <StackPanel Name="Forum" Orientation="Horizontal" HorizontalAlignment="Left">
                     <TextBlock Text="Forum" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Text="" Width="10"></TextBlock>
-                    <ComboBox  x:Name="comForum" PlaceholderText="Please select a Forum" Width="200" ItemsSource="{Binding}" SelectionChanged="comForum_SelectionChanged">
+                    <ComboBox IsEnabled="False" x:Name="comForum" PlaceholderText="Please select a Forum" Width="200" ItemsSource="{Binding}" SelectionChanged="comForum_SelectionChanged">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Forum}"/>
@@ -54,12 +54,8 @@
                 <StackPanel Name="FTE" Orientation="Horizontal" HorizontalAlignment="Left">
                     <TextBlock Text="FTE Onwer" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Text="" Width="10"></TextBlock>
-                    <ComboBox x:Name="comFTES" PlaceholderText="Please select a FTE" Width="200" ItemsSource="{Binding}">
-                        <!--<ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Alias}"/>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>-->
+                    <ComboBox IsEnabled="False" x:Name="comFTES" PlaceholderText="Please select a FTE" Width="200" ItemsSource="{Binding}">
+                     
                     </ComboBox>
 
                 </StackPanel>

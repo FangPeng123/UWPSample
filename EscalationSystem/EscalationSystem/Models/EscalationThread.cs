@@ -10,7 +10,7 @@ namespace EscalationSystem.Models
     public class EscalationThread: ViewModelBase
     {
 
-        public string ThreadID { get; set; }
+        public string ThreadId { get; set; }
         public string Url { get; set; }
         public string Title { get; set; }
         public string Forum { get; set; }
@@ -22,11 +22,12 @@ namespace EscalationSystem.Models
         public string VendorAlias { get; set; }
         public string FteAlias { get; set; }
         public string Reason { get; set; }
-        public string DEscription { get; set; }
+        public string Description { get; set; }
         public int Labor { get; set; }
-        public string SREscalationId { get; set; }
+        public string SrescalationId { get; set; }
         public string Status { get; set; }
         
+        public bool IsManaged { get; set; }
         
         //public string EscalationReason { get; set; }
         //public string EscalationStatus { get; set; }

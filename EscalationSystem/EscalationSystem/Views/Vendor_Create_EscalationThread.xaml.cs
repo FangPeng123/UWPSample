@@ -84,6 +84,7 @@ namespace EscalationSystem.Views
 
         private void complatform_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            comForum.IsEnabled = true;
             try
             {
     
@@ -122,6 +123,7 @@ namespace EscalationSystem.Views
 
         private void comForum_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            comFTES.IsEnabled = true;
             try
             {
                 ObservableCollection<Product> datasources = (ObservableCollection<Product>)(sender as ComboBox).DataContext;
@@ -168,7 +170,7 @@ namespace EscalationSystem.Views
                         }
                     }
                     comFTES.DataContext = ftes;
-                    comFTES.DisplayMemberPath = "Name";
+                    comFTES.DisplayMemberPath = "DisplayName";
                     comFTES.SelectedValuePath = "Alias";
                     comFTES.SelectedIndex = 0;
                 }
@@ -228,7 +230,7 @@ namespace EscalationSystem.Views
                         break;
                     }
                 }
-                SendMes mes = new SendMes();
+                EscalationThread mes = new EscalationThread();
                 mes.ThreadId = pathurlid;
                 mes.Url = pathurl;
                 string title = "";
@@ -236,9 +238,8 @@ namespace EscalationSystem.Views
                 mes.Title = title;
                 mes.Forum = Forum;
                 mes.Platform = Platform;
-
                 mes.LastreplyFromOp = true;
-                mes.EscalatedDatetime = DateTime.UtcNow.ToString();
+                mes.EscalatedDatetime = DateTime.Now;
                 mes.VendorAlias = ThreadOnwerTxt.Text;
                 mes.FteAlias = fte;
                 string reason = "";
@@ -248,9 +249,9 @@ namespace EscalationSystem.Views
                 txtDescription.Document.GetText(Windows.UI.Text.TextGetOptions.AdjustCrlf, out description);
                 mes.Description = description;
                 mes.Labor = 0;
-                mes.Status = "Escalated";
-                mes.ThreadCreatedDatetime = DateTime.UtcNow.ToString();
-                mes.LastreplyDatetime = DateTime.UtcNow.ToString();
+                mes.Status = "Open: New";
+                mes.ThreadCreatedDatetime = DateTime.Now;
+                mes.LastreplyDatetime = DateTime.Now;
                 mes.LastreplyFromOp = true;
                 mes.SrescalationId = "";
                 mes.IsManaged = false;
@@ -265,15 +266,21 @@ namespace EscalationSystem.Views
                 }
                 //bool resultemail = await SendEscalationEmail();
             }
+            else
+            {
+                MessageDialog messageDialog = new MessageDialog("Please fill all the fields!!!");
+                await messageDialog.ShowAsync();
+            }
         }
-        public async Task<bool> AddEscalationAndStatusThread(SendMes mes)
+        public async Task<bool> AddEscalationAndStatusThread(EscalationThread mes)
         {
             bool result = false;
-            HttpClient httpClient = new HttpClient();
-            HttpRequestMessage msg = new HttpRequestMessage(new HttpMethod("POST"), new Uri("http://escalationmanagerwebapi.azurewebsites.net/api/ethreads"));
-            msg.Content = new HttpStringContent(JsonConvert.SerializeObject(mes));
-            msg.Content.Headers.ContentType = new HttpMediaTypeHeaderValue("application/json");
-            HttpResponseMessage HttpResponseMessage = await httpClient.SendRequestAsync(msg).AsTask();
+            HttpClient HttpClient = new HttpClient();
+            var json = JsonConvert.SerializeObject(mes);
+            var stringContent = new HttpStringContent(json,
+                         Windows.Storage.Streams.UnicodeEncoding.Utf8,
+                         "application/json");
+            var HttpResponseMessage = await HttpClient.PostAsync(new Uri("http://escalationmanagerwebapi.azurewebsites.net/api/ethreads"), stringContent);
             if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
             {
                 var resultsss = await HttpResponseMessage.Content.ReadAsStringAsync();
@@ -287,8 +294,10 @@ namespace EscalationSystem.Views
                     CloudQueueMessage message = new CloudQueueMessage(JsonConvert.SerializeObject(mes));
                     await messageQueue.AddMessageAsync(message);
                 }
-                catch
+                catch(Exception e)
                 {
+                    MessageDialog messageDialog = new MessageDialog(e.Message);
+                    await messageDialog.ShowAsync();
                 }
             }
             return await Task.FromResult(result);
@@ -429,25 +438,25 @@ namespace EscalationSystem.Views
         public string TokenType { get; set; }
     }
 
-    public class SendMes
-    {
-        public string ThreadId { get; set; }
-        public string Url { get; set; }
-        public string Title { get; set; }
-        public string Forum { get; set; }
-        public string Platform { get; set; }
-        public string ThreadCreatedDatetime { get; set; }
-        public string LastreplyDatetime { get; set; }
-        public bool LastreplyFromOp { get; set; }
-        public string EscalatedDatetime { get; set; }
-        public string VendorAlias { get; set; }
-        public string FteAlias { get; set; }
-        public string Reason { get; set; }
-        public string Description { get; set; }
-        public int Labor { get; set; }
-        public string SrescalationId { get; set; }
-        public string Status { get; set; }
-        public bool IsManaged { get; set; }
-    }
+    //public class SendMes
+    //{
+    //    public string ThreadId { get; set; }
+    //    public string Url { get; set; }
+    //    public string Title { get; set; }
+    //    public string Forum { get; set; }
+    //    public string Platform { get; set; }
+    //    public string ThreadCreatedDatetime { get; set; }
+    //    public string LastreplyDatetime { get; set; }
+    //    public bool LastreplyFromOp { get; set; }
+    //    public string EscalatedDatetime { get; set; }
+    //    public string VendorAlias { get; set; }
+    //    public string FteAlias { get; set; }
+    //    public string Reason { get; set; }
+    //    public string Description { get; set; }
+    //    public int Labor { get; set; }
+    //    public string SrescalationId { get; set; }
+    //    public string Status { get; set; }
+    //    public bool IsManaged { get; set; }
+    //}
 
 }

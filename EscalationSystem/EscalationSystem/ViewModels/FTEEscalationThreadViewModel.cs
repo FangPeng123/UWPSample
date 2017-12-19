@@ -176,7 +176,7 @@ private EscalationStatusWithSelectedItem AllEscalationStatus_List;
             EscalationStatus MyEscalationStatus = new EscalationStatus();
             MyEscalationStatus = EscalatonStatusList.SelectedItem;
             string status = MyEscalationStatus.Status;
-            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/ethreads?etime1={0}&etime2={1}&alias={2}&platform={3}&forum={4}&status={5}", startDatestring, endDatestring, userAlias, plaform, "", status)));
+            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/ethreads?VendorAlias={0}&FteAlias={1}&Platform={2}&Forum={3}&Status={4}&CTime1={5}&CTime2={6}&ETime1={7}&ETime2={8}&RTime1={9}&RTime2={10}","",userAlias,plaform,"",status,"","",startDatestring, endDatestring, "","")));
             ObservableCollection<EscalationThread> AllMyEscalationThread = new ObservableCollection<EscalationThread>();
             if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
             {

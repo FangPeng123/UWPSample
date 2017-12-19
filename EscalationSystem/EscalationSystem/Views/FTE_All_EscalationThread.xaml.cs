@@ -198,7 +198,7 @@ namespace EscalationSystem.Views
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
             EscalationPopup.IsOpen = false;
-            EscalationThread.SREscalationId = SRTextBox.Text.ToString();
+            EscalationThread.SrescalationId = SRTextBox.Text.ToString();
             FTEEscalationThreadViewModel.ModifyStatus(EscalationThread);          
         }
 
