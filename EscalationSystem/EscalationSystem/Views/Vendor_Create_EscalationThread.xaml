@@ -21,6 +21,8 @@
                 </StackPanel>
 
                 <TextBlock Height="15"></TextBlock>
+                
+                
 
                 <StackPanel Name="Platform"  Orientation="Horizontal" HorizontalAlignment="Left">
                     <TextBlock Text="Platform" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
@@ -75,7 +77,12 @@
                     <TextBlock Height="15"></TextBlock>
                     <Line></Line>
                 </StackPanel>
-
+                
+                <StackPanel Name="ThreadID" Orientation="Vertical">
+                    <TextBlock Text="Thread ID" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                    <TextBox  x:Name="txtThreadID" Width="450" Height="50" HorizontalAlignment="Left"></TextBox>
+                    <TextBlock Height="15"></TextBlock>
+                </StackPanel>
                 <StackPanel Name="ThreadDescription" Orientation="Vertical" HorizontalAlignment="Left">
                     <TextBlock Text="Thread Description" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                     <RichEditBox x:Name="txtDescription" Width="450" Height="100" HorizontalAlignment="Left"></RichEditBox>

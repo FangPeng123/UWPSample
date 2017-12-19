@@ -220,18 +220,8 @@ namespace EscalationSystem.Views
 
             if (Platform != "" && Forum != "" && Platform != "" && fte != "" && pathurl != "")
             {
-                string pathurlid = "";
-                string[] urlsp = pathurl.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (string sr in urlsp)
-                {
-                    if (sr.Length == 36)
-                    {
-                        pathurlid = sr;
-                        break;
-                    }
-                }
                 EscalationThread mes = new EscalationThread();
-                mes.ThreadId = pathurlid;
+                mes.ThreadId = txtThreadID.Text.ToString();
                 mes.Url = pathurl;
                 string title = "";
                 txttitle.Document.GetText(Windows.UI.Text.TextGetOptions.AdjustCrlf, out title);

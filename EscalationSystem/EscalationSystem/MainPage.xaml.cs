@@ -51,7 +51,7 @@ namespace EscalationSystem
             {
                 if (item.Equals("MICROSOFT"))
                 {
-                    if (userAlias.Equals("v-luyong"))
+                    if (userAlias.Equals("conhe"))
                     {
                         VendorButton.Visibility = Visibility.Visible;
                         FTEButton.Visibility = Visibility.Visible;
