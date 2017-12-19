@@ -112,10 +112,10 @@
                                     </StackPanel>
                                     <StackPanel HorizontalAlignment="Right" Grid.Column="2" Orientation="Horizontal">
                                         <TextBlock Text="FTE" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White"></TextBlock>
-                                        <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding MyProductList}" SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Right" Name="PlatformComboBox"   Foreground="White">
+                                        <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding}"  HorizontalAlignment="Right" Name="FTEComboBox"   Foreground="White">
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding Platform}"/>
+                                                    <TextBlock Text="{Binding}"/>
                                                 </DataTemplate>
                                             </ComboBox.ItemTemplate>
                                         </ComboBox>

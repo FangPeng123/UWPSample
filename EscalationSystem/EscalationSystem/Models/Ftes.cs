@@ -12,5 +12,6 @@ namespace EscalationSystem.Models
         public string Name { get; set; }
         public string Platform { get; set; }
         public string Account { get; set; }
+        public string DisplayName { get; set; }
     }
 }

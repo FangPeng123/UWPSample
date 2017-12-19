@@ -165,13 +165,31 @@ namespace EscalationSystem.ViewModels
             }
 
         }
+        public async Task<List<string>>GetFTEList()
+        {
+            HttpClient HttpClient = new HttpClient();
+            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/ftes")));
+            List<string> AllFTEList = new List<string>();
+            if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
+            {
+                var result = await HttpResponseMessage.Content.ReadAsStringAsync();
+                List<Ftes>FTEList= JsonConvert.DeserializeObject<List<Ftes>>(result);
+                foreach(var fte in FTEList)
+                {
+                    AllFTEList.Add(fte.DisplayName);
+                }
+                
+            }
+            AllFTEList.Insert(0,"All");
+            var List=AllFTEList.Distinct().ToList();
+            return List;
+        }
         public async Task<ObservableCollectionView<ConsultThread>> QueryAllConsultThread(string platfrom, string startDatestring, string endDatestring)
         {
-            Windows.Storage.ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            string userAlias = LocalSettings.Values["currentUserAlias"].ToString();
+            
             ObservableCollectionView<ConsultThread> ConsultThreadList = new ObservableCollectionView<ConsultThread>();
             HttpClient HttpClient = new HttpClient();       
-            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/cthreads?Alias={0}&Platform={1}&Forum={2}&Status={3}&CTime1={4}&CTime2={5}&ETime1={6}&ETime2={7}&RTime1={8}&RTime2={9}", userAlias,platfrom,"","",startDatestring, endDatestring, "" ,"", "", "","")));
+            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/cthreads?Alias={0}&Platform={1}&Forum={2}&Status={3}&CTime1={4}&CTime2={5}&ETime1={6}&ETime2={7}&RTime1={8}&RTime2={9}", "All",platfrom,"","",startDatestring, endDatestring, "" ,"", "", "","")));
             ObservableCollection<ConsultThread> AllConsultThread = new ObservableCollection<ConsultThread>();
             if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
             {

@@ -76,6 +76,8 @@ namespace EscalationSystem.Views
                 }
                 AllMyPlatform.MyProductList = ProductList;
                 AddPanelPlatformCombox.DataContext = AllMyPlatform;
+                FTEComboBox.DataContext =await FTEConsultThreadViewModel.GetFTEList();
+                FTEComboBox.SelectedIndex = 0;
                 PageComboBox.SelectedIndex = 0;
                 QueryButton_Click(sender, e);
             }
@@ -101,7 +103,6 @@ namespace EscalationSystem.Views
                 AllRecords.Text = "0";
                 AllPageIndex.Text = "0";
                 PageTxt.Text = "0";
-
                 DateTime startDate = DateTime.Parse(StartDatePicker.Date.ToString());
                 string startDatestring = startDate.ToString("MM-dd-yyyy");
                 DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
