@@ -15,7 +15,7 @@ namespace EscalationSystem.Models
         public string Platform { get; set; }
         public DateTime ThreadCreatedDatetime { get; set; }
         public DateTime LastreplyDatetime { get; set; }
-        public DateTime LastreplyFromOp { get; set; }
+        public bool LastreplyFromOp { get; set; }
         public DateTime EscalatedDatetime { get; set; }
         public string VendorAlias { get; set; }
         public string FteAlias { get; set; }

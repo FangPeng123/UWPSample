@@ -73,6 +73,18 @@ namespace EscalationSystem
                         //new Views.ShowNotificationForm("Login Successful").show();
                         //SHToastNotification.ShowToastNotification("Square150x150Logo.scale-200.png", $"已复制 {val}", NotificationAudioNames.Default,true);
                     }
+                    else if (userAlias.Equals("jierong"))
+                    {
+                        VendorButton.Visibility = Visibility.Visible;
+                        FTEButton.Visibility = Visibility.Visible;
+                        count = 1;
+
+
+
+                        //string val = userAlias;
+                        //new Views.ShowNotificationForm("Login Successful").show();
+                        //SHToastNotification.ShowToastNotification("Square150x150Logo.scale-200.png", $"已复制 {val}", NotificationAudioNames.Default,true);
+                    }
 
                     else if (userAlias.Contains("v-"))
                     {

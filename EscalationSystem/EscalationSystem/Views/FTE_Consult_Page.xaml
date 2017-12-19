@@ -96,6 +96,7 @@
                                         <ColumnDefinition Width="3*"></ColumnDefinition>
                                         <ColumnDefinition Width="3*"></ColumnDefinition>
                                         <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1.5*"></ColumnDefinition>
                                         <ColumnDefinition Width="2*"></ColumnDefinition>
                                         <ColumnDefinition Width="1.5*"></ColumnDefinition>
                                   
@@ -110,7 +111,16 @@
                                         <DatePicker IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}"  Foreground="White" Name="EndDatePicker"  HorizontalAlignment="Right" VerticalAlignment="Center"></DatePicker>
                                     </StackPanel>
                                     <StackPanel HorizontalAlignment="Right" Grid.Column="2" Orientation="Horizontal">
-
+                                        <TextBlock Text="FTE" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White"></TextBlock>
+                                        <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding MyProductList}" SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Right" Name="PlatformComboBox"   Foreground="White">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Platform}"/>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <StackPanel HorizontalAlignment="Right" Grid.Column="3" Orientation="Horizontal">
                                         <TextBlock Text="Platform" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White"></TextBlock>
                                         <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding MyProductList}" SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Right" Name="PlatformComboBox"   Foreground="White">
                                             <ComboBox.ItemTemplate>
@@ -121,7 +131,7 @@
                                         </ComboBox>
                                     </StackPanel>
                                 
-                                    <StackPanel HorizontalAlignment="Right" Grid.Column="3" Orientation="Horizontal">
+                                    <StackPanel HorizontalAlignment="Right" Grid.Column="4" Orientation="Horizontal">
                                         <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center" Text="Items" Foreground="White"></TextBlock>
                                         <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Name="PageComboBox" HorizontalAlignment="Right" Foreground="White">
                                             <ComboBoxItem Content="10"></ComboBoxItem>
@@ -130,7 +140,7 @@
                                             <ComboBoxItem Content="100"></ComboBoxItem>
                                         </ComboBox>
                                     </StackPanel>
-                                    <Button IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Name="QueryButton" Click="QueryButton_Click" BorderBrush="#FF145A92" BorderThickness="2" Width="70"  Grid.Column="4" HorizontalAlignment="Right"   Foreground="White" Content="Query" Background="#FF2196F3" ></Button>
+                                    <Button IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Name="QueryButton" Click="QueryButton_Click" BorderBrush="#FF145A92" BorderThickness="2" Width="70"  Grid.Column="5" HorizontalAlignment="Right"   Foreground="White" Content="Query" Background="#FF2196F3" ></Button>
                                 </Grid>
                             </StackPanel>
                         </StackPanel>
@@ -147,36 +157,49 @@
                                                         <Image  VerticalAlignment="Center"            
                    Width="22" Height="22" Source="/Assets/Lock.png"></Image>
                                                         <TextBlock Width="10"></TextBlock>
-                                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Text="{Binding EscalationThread.VendorAlias}"                 
-                  d:DataContext="{d:DesignInstance Type=Model:EscalationAndStatusThread}"></TextBlock>
+                                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Text="{Binding FteAlias}"                 
+                  d:DataContext="{d:DesignInstance Type=Model:ConsultThread}"></TextBlock>
                                                     </StackPanel>
                                                 </DataTemplate>
                                             </controls:DataGridTemplatedColumn.CellTemplate>
                                             <controls:DataGridTemplatedColumn.Header>
-                                                <TextBlock FontSize="15" FontWeight="Bold" Text="Owner"></TextBlock>
+                                                <TextBlock FontSize="15" FontWeight="Bold" Text="FTEOnwer"></TextBlock>
+                                            </controls:DataGridTemplatedColumn.Header>
+                                        </controls:DataGridTemplatedColumn>
+                                        <controls:DataGridTemplatedColumn CanSort="False" Width="1.1*">
+                                            <controls:DataGridTemplatedColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Text="{Binding VendorAlias}"                 
+                  d:DataContext="{d:DesignInstance Type=Model:ConsultThread}"></TextBlock>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </controls:DataGridTemplatedColumn.CellTemplate>
+                                            <controls:DataGridTemplatedColumn.Header>
+                                                <TextBlock FontSize="15" FontWeight="Bold" Text="VendorOwner"></TextBlock>
                                             </controls:DataGridTemplatedColumn.Header>
                                         </controls:DataGridTemplatedColumn>
                                         <controls:DataGridTextColumn FontSize="15" Width="4.5*" CanSort="False"
-                  Binding="{Binding EscalationThread.Title}" d:DataContext="{d:DesignInstance Type=Model:EscalationAndStatusThread}">
+                  Binding="{Binding ThreadId}" d:DataContext="{d:DesignInstance Type=Model:ConsultThread}">
                                             <controls:DataGridTextColumn.Header>
-                                                <TextBlock  HorizontalAlignment="Right" FontSize="15" FontWeight="Bold" Text="ThreadTitle"></TextBlock>
+                                                <TextBlock  HorizontalAlignment="Right" FontSize="15" FontWeight="Bold" Text="ThreadID"></TextBlock>
                                             </controls:DataGridTextColumn.Header>
                                         </controls:DataGridTextColumn>
                                         <controls:DataGridTemplatedColumn CanSort="False" Width="4*">
                                             <controls:DataGridTemplatedColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <HyperlinkButton Foreground="#FF0563C1" FontSize="15" NavigateUri="{Binding EscalationThread.Url,Converter={StaticResource URLConverter}}" Content="{Binding EscalationThread.Url}" 
-                                                         d:DataContext="{d:DesignInstance Type=Model:EscalationAndStatusThread}"></HyperlinkButton>
+                                                    <HyperlinkButton Foreground="#FF0563C1" FontSize="15" NavigateUri="{Binding Url,Converter={StaticResource URLConverter}}" Content="{Binding Url}" 
+                                                         d:DataContext="{d:DesignInstance Type=Model:ConsultThread}"></HyperlinkButton>
                                                 </DataTemplate>
                                             </controls:DataGridTemplatedColumn.CellTemplate>
                                             <controls:DataGridTemplatedColumn.Header>
                                                 <TextBlock Text="ThreadURL" FontSize="15" FontWeight="Bold"></TextBlock>
                                             </controls:DataGridTemplatedColumn.Header>
                                         </controls:DataGridTemplatedColumn>
-                                        <controls:DataGridTextColumn FontSize="15" Width="1.7*" IsAscendingDefault="False" Binding="{Binding EscalationThread.EscalatedDatetime}" 
-                d:DataContext="{d:DesignInstance Type=Model:EscalationAndStatusThread}">
+                                        <controls:DataGridTextColumn FontSize="15" Width="1.7*" IsAscendingDefault="False" Binding="{Binding ThreadCreatedDatetime}" 
+                d:DataContext="{d:DesignInstance Type=Model:ConsultThread}">
                                             <controls:DataGridTextColumn.Header>
-                                                <TextBlock FontSize="15" FontWeight="Bold" Text="EscalationDate"></TextBlock>
+                                                <TextBlock FontSize="15" FontWeight="Bold" Text="ConsultDate"></TextBlock>
                                             </controls:DataGridTextColumn.Header>
                                         </controls:DataGridTextColumn>
 
@@ -185,8 +208,8 @@
                                             <controls:DataGridTemplatedColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <StackPanel VerticalAlignment="Center" Background="#FF2196F3">
-                                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="White" FontSize="15" Text="{Binding EscalationThread.Platform}" 
-                d:DataContext="{d:DesignInstance Type=Model:EscalationAndStatusThread}"></TextBlock>
+                                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Foreground="White" FontSize="15" Text="{Binding Platform}" 
+                d:DataContext="{d:DesignInstance Type=Model:ConsultThread}"></TextBlock>
                                                     </StackPanel>
                                                 </DataTemplate>
                                             </controls:DataGridTemplatedColumn.CellTemplate>

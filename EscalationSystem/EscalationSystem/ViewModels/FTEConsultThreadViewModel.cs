@@ -29,6 +29,7 @@ namespace EscalationSystem.ViewModels
             }
         }
 
+
         private EscalationStatusWithSelectedItem AllEscalationStatus_List;
         public EscalationStatusWithSelectedItem AllEscalationStatusList
         {
@@ -47,7 +48,7 @@ namespace EscalationSystem.ViewModels
                 AllEscalationStatus_List = value;
             }
         }
-
+       
         private ProductWithSelectedItem AllPratfrom_List;
         public ProductWithSelectedItem AllPratfromList
         {
@@ -66,6 +67,8 @@ namespace EscalationSystem.ViewModels
                 AllPratfrom_List = value;
             }
         }
+
+        
 
         public FTEConsultThreadViewModel()
         {
@@ -123,19 +126,19 @@ namespace EscalationSystem.ViewModels
         }
 
  
-        public int GetPageIndex(ObservableCollectionView<EscalationAndStatusThread> EscalationThreadList, int pageSize)
+        public int GetPageIndex(ObservableCollectionView<ConsultThread> ConsultThreadList, int pageSize)
         {
             int AllPageIndex;
-            if (EscalationThreadList.Count > pageSize)
+            if (ConsultThreadList.Count > pageSize)
             {
 
-                if (EscalationThreadList.Count % pageSize == 0)
+                if (ConsultThreadList.Count % pageSize == 0)
                 {
-                    AllPageIndex = EscalationThreadList.Count / pageSize;
+                    AllPageIndex = ConsultThreadList.Count / pageSize;
                 }
                 else
                 {
-                    AllPageIndex = (EscalationThreadList.Count / pageSize) + 1;
+                    AllPageIndex = (ConsultThreadList.Count / pageSize) + 1;
                 }
             }
 
@@ -162,34 +165,26 @@ namespace EscalationSystem.ViewModels
             }
 
         }
-        public async Task<ObservableCollectionView<EscalationAndStatusThread>> QueryAllEscalationAndStatusThread(ProductWithSelectedItem AllMyPlatform, string startDatestring, string endDatestring)
+        public async Task<ObservableCollectionView<ConsultThread>> QueryAllConsultThread(string platfrom, string startDatestring, string endDatestring)
         {
             Windows.Storage.ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             string userAlias = LocalSettings.Values["currentUserAlias"].ToString();
-            ObservableCollectionView<EscalationAndStatusThread> EscalationThreadList = new ObservableCollectionView<EscalationAndStatusThread>();
-            HttpClient HttpClient = new HttpClient();
-            Product MyProduct = new Product();
-            MyProduct = AllMyPlatform.SelectedItem;
-            string plaform = MyProduct.Platform;
-  
-          
-            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/ethreads?etime1={0}&etime2={1}&alias={2}&platform={3}&forum={4}&status={5}", startDatestring, endDatestring, userAlias, plaform, "", "All")));
-            ObservableCollection<EscalationThread> AllMyEscalationThread = new ObservableCollection<EscalationThread>();
+            ObservableCollectionView<ConsultThread> ConsultThreadList = new ObservableCollectionView<ConsultThread>();
+            HttpClient HttpClient = new HttpClient();       
+            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/cthreads?Alias={0}&Platform={1}&Forum={2}&Status={3}&CTime1={4}&CTime2={5}&ETime1={6}&ETime2={7}&RTime1={8}&RTime2={9}", userAlias,platfrom,"","",startDatestring, endDatestring, "" ,"", "", "","")));
+            ObservableCollection<ConsultThread> AllConsultThread = new ObservableCollection<ConsultThread>();
             if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
             {
-                EscalationThreadList.Items.Clear();
+                ConsultThreadList.Items.Clear();
                 var result = await HttpResponseMessage.Content.ReadAsStringAsync();
-                AllMyEscalationThread = JsonConvert.DeserializeObject<ObservableCollection<EscalationThread>>(result);
-                foreach (var escalationthread in AllMyEscalationThread)
+                AllConsultThread = JsonConvert.DeserializeObject<ObservableCollection<ConsultThread>>(result);
+                foreach(var consultThread in AllConsultThread)
                 {
-                    EscalationAndStatusThread EscalationAndStatusThread = new EscalationAndStatusThread();
-                    EscalationAndStatusThread.EscalationThread = escalationthread;
-                    EscalationThreadList.Items.Add(EscalationAndStatusThread);
-
+                    ConsultThreadList.Items.Add(consultThread);
                 }
             }
 
-            return EscalationThreadList;
+            return ConsultThreadList;
         }
     }
 }
