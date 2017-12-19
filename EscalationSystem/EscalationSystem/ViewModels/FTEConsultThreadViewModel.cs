@@ -154,7 +154,7 @@ namespace EscalationSystem.ViewModels
             var stringContent = new HttpStringContent(json,
                          Windows.Storage.Streams.UnicodeEncoding.Utf8,
                          "application/json");
-            var HttpResponseMessage = await HttpClient.PutAsync(new Uri("http://escalationmanagerwebapi.azurewebsites.net/Help/Api/POST-api-cthreads"), stringContent);
+            var HttpResponseMessage = await HttpClient.PostAsync(new Uri("http://escalationmanagerwebapi.azurewebsites.net/api/cthreads"), stringContent);
             if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
             {
                 MessageDialog messageDialog = new MessageDialog("Add the consult thread Sucessfully!!");

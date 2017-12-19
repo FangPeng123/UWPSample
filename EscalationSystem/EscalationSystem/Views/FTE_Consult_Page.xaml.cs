@@ -312,7 +312,7 @@ namespace EscalationSystem.Views
             AddPanelForumCombox.DataContext = Allforum;           
         }
 
-        public static int id= 0;
+   
         private async void AddConsultThread_Tapped(object sender, TappedRoutedEventArgs e)
         {
             try
@@ -327,7 +327,7 @@ namespace EscalationSystem.Views
                     consultThread.SrescalationId = "N/A";
                     consultThread.Status = "N/A";
                     consultThread.Title = "N/A";
-                    consultThread.ThreadId = (id++).ToString();
+                    consultThread.ThreadId = ThreadIDTxt.Text.ToString();
                     consultThread.Url = CaseLinkTxt.Text.ToString();
                     Windows.Storage.ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
                     string userAlias = LocalSettings.Values["currentUserAlias"].ToString();

@@ -55,8 +55,11 @@
                                 </StackPanel>
                                 <TextBlock Height="15"></TextBlock>
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                                    <TextBlock Width="80" Foreground="White" Text="ThreadID" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                                    <TextBox Name="ThreadIDTxt" Width="250" ></TextBox>
+                                    <TextBlock Width="20"></TextBlock>
                                     <TextBlock Width="80" Foreground="White" Text="VendorAlias" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
-                                    <TextBox Name="VendorAliasTxt" Width="500" ></TextBox>
+                                    <TextBox Name="VendorAliasTxt" Width="150" ></TextBox>
                                 </StackPanel>
                                 <TextBlock Height="15"></TextBlock>
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
