@@ -161,7 +161,7 @@ namespace EscalationSystem.ViewModels
             MyEscalationStatus = EscalatonStatusList.SelectedItem;
             string status = MyEscalationStatus.Status;
             
-            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/ethreads?etime1={0}&etime2={1}&alias={2}&platform={3}&forum={4}&status={5}", startDatestring, endDatestring, userAlias, plaform, "", status)));
+            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/ethreads?etime1={0}&etime2={1}&alias={2}&platform={3}&forum={4}&status={5}", startDatestring, endDatestring,userAlias, plaform, "", status)));
             ObservableCollection<EscalationThread> AllMyEscalationThread = new ObservableCollection<EscalationThread>();
             if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
             {

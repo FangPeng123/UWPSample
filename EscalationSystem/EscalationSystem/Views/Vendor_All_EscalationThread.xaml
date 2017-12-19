@@ -116,7 +116,7 @@
                                             </DataTemplate>
                                         </controls:DataGridTemplatedColumn.CellTemplate>
                                         <controls:DataGridTemplatedColumn.Header>
-                                            <TextBlock FontSize="15" FontWeight="Bold" Text="FTEOwner"></TextBlock>
+                                            <TextBlock FontSize="15" FontWeight="Bold" Text="FTEAlias"></TextBlock>
                                         </controls:DataGridTemplatedColumn.Header>
                                     </controls:DataGridTemplatedColumn>
 

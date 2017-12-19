@@ -108,8 +108,9 @@ namespace EscalationSystem.Views
                 DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
                 string endDatestring = endDate.ToString("MM-dd-yyyy");
                 Product product = (Product)PlatformComboBox.SelectedValue;
+                var alias = FTEComboBox.SelectedValue.ToString();
                 string platform = product.Platform;
-                ConsultThreadList = await FTEConsultThreadViewModel.QueryAllConsultThread(platform, startDatestring, endDatestring);
+                ConsultThreadList = await FTEConsultThreadViewModel.QueryAllConsultThread(alias,platform, startDatestring, endDatestring);
                 ComboBoxItem curItem = (ComboBoxItem)PageComboBox.SelectedItem;
                 pageSize = Convert.ToInt32(curItem.Content.ToString());
                 if (ConsultThreadList.Count == 0)

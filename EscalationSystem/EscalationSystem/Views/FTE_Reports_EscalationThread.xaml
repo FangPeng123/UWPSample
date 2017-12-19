@@ -76,7 +76,7 @@
                                     <controls:DataGridTextColumn FontSize="15" Width="*" CanSort="False"
                   Binding="{Binding Alias}" d:DataContext="{d:DesignInstance Type=Model:Report}">
                                         <controls:DataGridTextColumn.Header>
-                                            <TextBlock  HorizontalAlignment="Right" FontSize="15" FontWeight="Bold" Text="Alias"></TextBlock>
+                                            <TextBlock  HorizontalAlignment="Right" FontSize="15" FontWeight="Bold" Text="FTEAlias"></TextBlock>
                                         </controls:DataGridTextColumn.Header>
                                     </controls:DataGridTextColumn>
                                     <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding TotalNum}" 

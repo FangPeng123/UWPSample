@@ -72,7 +72,7 @@ namespace EscalationSystem.Views
                     if (AllMyPlatform.Count > 0)
                     {
                         complatform.DataContext = AllMyPlatform;
-                        complatform.SelectedIndex = 0;
+                       
                     }
                 }
             }
@@ -86,8 +86,7 @@ namespace EscalationSystem.Views
         {
             try
             {
-                //string Plaform = complatform.SelectedValue.ToString();
-                //bindcomboxForums(Plaform);
+    
                 string Plaform = ((sender as ComboBox).SelectedItem as Product).Platform as string;
                 if (Plaform != null)
                 {
@@ -112,7 +111,7 @@ namespace EscalationSystem.Views
                     var result = await HttpResponseMessage.Content.ReadAsStringAsync();
                     AllMyPlatformforums = JsonConvert.DeserializeObject<ObservableCollection<Product>>(result);
                     comForum.DataContext = AllMyPlatformforums;
-                    comForum.SelectedIndex = 0;
+                   
                 }
             }
             catch
@@ -230,7 +229,6 @@ namespace EscalationSystem.Views
                     }
                 }
                 SendMes mes = new SendMes();
-                //mes.ThreadId = "2237ce2f-018f-4033-b4d4-63924ee62e0b";
                 mes.ThreadId = pathurlid;
                 mes.Url = pathurl;
                 string title = "";
@@ -268,64 +266,6 @@ namespace EscalationSystem.Views
                 //bool resultemail = await SendEscalationEmail();
             }
         }
-
-
-
-        public async Task<bool> SendEscalationEmail()
-        {
-            bool result = false;
-
-            SmtpClient client = new SmtpClient("smtp-mail.outlook.com", 587, false, "DevComEN@outlook.com", "Password01!");
-            try
-            {
-                EmailMessage emailMessage = new EmailMessage();
-                //emailMessage.To.Add(new EmailRecipient("fapeng@microsoft.com"));
-                //emailMessage.CC.Add(new EmailRecipient("fapeng@microsoft.com"));
-                emailMessage.To.Add(new EmailRecipient("v-luyong@microsoft.com"));
-                emailMessage.CC.Add(new EmailRecipient("v-luyong@microsoft.com"));
-                emailMessage.Subject = "[Thread Escalation][Barry Wang]Can not connect ot the BLE device after creators update in UWP";
-                emailMessage.Body = "Please check the attachment for more detailed information about this Escalation Thread.";
-                Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-                Windows.Storage.StorageFile sampleFile =
-    await storageFolder.CreateFileAsync("EscalationDetails.txt",
-        Windows.Storage.CreationCollisionOption.ReplaceExisting);
-                //Windows.Storage.StorageFile sampleFile =await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///test.txt"));
-                List<string> lines = new List<string>();
-                lines.Add("Thread Title:");
-                lines.Add("[RS2:1703]Can not connect ot the BLE device after creators update");
-                lines.Add("----------------------------------------------------------------------------------------------------------------------");
-                lines.Add("Thread URL:");
-                lines.Add("https://social.msdn.microsoft.com/Forums/en-US/winforms/thread/fda7e9db-d2e0-411c-8f4f-75efa7f0af53/");
-                lines.Add("----------------------------------------------------------------------------------------------------------------------");
-                lines.Add("Issue Description:");
-                lines.Add("eeeeeeeeeeeeeeeeeee");
-                lines.Add("----------------------------------------------------------------------------------------------------------------------");
-                lines.Add("Escalation Reason:");
-                lines.Add("dffffffffff");
-                await Windows.Storage.FileIO.WriteLinesAsync(sampleFile, lines);
-                var stream = await sampleFile.OpenStreamForReadAsync();
-                IRandomAccessStream randomAccessStream = stream.AsRandomAccessStream();
-                var streamReference = Windows.Storage.Streams.RandomAccessStreamReference.CreateFromStream(randomAccessStream);
-                emailMessage.Attachments.Add(new EmailAttachment(sampleFile.Name, streamReference));
-                await client.SendMailAsync(emailMessage);
-                MessageDialog dialog = new MessageDialog("Send the Escalation Email Successuflly!");
-                await dialog.ShowAsync();
-
-                //Task<bool> tk = AddEscalationAndStatusThread();
-                //bool a = await tk;
-                // new MessageDialog(a.ToString()).ShowAsync();
-                result = true;
-            }
-            catch (Exception ex)
-            {
-                result = false;
-            }
-            return await Task.FromResult(result);
-
-        }
-
-
-
         public async Task<bool> AddEscalationAndStatusThread(SendMes mes)
         {
             bool result = false;
@@ -352,16 +292,6 @@ namespace EscalationSystem.Views
                 }
             }
             return await Task.FromResult(result);
-        }
-
-        private async void Addcase(object sender, RoutedEventArgs e)
-        {
-
-            //Task<bool> tk = AddEscalationAndStatusThread();
-            //bool a = await tk;
-            //new MessageDialog(a.ToString()).ShowAsync();
-
-            createchanneltoAuzreHub();
         }
 
 
@@ -431,25 +361,6 @@ namespace EscalationSystem.Views
                     }
                     await PostToWns(channel.Uri, tokenaccess, "Push Notification: " + message + ", " + DateTime.Now.ToString(), "wns/toast", "text/xml");
                     return await Task.FromResult("true");
-                    //Windows.Web.Http.HttpClient httpClient = new Windows.Web.Http.HttpClient();
-                    ////https://{namespace}.servicebus.windows.net/{NotificationHub}/messages/?api-version=2015-01
-                    //Uri requestUri = new Uri("https://tomtestnotification.servicebus.windows.net/" + hub.Path + "/messages/?api-version=2015-01");
-                    //HttpRequestMessage msg = new HttpRequestMessage(new HttpMethod("POST"), requestUri);
-                    //string templateBodyWNS = "<?xml version=\"1.0\" encoding=\"utf - 8\"?><toast> <visual lang = \"en-US\"><binding template = \"ToastText01\"><text id = \"1\"> This is my toast message for UWP!</text ></binding></visual></toast>";
-                    //msg.Content = new HttpStringContent(templateBodyWNS);
-                    //msg.Headers.Add("ServiceBusNotification-Format", "windows");
-                    //msg.Headers.Add("Authorization", String.Format("Bearer {0}", hub.AccessToken));
-                    //msg.Content.Headers.ContentType = new HttpMediaTypeHeaderValue("application/xml");
-                    //HttpResponseMessage HttpResponseMessage = await httpClient.SendRequestAsync(msg).AsTask();
-                    //if (HttpResponseMessage.StatusCode == Windows.Web.Http.HttpStatusCode.Ok)
-                    //{
-                    //    var resultsss = await HttpResponseMessage.Content.ReadAsStringAsync();
-                    //    return await Task.FromResult("true");
-                    //}
-                    //else
-                    //{
-                    //    return await Task.FromResult("false");
-                    //}
                 }
                 catch
                 {
