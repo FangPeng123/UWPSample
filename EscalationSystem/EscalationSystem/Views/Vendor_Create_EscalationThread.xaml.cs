@@ -183,8 +183,9 @@ namespace EscalationSystem.Views
 
 
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
+            
             string Platform = "";
             try
             {
@@ -248,22 +249,26 @@ namespace EscalationSystem.Views
                 bool reaultaddesc = await AddEscalationAndStatusThread(mes);
                 if (reaultaddesc)
                 {
+                    MyProgressRing.IsActive = false;
                     await new MessageDialog("Add Escalation Thread Successfully! ").ShowAsync();
                 }
                 else
                 {
+                    MyProgressRing.IsActive = false;
                     await new MessageDialog("Add Escalation Thread Failed! ").ShowAsync();
                 }
                
             }
             else
             {
+                MyProgressRing.IsActive = false;
                 MessageDialog messageDialog = new MessageDialog("Please fill all the fields!!!");
                 await messageDialog.ShowAsync();
             }
         }
         public async Task<bool> AddEscalationAndStatusThread(EscalationThread mes)
         {
+            MyProgressRing.IsActive = true;
             bool result = false;
             HttpClient HttpClient = new HttpClient();
             var json = JsonConvert.SerializeObject(mes);
@@ -283,23 +288,25 @@ namespace EscalationSystem.Views
                     CloudQueue messageQueue = queueClient.GetQueueReference("toast");
                     CloudQueueMessage message = new CloudQueueMessage(JsonConvert.SerializeObject(mes));
                     await messageQueue.AddMessageAsync(message);
+                    MyProgressRing.IsActive = false;
                 }
                 catch(Exception e)
                 {
                     MessageDialog messageDialog = new MessageDialog(e.Message);
                     await messageDialog.ShowAsync();
+                    MyProgressRing.IsActive = false;
                 }
             }
+            MyProgressRing.IsActive = false;
             return await Task.FromResult(result);
+         
         }
 
 
         NotificationHub hub;
         PushNotificationChannel channel;
         string tokenaccess = "";
-        /// <summary>
-        /// 首先创建
-        /// </summary>
+   
         private async void createchanneltoAuzreHub()
         {
             if (hub == null || channel == null)
@@ -416,7 +423,7 @@ namespace EscalationSystem.Views
             return toastXml.GetXml();
         }
 
-
+       
     }
 
     [DataContract]

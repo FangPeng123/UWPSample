@@ -47,6 +47,7 @@ namespace EscalationSystem.Views
         public FTEEscalationThreadViewModel FTEEscalationThreadViewModel{get;set;}
         public int pageSize;
         public static int i = 0;
+        public static int tag = 0;
         public FTE_All_EscalationThread()
         {
             this.InitializeComponent();
@@ -96,65 +97,74 @@ namespace EscalationSystem.Views
 
         private async void QueryButton_Click(object sender, RoutedEventArgs e)
         {
+
             try
             {
 
-
-                MyProgressRing.IsActive = true;
-                DataGrid.ItemsSource = null;
-                AllRecords.Text = "0";
-                AllPageIndex.Text = "0";
-                PageTxt.Text = "0";
-
-                DateTime startDate = DateTime.Parse(StartDatePicker.Date.ToString());
-                string startDatestring = startDate.ToString("MM-dd-yyyy");
-                DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
-                string endDatestring = endDate.ToString("MM-dd-yyyy");
-                EscalationThreadList = await FTEEscalationThreadViewModel.QueryAllEscalationAndStatusThread(AllMyPlatform, EscalatonStatusList, startDatestring, endDatestring);
-                ComboBoxItem curItem = (ComboBoxItem)PageComboBox.SelectedItem;
-                pageSize = Convert.ToInt32(curItem.Content.ToString());
-                if (EscalationThreadList.Count == 0)
+                if (tag == 0)
                 {
+
+                    MyProgressRing.IsActive = true;
+                    DataGrid.ItemsSource = null;
                     AllRecords.Text = "0";
                     AllPageIndex.Text = "0";
                     PageTxt.Text = "0";
-                    DataGrid.ItemsSource = EscalationThreadList;
-                    MyScrollView.Height = 100;
                 }
 
-                else if (EscalationThreadList.Count < 10)
-                {
-                    DataGrid.ItemsSource = EscalationThreadList;
-                    MyScrollView.Height = (EscalationThreadList.Count + 1) * 60;
-                    AllRecords.Text = EscalationThreadList.Count.ToString();
-                    AllPageIndex.Text = FTEEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
-                    PageTxt.Text = FTEEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
-                }
+                    tag = 1;
+                    MyProgressRing.IsActive = true;
+                    DateTime startDate = DateTime.Parse(StartDatePicker.Date.ToString());
+                    string startDatestring = startDate.ToString("MM-dd-yyyy");
+                    DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
+                    DateTime enddatelast = endDate.Date.AddDays(1);
+                    string endDatestring = enddatelast.ToString("MM-dd-yyyy");
+                    EscalationThreadList = await FTEEscalationThreadViewModel.QueryAllEscalationAndStatusThread(AllMyPlatform, EscalatonStatusList, startDatestring, endDatestring);
 
-                else
-                {
-                    AllRecords.Text = EscalationThreadList.Count.ToString();
-                    AllPageIndex.Text = FTEEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
-                    int AllPagesIndex = FTEEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize);
-                    PageTxt.Text = "1";
-                    if (EscalationThreadList.Count >= 10)
+                    ComboBoxItem curItem = (ComboBoxItem)PageComboBox.SelectedItem;
+                    pageSize = Convert.ToInt32(curItem.Content.ToString());
+                    if (EscalationThreadList.Count == 0)
                     {
-                        MyScrollView.Height = 650;
+                        AllRecords.Text = "0";
+                        AllPageIndex.Text = "0";
+                        PageTxt.Text = "0";
+                        DataGrid.ItemsSource = EscalationThreadList;
+                        MyScrollView.Height = 100;
                     }
-                    if (AllPagesIndex == 1)
+
+                    else if (EscalationThreadList.Count < 10)
                     {
                         DataGrid.ItemsSource = EscalationThreadList;
-
+                        MyScrollView.Height = (EscalationThreadList.Count + 1) * 60;
+                        AllRecords.Text = EscalationThreadList.Count.ToString();
+                        AllPageIndex.Text = FTEEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
+                        PageTxt.Text = FTEEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
                     }
+
                     else
                     {
-                        var EscalationThreadListPage = EscalationThreadList.Skip(0 * pageSize).Take(pageSize).ToList();
-                        DataGrid.ItemsSource = EscalationThreadListPage;
+                        AllRecords.Text = EscalationThreadList.Count.ToString();
+                        AllPageIndex.Text = FTEEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize).ToString();
+                        int AllPagesIndex = FTEEscalationThreadViewModel.GetPageIndex(EscalationThreadList, pageSize);
+                        PageTxt.Text = "1";
+                        if (EscalationThreadList.Count >= 10)
+                        {
+                            MyScrollView.Height = 650;
+                        }
+                        if (AllPagesIndex == 1)
+                        {
+                            DataGrid.ItemsSource = EscalationThreadList;
 
+                        }
+                        else
+                        {
+                            var EscalationThreadListPage = EscalationThreadList.Skip(0 * pageSize).Take(pageSize).ToList();
+                            DataGrid.ItemsSource = EscalationThreadListPage;
+
+                        }
                     }
-                }
-                await Task.Delay(new TimeSpan(3000));
-                MyProgressRing.IsActive = false;
+                    await Task.Delay(new TimeSpan(3000));
+                    MyProgressRing.IsActive = false;
+                
             }
             catch (Exception ex)
             {
@@ -309,10 +319,13 @@ namespace EscalationSystem.Views
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var it = DataGrid.Items.Count;
             if (DataGrid.Items.Count < 10)
             {
                 MyScrollView.Height = 600;
             }
+           
+      
         }
     }
 }

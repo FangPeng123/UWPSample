@@ -146,11 +146,10 @@ namespace EscalationSystemBackgroundTask
                         if (Notificationmess.Count != 0)
                         {
 
-                            // send WNS push Notification
+                            
                             await PostToWns(secret, sid, currentChannelUrl, currentOAuthToken, $"Push Notification: FTE_EscalationThread has {(Notificationmess.Count)} new records Added! Click to View.", "wns/toast", "text/xml");
 
-                            //// send local toast Notification
-                            //SHToastNotification.ShowToastNotification("Square150x150Logo.scale-200.png", $"FTE_EscalationThread has {(Notificationmess.Count)} new records Added! Click to View.", NotificationAudioNames.Default, JsonConvert.SerializeObject( Notificationmess));
+                        
                         }
                     }
                 }
@@ -162,10 +161,7 @@ namespace EscalationSystemBackgroundTask
             deferral.Complete();
         }
 
-        /// <summary>
-        /// 检测user合法性
-        /// </summary>
-        /// <returns></returns>
+      
         private async Task<bool> CheckUserExist()
         {
             bool exists = false;
@@ -195,41 +191,7 @@ Windows.Storage.ApplicationData.Current.LocalSettings;
             return await Task.FromResult(exists); ;
         }
 
-        ///// <summary>
-        ///// 获取所有的升级列表
-        ///// </summary>
-        ///// <returns></returns>
-        //private async Task<int?> GetCurrentdayFTE_ALL_EscalationThread()
-        //{
-        //    int? result = null;
-        //    try
-        //    {
-        //        //DateTime startDate = DateTime.Now;
-        //        //string startDatestring = startDate.ToString("MM-dd-yyyy");
-        //        //DateTime endDate = DateTime.Now;
-        //        //string endDatestring = endDate.ToString("MM-dd-yyyy");
-
-        //        DateTime startDate = DateTime.Parse("11-03-2017");
-        //        string startDatestring = startDate.ToString("MM-dd-yyyy");
-        //        DateTime endDate = DateTime.Parse("11-23-2017");
-        //        string endDatestring = endDate.ToString("MM-dd-yyyy");
-
-        //        HttpClient HttpClient = new HttpClient();
-        //        var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/ethreads?etime1={0}&etime2={1}&alias={2}&platform={3}&forum={4}&status={5}", startDatestring, endDatestring, "fapeng", "All", "", "All")));
-        //        List<EscalationThread> AllMyEscalationThread = new List<EscalationThread>();
-        //        if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
-        //        {
-        //            var results = await HttpResponseMessage.Content.ReadAsStringAsync();
-        //            AllMyEscalationThread = JsonConvert.DeserializeObject<List<EscalationThread>>(results);
-        //        }
-        //        result = AllMyEscalationThread.Count;
-        //    }
-        //    catch
-        //    {
-        //        result = null;
-        //    }
-        //    return await Task.FromResult(result);
-        //}
+ 
 
         private IAsyncOperation<List<EscalationStatus>> asyncOperation;
 
@@ -244,11 +206,7 @@ Windows.Storage.ApplicationData.Current.LocalSettings;
 
 
         List<EscalationStatus> a = new List<EscalationStatus>();
-        /// <summary>
-        /// 异步操作，有返回值， 无进度值
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        
         private void IAsyncOperationT_Click()
         {
 
@@ -388,7 +346,7 @@ Windows.Storage.ApplicationData.Current.LocalSettings;
             XmlNodeList toastTextElements = toastXml.GetElementsByTagName("text");
             toastTextElements[0].AppendChild(toastXml.CreateTextNode(xml));
             XmlNodeList toastImageAttributes = toastXml.GetElementsByTagName("image");
-            ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///assets/Edit.png");
+            ((XmlElement)toastImageAttributes[0]).SetAttribute("src", "ms-appx:///assets/Esc.png");
             ((XmlElement)toastImageAttributes[0]).SetAttribute("alt", "Logo");
 
             IXmlNode toastNode = toastXml.SelectSingleNode("/toast");

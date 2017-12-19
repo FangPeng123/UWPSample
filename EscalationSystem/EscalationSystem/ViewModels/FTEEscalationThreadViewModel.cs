@@ -11,6 +11,7 @@ using MyToolkit.Collections;
 using Windows.UI.Popups;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight;
+using Windows.UI.Notifications;
 
 namespace EscalationSystem.ViewModels
 {
@@ -136,8 +137,14 @@ private EscalationStatusWithSelectedItem AllEscalationStatus_List;
             var HttpResponseMessage = await HttpClient.PutAsync(new Uri("http://escalationmanagerwebapi.azurewebsites.net/api/ethreads"),stringContent);
             if(HttpResponseMessage.StatusCode==HttpStatusCode.Ok)
             {
-                MessageDialog messageDialog = new MessageDialog("Modify the Status Sucessfully!!");
-                await messageDialog.ShowAsync();
+                ToastNotifier ToastNotifier = ToastNotificationManager.CreateToastNotifier();
+                Windows.Data.Xml.Dom.XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastText02);
+                Windows.Data.Xml.Dom.XmlNodeList toastNodeList = toastXml.GetElementsByTagName("text");
+                toastNodeList.Item(0).AppendChild(toastXml.CreateTextNode("EscalationSystem Notification"));
+                toastNodeList.Item(1).AppendChild(toastXml.CreateTextNode("You have modify the thread status successfully!!"));
+                ToastNotification toast = new ToastNotification(toastXml);
+                toast.ExpirationTime = DateTime.Now.AddSeconds(5);
+                ToastNotifier.Show(toast);
             }
 
         }

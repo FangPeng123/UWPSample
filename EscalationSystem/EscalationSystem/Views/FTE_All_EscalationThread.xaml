@@ -202,7 +202,7 @@
                                                         </StackPanel>
                                                         <StackPanel Orientation="Vertical">
                                                             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  FontWeight="Black" Text="EscalationSRID:" Width="150"></TextBlock>
-                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{Binding EscalationThread.SREscalationId}"></TextBlock>
+                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{Binding EscalationThread.SrescalationId}"></TextBlock>
                                                         </StackPanel>
                                                     </StackPanel>
                                                 </Border>

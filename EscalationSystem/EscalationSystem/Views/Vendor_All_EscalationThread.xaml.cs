@@ -39,6 +39,7 @@ namespace EscalationSystem.Views
         public VendorEscalationThreadViewModel VendorEscalationThreadViewModel { get; set; }
         public int pageSize;
         public static int i = 0;
+        public static int tag = 0;
         public Vendor_All_EscalationThread()
         {
             this.InitializeComponent();
@@ -70,7 +71,6 @@ namespace EscalationSystem.Views
                 AllMyPlatform = VendorEscalationThreadViewModel.AllPratfromList;
                 PlatformComboBox.DataContext = AllMyPlatform;
                 PageComboBox.SelectedIndex = 0;
-                //ForumComboBox.DataContext = AllMyPlatform;
                 QueryButton_Click(sender, e);
 
             }
@@ -92,16 +92,21 @@ namespace EscalationSystem.Views
         {
             try
             {
+                if (tag == 0)
+                {
+                    MyProgressRing.IsActive = true;
+                    DataGrid.ItemsSource = null;
+                    AllRecords.Text = "0";
+                    AllPageIndex.Text = "0";
+                    PageTxt.Text = "0";
+                }
                 MyProgressRing.IsActive = true;
-                DataGrid.ItemsSource = null;
-                AllRecords.Text = "0";
-                AllPageIndex.Text = "0";
-                PageTxt.Text = "0";
-
+                tag = 1;
                 DateTime startDate = DateTime.Parse(StartDatePicker.Date.ToString());
                 string startDatestring = startDate.ToString("MM-dd-yyyy");
                 DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
-                string endDatestring = endDate.ToString("MM-dd-yyyy");
+                DateTime enddatelast = endDate.Date.AddDays(1);
+                string endDatestring = enddatelast.ToString("MM-dd-yyyy");
                 EscalationThreadList = await VendorEscalationThreadViewModel.QueryAllEscalationAndStatusThread(AllMyPlatform, EscalatonStatusList, startDatestring, endDatestring);
                 ComboBoxItem curItem = (ComboBoxItem)PageComboBox.SelectedItem;
                 pageSize = Convert.ToInt32(curItem.Content.ToString());

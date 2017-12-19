@@ -88,8 +88,7 @@ namespace EscalationSystem.ViewModels
             ObservableCollectionView<Report> ReportList = new ObservableCollectionView<Report>();
             HttpClient HttpClient = new HttpClient();
             Product MyProduct = new Product();
-            //MyProduct = AllMyPlatform.SelectedItem;
-            //string plaform = MyProduct.Platform;
+         
             
             var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/reports?Alias={0}&Platform={1}&Forum={2}&ETime1={3}&ETime2={4}&VFlag={5}", "All", plaform, forum, startDatestring, endDatestring, true)));
             ObservableCollection<Report> AllMyReport = new ObservableCollection<Report>();

@@ -8,11 +8,11 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid Background="White">
+        <Grid Background="Aqua">
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Button Name="VendorButton" Content="Vendor" Visibility="Collapsed" FontSize="50" FontWeight="Black" Background="#FF2196F3"  Height="300" Width="300" Click="Button_Click"/>
-                <Button Name="FTEButton" Content="FTE" Visibility="Collapsed" FontSize="50" FontWeight="Black" Background="#FF7CBDF1"  Height="300" Width="300" Click="Button_Click_1"/>
+                <Button Name="VendorButton" Visibility="Collapsed"  Content="Vendor" FontSize="50" FontWeight="Black" Background="#FF2196F3"  Height="300" Width="300" Click="Button_Click"/>
+                <Button Name="FTEButton" Visibility="Collapsed"  Content="FTE"  FontSize="50" FontWeight="Black" Background="#FF7CBDF1"  Height="300" Width="300" Click="Button_Click_1"/>
             </StackPanel>
          
         </Grid>

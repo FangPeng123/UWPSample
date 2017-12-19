@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="b4d55392-fdc8-4b11-9155-2d6176da04d1" Publisher="CN=fapeng" Version="1.0.0.0" />
-  <mp:PhoneIdentity PhoneProductId="b4d55392-fdc8-4b11-9155-2d6176da04d1" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="37492msdnwp.EscalationSystem" Publisher="CN=0CFC1B84-3BBD-482B-90FE-C72C349F6717" Version="1.1.0.0" />
+  <mp:PhoneIdentity PhoneProductId="17ab0171-6090-4504-b99c-296aa11cd60a" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>EscalationSystem</DisplayName>
-    <PublisherDisplayName>fapeng</PublisherDisplayName>
+    <PublisherDisplayName>msdnwp</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -16,9 +16,9 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="EscalationSystem.App">
       <uap:VisualElements DisplayName="EscalationSystem" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="EscalationSystem" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
         </uap:DefaultTile>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="white" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="aqua" />
       </uap:VisualElements>
       <Extensions>
         <Extension Category="windows.backgroundTasks" EntryPoint="EscalationSystemBackgroundTask.FTE_All_EscalationThread_Notification">

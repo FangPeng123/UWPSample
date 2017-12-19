@@ -106,7 +106,8 @@ namespace EscalationSystem.Views
                 DateTime startDate = DateTime.Parse(StartDatePicker.Date.ToString());
                 string startDatestring = startDate.ToString("MM-dd-yyyy");
                 DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
-                string endDatestring = endDate.ToString("MM-dd-yyyy");
+                DateTime enddatelast = endDate.Date.AddDays(1);
+                string endDatestring = enddatelast.ToString("MM-dd-yyyy");
                 Product product = (Product)PlatformComboBox.SelectedValue;
                 var alias = FTEComboBox.SelectedValue.ToString();
                 string platform = product.Platform;

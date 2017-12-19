@@ -73,7 +73,8 @@ namespace EscalationSystem.Views
                 DateTime startDate = DateTime.Parse(StartDatePicker.Date.ToString());
                 string startDatestring = startDate.ToString("MM-dd-yyyy");
                 DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
-                string endDatestring = endDate.ToString("MM-dd-yyyy");
+                DateTime enddatelast = endDate.Date.AddDays(1);
+                string endDatestring = enddatelast.ToString("MM-dd-yyyy");
                 AllMyReport = await FTEEscalationReportViewModel.QueryAllEscalationReport(AllMyPlatform, startDatestring, endDatestring);
                 DataGrid.ItemsSource = AllMyReport;
                 await Task.Delay(new TimeSpan(3));

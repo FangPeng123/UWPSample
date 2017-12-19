@@ -44,7 +44,6 @@
                                     <ColumnDefinition Width="3*"></ColumnDefinition>
                                     <ColumnDefinition Width="1.5*"></ColumnDefinition>
                                     <ColumnDefinition Width="2*"></ColumnDefinition>
-                                  
                                     <ColumnDefinition Width="1.5*"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
@@ -201,9 +200,13 @@
                                                     </StackPanel>
                                                     <StackPanel Orientation="Vertical">
                                                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  FontWeight="Black" Text="EscalationStatus:" Width="150"></TextBlock>
-                                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{Binding EscalationThread.Status}"></TextBlock>
+                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{Binding EscalationThread.Status}"></TextBlock>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Vertical">
+                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  FontWeight="Black" Text="EscalationSRID:" Width="150"></TextBlock>
+                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{Binding EscalationThread.SrescalationId}"></TextBlock>
+                                                        </StackPanel>
                                                     </StackPanel>
-                                                </StackPanel>
                                             </Border>
                                         </StackPanel>
                                     </DataTemplate>
