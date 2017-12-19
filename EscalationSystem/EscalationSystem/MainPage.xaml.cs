@@ -56,9 +56,7 @@ namespace EscalationSystem
                         VendorButton.Visibility = Visibility.Visible;
                         FTEButton.Visibility = Visibility.Visible;
                         count = 1;
-                        //string val = userAlias;
-                        //new Views.ShowNotificationForm("Login Successful").show();
-                        //SHToastNotification.ShowToastNotification("Square150x150Logo.scale-200.png", $"已复制 {val}", NotificationAudioNames.Default,true);
+                       
                     }
 
                     else if (userAlias.Equals("fapeng"))
@@ -67,11 +65,8 @@ namespace EscalationSystem
                         FTEButton.Visibility = Visibility.Visible;
                         count = 1;
 
-                        
+                  
 
-                        //string val = userAlias;
-                        //new Views.ShowNotificationForm("Login Successful").show();
-                        //SHToastNotification.ShowToastNotification("Square150x150Logo.scale-200.png", $"已复制 {val}", NotificationAudioNames.Default,true);
                     }
                     else if (userAlias.Equals("jierong"))
                     {
@@ -79,29 +74,18 @@ namespace EscalationSystem
                         FTEButton.Visibility = Visibility.Visible;
                         count = 1;
 
-
-
-                        //string val = userAlias;
-                        //new Views.ShowNotificationForm("Login Successful").show();
-                        //SHToastNotification.ShowToastNotification("Square150x150Logo.scale-200.png", $"已复制 {val}", NotificationAudioNames.Default,true);
                     }
 
                     else if (userAlias.Contains("v-"))
                     {
                         this.Frame.Navigate(typeof(Vendor_MainPage));
                         count = 1;
-                        //string val = userAlias;
-                        //new Views.ShowNotificationForm("Login Successful").show();
-                        //SHToastNotification.ShowToastNotification("Square150x150Logo.scale-200.png", $"已复制 {val}", NotificationAudioNames.Default,true);
                     }
 
                     else
                     {
                         this.Frame.Navigate(typeof(FTE_MainPage));
                         count = 1;
-                        //string val = userAlias;
-                        //new Views.ShowNotificationForm("Login Successful").show();
-                        //SHToastNotification.ShowToastNotification("Square150x150Logo.scale-200.png", $"已复制 {val}", NotificationAudioNames.Default,true);
                     }
                     
                 }
