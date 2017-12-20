@@ -316,29 +316,33 @@ namespace EscalationSystem.Views
                     ObservableCollectionView<EscalationAndStatusThread> SearchEscalationThreadList = new ObservableCollectionView<EscalationAndStatusThread>();
                     foreach (var item in EscalationThreadList)
                     {
-
-                        if (item.EscalationThread.ThreadId.Contains(Searchtxt.Text.ToString()))
+                        if (Searchtxt.Text.ToString().Contains("*"))
                         {
-                            SearchEscalationThreadList.Items.Add(item);
-                            i = 1;
+                            if (item.EscalationThread.ThreadId.Contains(Searchtxt.Text.ToString()))
+                            {
+                                SearchEscalationThreadList.Items.Add(item);
+                                i = 1;
+                            }
+                            else if (item.EscalationThread.Title.Contains(Searchtxt.Text.ToString()))
+                            {
+                                SearchEscalationThreadList.Items.Add(item);
+                                i = 1;
 
+                            }
                         }
-                        else if (item.EscalationThread.Title.Contains(Searchtxt.Text.ToString()))
+                        else
                         {
-                            SearchEscalationThreadList.Items.Add(item);
-                            i = 1;
+                            if (item.EscalationThread.ThreadId==Searchtxt.Text.ToString())
+                            {
+                                SearchEscalationThreadList.Items.Add(item);
+                                i = 1;
+                            }
+                            else if (item.EscalationThread.Title==Searchtxt.Text.ToString())
+                            {
+                                SearchEscalationThreadList.Items.Add(item);
+                                i = 1;
 
-                        }
-                        else if (item.EscalationThread.VendorAlias==Searchtxt.Text.ToString())
-                        {
-                            SearchEscalationThreadList.Items.Add(item);
-                            i = 1;
-
-                        }
-                        else if (item.EscalationThread.FteAlias==Searchtxt.Text.ToString())
-                        {
-                            SearchEscalationThreadList.Items.Add(item);
-                            i = 1;
+                            }
 
                         }
 
@@ -381,21 +385,77 @@ namespace EscalationSystem.Views
                     }
                     else
                     {
-                        DataGrid.ItemsSource = null;
-                        AllRecords.Text = "0";
-                        AllPageIndex.Text = "0";
-                        PageTxt.Text = "0";
+
+
+                        if (EscalationThreadList.Items.Count > 0)
+                        {
+                            ObservableCollectionView<EscalationAndStatusThread> SearchEscalationThreadList1 = new ObservableCollectionView<EscalationAndStatusThread>();
+                            foreach (var item in EscalationThreadList)
+                            {
+                                if (item.EscalationThread.FteAlias == Searchtxt.Text.ToString())
+                                {
+                                    SearchEscalationThreadList1.Items.Add(item);
+                                    i = 1;
+                                }
+
+                            }
+
+                            if (i == 1)
+                            {
+
+
+                                if (SearchEscalationThreadList1.Count < 10)
+                                {
+                                    DataGrid.ItemsSource = SearchEscalationThreadList1;
+                                    MyScrollView.Height = (SearchEscalationThreadList1.Count + 1) * 60;
+                                    AllRecords.Text = SearchEscalationThreadList1.Count.ToString();
+                                    AllPageIndex.Text = VendorEscalationThreadViewModel.GetPageIndex(SearchEscalationThreadList1, pageSize).ToString();
+                                    PageTxt.Text = VendorEscalationThreadViewModel.GetPageIndex(SearchEscalationThreadList1, pageSize).ToString();
+                                }
+
+                                else
+                                {
+                                    AllRecords.Text = SearchEscalationThreadList1.Count.ToString();
+                                    AllPageIndex.Text = VendorEscalationThreadViewModel.GetPageIndex(SearchEscalationThreadList1, pageSize).ToString();
+                                    int AllPagesIndex = VendorEscalationThreadViewModel.GetPageIndex(SearchEscalationThreadList1, pageSize);
+                                    PageTxt.Text = "1";
+                                    if (SearchEscalationThreadList.Count >= 10)
+                                    {
+                                        MyScrollView.Height = 650;
+                                    }
+                                    if (AllPagesIndex == 1)
+                                    {
+                                        DataGrid.ItemsSource = SearchEscalationThreadList1;
+
+                                    }
+                                    else
+                                    {
+                                        var SearchEscalationThreadList1Page = SearchEscalationThreadList1.Skip(0 * pageSize).Take(pageSize).ToList();
+                                        DataGrid.ItemsSource = SearchEscalationThreadList1Page;
+
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                DataGrid.ItemsSource = null;
+                                AllRecords.Text = "0";
+                                AllPageIndex.Text = "0";
+                                PageTxt.Text = "0";
+                            }
+                        }
+
+                        else
+                        {
+                            DataGrid.ItemsSource = null;
+                            AllRecords.Text = "0";
+                            AllPageIndex.Text = "0";
+                            PageTxt.Text = "0";
+                        }
                     }
                 }
-
-                else
-                {
-                    DataGrid.ItemsSource = null;
-                    AllRecords.Text = "0";
-                    AllPageIndex.Text = "0";
-                    PageTxt.Text = "0";
-                }
             }
+
             catch
             {
                 DataGrid.ItemsSource = null;

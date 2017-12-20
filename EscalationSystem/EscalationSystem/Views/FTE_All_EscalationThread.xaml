@@ -106,7 +106,7 @@
                             </StackPanel>
 
                             <StackPanel Visibility="Collapsed" Name="ShowSearchPanel" Opacity="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}" Background="#FF2196F3" Orientation="Horizontal" Height="35">
-                                <TextBox Name="Searchtxt" Background="#FF2196F3" BorderThickness="0,0,0,3" BorderBrush="Aqua" Width="360" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" PlaceholderText="Search by ThreadID/ThreadTitle/Alias"></TextBox>
+                                <TextBox Name="Searchtxt" Background="#FF2196F3" BorderThickness="0,0,0,3" BorderBrush="Aqua" Width="360" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" PlaceholderText="Search by ThreadID/ThreadTitle/VendorAlias"></TextBox>
                                 <Image Name="Search" Tapped="Search_Tapped" Width="38" Height="30" Source="/Assets/search.png"></Image>
                             </StackPanel>
                         </StackPanel>
