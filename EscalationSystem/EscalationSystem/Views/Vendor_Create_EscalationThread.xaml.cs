@@ -80,7 +80,24 @@ namespace EscalationSystem.Views
             {
             }
         }
+        public async Task<List<string>> GetFTEList()
+        {
+            HttpClient HttpClient = new HttpClient();
+            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/ftes")));
+            List<string> AllFTEList = new List<string>();
+            if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
+            {
+                var result = await HttpResponseMessage.Content.ReadAsStringAsync();
+                List<Ftes> FTEList = JsonConvert.DeserializeObject<List<Ftes>>(result);
+                foreach (var fte in FTEList)
+                {
+                    AllFTEList.Add(fte.DisplayName);
+                }
 
+            }
+            var List = AllFTEList.Distinct().ToList();
+            return List;
+        }
 
         private void complatform_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -137,8 +154,6 @@ namespace EscalationSystem.Views
                         fts.Alias = va.Owner;
                         ftes.Add(fts);
                     }
-                    //comFTES.DataContext = ftes;
-                    //comFTES.SelectedIndex = 0;
                 }
             }
             catch (Exception ex)
@@ -150,30 +165,8 @@ namespace EscalationSystem.Views
         private async void bindcomboxFtes()
         {
             try
-            {
-                HttpClient HttpClient = new HttpClient();
-                var HttpResponseMessage = await HttpClient.GetAsync(new Uri("http://escalationmanagerwebapi.azurewebsites.net/api/ftes"));
-                ObservableCollection<Ftes> AllFtes = new ObservableCollection<Ftes>();
-                if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
-                {
-                    var result = await HttpResponseMessage.Content.ReadAsStringAsync();
-                    AllFtes = JsonConvert.DeserializeObject<ObservableCollection<Ftes>>(result);
-                    comFTES.DataContext = AllFtes;
-                    comFTES.SelectedIndex = 0;
-                    string product = (complatform.SelectedItem as Product).Platform as string;
-                    List<Ftes> ftes = new List<Ftes>();
-                    foreach (Ftes va in AllFtes)
-                    {
-                        if (va.Platform == product)
-                        {
-                            ftes.Add(va);
-                        }
-                    }
-                    comFTES.DataContext = ftes;
-                    comFTES.DisplayMemberPath = "DisplayName";
-                    comFTES.SelectedValuePath = "Alias";
-                    comFTES.SelectedIndex = 0;
-                }
+            {              
+                comFTES.DataContext =await GetFTEList();              
             }
             catch
             {

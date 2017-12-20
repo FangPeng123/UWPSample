@@ -55,6 +55,7 @@
                                         <ColumnDefinition Width="2*"></ColumnDefinition>
                                         <ColumnDefinition Width="1.5*"></ColumnDefinition>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <StackPanel  Grid.Column="0"  Orientation="Horizontal">
                                         <TextBlock  Foreground="White" Text="Start Date"  VerticalAlignment="Center"></TextBlock>
@@ -96,6 +97,7 @@
                                         </ComboBox>
                                     </StackPanel>
                                     <Button IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Name="QueryButton" Click="QueryButton_Click" BorderBrush="#FF145A92" BorderThickness="2" Width="70"  Grid.Column="5" HorizontalAlignment="Right"   Foreground="White" Content="Query" Background="#FF2196F3" ></Button>
+                                    <Image Grid.Column="6" Width="32" Height="32" VerticalAlignment="Center" Source="ms-appx:///Assets/search.png"></Image>
                                 </Grid>
                             </StackPanel>
                         </StackPanel>

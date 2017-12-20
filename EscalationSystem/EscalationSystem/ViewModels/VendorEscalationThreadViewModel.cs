@@ -148,7 +148,7 @@ namespace EscalationSystem.ViewModels
 
             return AllPageIndex;
         }
-        public async Task<ObservableCollectionView<EscalationAndStatusThread>> QueryAllEscalationAndStatusThread(ProductWithSelectedItem AllMyPlatform, EscalationStatusWithSelectedItem EscalatonStatusList, string startDatestring, string endDatestring)
+        public async Task<ObservableCollectionView<EscalationAndStatusThread>> QueryAllEscalationAndStatusThread(ProductWithSelectedItem AllMyPlatform, EscalationStatusWithSelectedItem EscalatonStatusList, string status,string platform,string startDatestring, string endDatestring)
         {
             Windows.Storage.ApplicationDataContainer LocalSettings =Windows.Storage.ApplicationData.Current.LocalSettings;
             string userAlias = LocalSettings.Values["currentUserAlias"].ToString();
@@ -156,12 +156,11 @@ namespace EscalationSystem.ViewModels
             HttpClient HttpClient = new HttpClient();
             Product MyProduct = new Product();
             MyProduct = AllMyPlatform.SelectedItem;
-            string plaform = MyProduct.Platform;
+            //string plaform = MyProduct.Platform;
             EscalationStatus MyEscalationStatus = new EscalationStatus();
             MyEscalationStatus = EscalatonStatusList.SelectedItem;
-            string status = MyEscalationStatus.Status;
 
-            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/ethreads?VendorAlias={0}&FteAlias={1}&Platform={2}&Forum={3}&Status={4}&CTime1={5}&CTime2={6}&ETime1={7}&ETime2={8}&RTime1={9}&RTime2={10}", userAlias,"", plaform, "", status, "", "", startDatestring, endDatestring, "", "")));
+            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/ethreads?VendorAlias={0}&FteAlias={1}&Platform={2}&Forum={3}&Status={4}&CTime1={5}&CTime2={6}&ETime1={7}&ETime2={8}&RTime1={9}&RTime2={10}", userAlias,"", platform, "", status, "", "", startDatestring, endDatestring, "", "")));
             ObservableCollection<EscalationThread> AllMyEscalationThread = new ObservableCollection<EscalationThread>();
             if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
             {

@@ -62,7 +62,11 @@
                     <TextBlock Text="FTE Onwer" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Text="" Width="10"></TextBlock>
                     <ComboBox IsEnabled="False" x:Name="comFTES" PlaceholderText="Please select a FTE" Width="200" ItemsSource="{Binding}">
-                     
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}"></TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
                     </ComboBox>
 
                 </StackPanel>
@@ -90,14 +94,14 @@
                 </StackPanel>
                 <StackPanel Name="ThreadDescription" Orientation="Vertical" HorizontalAlignment="Left">
                     <TextBlock Text="Thread Description" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-                    <RichEditBox x:Name="txtDescription" Width="450" Height="100" HorizontalAlignment="Left"></RichEditBox>
+                    <RichEditBox x:Name="txtDescription" Width="450" Height="80" HorizontalAlignment="Left"></RichEditBox>
                     <TextBlock  Height="15"></TextBlock>
                     <Line></Line>
                 </StackPanel>
 
                 <StackPanel Name="EscalationReason" Orientation="Vertical" HorizontalAlignment="Left">
                     <TextBlock Text="Escalation Reason" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
-                    <RichEditBox x:Name="txtReason" Width="450" Height="100" HorizontalAlignment="Left"></RichEditBox>
+                    <RichEditBox x:Name="txtReason" Width="450" Height="80" HorizontalAlignment="Left"></RichEditBox>
                     <TextBlock Height="15"></TextBlock>
                     <Line></Line>
                 </StackPanel>

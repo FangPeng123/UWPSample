@@ -107,7 +107,11 @@ namespace EscalationSystem.Views
                 DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
                 DateTime enddatelast = endDate.Date.AddDays(1);
                 string endDatestring = enddatelast.ToString("MM-dd-yyyy");
-                EscalationThreadList = await VendorEscalationThreadViewModel.QueryAllEscalationAndStatusThread(AllMyPlatform, EscalatonStatusList, startDatestring, endDatestring);
+                EscalationStatus statusitem = StatusComboBox.SelectedItem as EscalationStatus;
+                string status = statusitem.Status;
+                Product productitem = PlatformComboBox.SelectedItem as Product;
+                string product = productitem.Platform;
+                EscalationThreadList = await VendorEscalationThreadViewModel.QueryAllEscalationAndStatusThread(AllMyPlatform, EscalatonStatusList, status, startDatestring, endDatestring);
                 ComboBoxItem curItem = (ComboBoxItem)PageComboBox.SelectedItem;
                 pageSize = Convert.ToInt32(curItem.Content.ToString());
                 if (EscalationThreadList.Count == 0)
