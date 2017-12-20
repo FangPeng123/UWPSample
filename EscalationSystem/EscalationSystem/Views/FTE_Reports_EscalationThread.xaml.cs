@@ -53,8 +53,7 @@ namespace EscalationSystem.Views
             }
             catch (Exception ex)
             {
-                MessageDialog messageDialog = new MessageDialog(ex.Message.ToString());
-                await messageDialog.ShowAsync();
+                DataGrid.ItemsSource = null;
                 MyProgressRing.IsActive = false;
             }
         }
@@ -84,8 +83,7 @@ namespace EscalationSystem.Views
 
             catch (Exception ex)
             {
-                MessageDialog messageDialog = new MessageDialog(ex.Message.ToString());
-                await messageDialog.ShowAsync();
+                DataGrid.ItemsSource = null;
                 MyProgressRing.IsActive = false;
             }
         }

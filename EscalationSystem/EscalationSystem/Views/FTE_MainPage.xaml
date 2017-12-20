@@ -215,9 +215,9 @@
                     </StackPanel>
                 </RelativePanel>
             </SplitView.Pane>
-            <Frame x:Name="ScenarioFrame" Margin="0,0,0,0"/>
+            <Frame x:Name="ScenarioFrame" Margin="0,0,0,0"  />
         </SplitView>
-        <!--ToggleButton -->
+       
         <StackPanel x:Name="HeaderPanel"  VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal"  Grid.Row="0" >
             <Border VerticalAlignment="Center">
                 <ToggleButton  Background="#FF2196F3" Click="Button_Click"  VerticalAlignment="Center" Foreground="{ThemeResource ApplicationForegroundThemeBrush}" Style="{StaticResource ToggleButtonStyle1}">

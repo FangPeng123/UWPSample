@@ -182,6 +182,7 @@
     <Content Include="Assets\NavL.PNG" />
     <Content Include="Assets\report.png" />
     <Content Include="Assets\search.png" />
+    <Content Include="Assets\searchshow.png" />
     <Content Include="Assets\SmallTile.scale-100.png" />
     <Content Include="Assets\SmallTile.scale-125.png" />
     <Content Include="Assets\SmallTile.scale-150.png" />

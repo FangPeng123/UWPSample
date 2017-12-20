@@ -70,6 +70,7 @@ namespace EscalationSystem.Views
 
         private async void FTE_All_EscalationThread_Loaded(object sender, RoutedEventArgs e)
         {
+            
             try
             {
                 FTEEscalationThreadViewModel = await FTEEscalationThreadViewModel.GetFTEEscalationThreadViewModel();
@@ -78,12 +79,25 @@ namespace EscalationSystem.Views
                 AllMyPlatform = FTEEscalationThreadViewModel.AllPratfromList;
                 PlatformComboBox.DataContext = AllMyPlatform;
                 PageComboBox.SelectedIndex = 0;
-                QueryButton_Click(sender, e);
+                if (StatusComboBox.DataContext == null || PlatformComboBox.DataContext == null)
+                {
+                    DataGrid.ItemsSource = null;
+                    AllRecords.Text = "0";
+                    AllPageIndex.Text = "0";
+                    PageTxt.Text = "0";
+                    MyProgressRing.IsActive = false;
+                }
+                else
+                {
+                    QueryButton_Click(sender, e);
+                }
             }
             catch(Exception ex)
             {
-                MessageDialog messageDialog = new MessageDialog(ex.Message.ToString());
-                await messageDialog.ShowAsync();
+                DataGrid.ItemsSource = null;
+                AllRecords.Text = "0";
+                AllPageIndex.Text = "0";
+                PageTxt.Text = "0";
                 MyProgressRing.IsActive = false;
             }
 
@@ -172,8 +186,10 @@ namespace EscalationSystem.Views
             }
             catch (Exception ex)
             {
-                MessageDialog messageDialog = new MessageDialog(ex.Message.ToString());
-                await messageDialog.ShowAsync();
+                DataGrid.ItemsSource = null;
+                AllRecords.Text = "0";
+                AllPageIndex.Text = "0";
+                PageTxt.Text = "0";
                 MyProgressRing.IsActive = false;
             }
         }
@@ -186,7 +202,7 @@ namespace EscalationSystem.Views
                 }
              else
               {
-                MyScrollView.Height = (MyList.Count+1) * 60;
+                MyScrollView.Height = (MyList.Count+1) * 55;
               }
             }
 
@@ -330,6 +346,118 @@ namespace EscalationSystem.Views
             }
            
       
+        }
+
+        private void ShowQueryImage_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if(ShowSearchPanel.Visibility==Visibility.Collapsed)
+            {
+                ShowSearchPanel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ShowSearchPanel.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private async void Search_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            try
+            {
+                var test = await FTEEscalationThreadViewModel.QueryAllEscalationAndStatusThread(AllMyPlatform, EscalatonStatusList, "", "", "", "");
+                int i = 0;
+                if (test.Items.Count > 0)
+                {
+                    ObservableCollectionView<EscalationAndStatusThread> SearchEscalationThreadList = new ObservableCollectionView<EscalationAndStatusThread>();
+                    foreach (var item in EscalationThreadList)
+                    {
+
+                        if (item.EscalationThread.ThreadId.Contains(Searchtxt.Text.ToString()))
+                        {
+                            SearchEscalationThreadList.Items.Add(item);
+                            i = 1;
+                            
+                        }
+                        else if(item.EscalationThread.Title.Contains(Searchtxt.Text.ToString()))
+                            {
+                            SearchEscalationThreadList.Items.Add(item);
+                            i = 1;
+                            
+                         }
+                        else if (item.EscalationThread.VendorAlias.Contains(Searchtxt.Text.ToString()))
+                        {
+                            SearchEscalationThreadList.Items.Add(item);
+                            i = 1;
+                           
+                        }
+                        else if (item.EscalationThread.FteAlias.Contains(Searchtxt.Text.ToString()))
+                        {
+                            SearchEscalationThreadList.Items.Add(item);
+                            i = 1;
+                            
+                        }
+
+                    }
+                    if (i == 1)
+                    {
+
+
+                        if (SearchEscalationThreadList.Count < 10)
+                        {
+                            DataGrid.ItemsSource = SearchEscalationThreadList;
+                            MyScrollView.Height = (SearchEscalationThreadList.Count + 1) * 60;
+                            AllRecords.Text = SearchEscalationThreadList.Count.ToString();
+                            AllPageIndex.Text = FTEEscalationThreadViewModel.GetPageIndex(SearchEscalationThreadList, pageSize).ToString();
+                            PageTxt.Text = FTEEscalationThreadViewModel.GetPageIndex(SearchEscalationThreadList, pageSize).ToString();
+                        }
+
+                        else
+                        {
+                            AllRecords.Text = SearchEscalationThreadList.Count.ToString();
+                            AllPageIndex.Text = FTEEscalationThreadViewModel.GetPageIndex(SearchEscalationThreadList, pageSize).ToString();
+                            int AllPagesIndex = FTEEscalationThreadViewModel.GetPageIndex(SearchEscalationThreadList, pageSize);
+                            PageTxt.Text = "1";
+                            if (SearchEscalationThreadList.Count >= 10)
+                            {
+                                MyScrollView.Height = 650;
+                            }
+                            if (AllPagesIndex == 1)
+                            {
+                                DataGrid.ItemsSource = SearchEscalationThreadList;
+
+                            }
+                            else
+                            {
+                                var SearchEscalationThreadListPage = SearchEscalationThreadList.Skip(0 * pageSize).Take(pageSize).ToList();
+                                DataGrid.ItemsSource = SearchEscalationThreadListPage;
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        DataGrid.ItemsSource = null;
+                        AllRecords.Text = "0";
+                        AllPageIndex.Text = "0";
+                        PageTxt.Text = "0";
+                    }
+                }
+
+                else
+                {
+                    DataGrid.ItemsSource = null;
+                    AllRecords.Text = "0";
+                    AllPageIndex.Text = "0";
+                    PageTxt.Text = "0";
+                }
+            }
+            catch
+            {
+                DataGrid.ItemsSource = null;
+                AllRecords.Text = "0";
+                AllPageIndex.Text = "0";
+                PageTxt.Text = "0";
+            }
         }
     }
 }

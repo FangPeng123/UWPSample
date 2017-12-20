@@ -40,23 +40,25 @@
                         <StackPanel Orientation="Horizontal" Background="#FF2196F3">
                             <Grid Margin="0,0,0,0" Width="{Binding ScreenWidth}">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                                    <ColumnDefinition Width="1.5*"></ColumnDefinition>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                                    <ColumnDefinition Width="1.5*"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel  Grid.Column="0"  Orientation="Horizontal">
+                                        <ColumnDefinition Width="0.3*"></ColumnDefinition>
+                                        <ColumnDefinition Width="3.2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="3.2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Opacity="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}" Name="ShowQueryImage" Tapped="ShowQueryImage_Tapped" HorizontalAlignment="Left" Width="50" Height="30" Source="/Assets/searchshow.png"/>
+                                <StackPanel  Grid.Column="1"  Orientation="Horizontal">
                                     <TextBlock  Foreground="White" Text="Start Date"  VerticalAlignment="Center"></TextBlock>
                                     <DatePicker  Foreground="White" Name="StartDatePicker"  VerticalAlignment="Center"></DatePicker>
                                 </StackPanel>
 
-                                <StackPanel HorizontalAlignment="Right" Grid.Column="1" Orientation="Horizontal">
+                                <StackPanel HorizontalAlignment="Right" Grid.Column="2" Orientation="Horizontal">
                                     <TextBlock  Foreground="White" Text="End Date" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
                                     <DatePicker   Foreground="White" Name="EndDatePicker"  HorizontalAlignment="Right" VerticalAlignment="Center"></DatePicker>
                                 </StackPanel>
-                                <StackPanel HorizontalAlignment="Right" Grid.Column="2" Orientation="Horizontal">
+                                <StackPanel HorizontalAlignment="Right" Grid.Column="3" Orientation="Horizontal">
                                     <TextBlock Text="Platform" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White"></TextBlock>
                                         <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding MyProductList}" SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Right" Name="PlatformComboBox"   Foreground="White">
                                             <ComboBox.ItemTemplate>
@@ -67,7 +69,7 @@
                                         </ComboBox>
                                     </StackPanel>
                                    
-                                    <StackPanel HorizontalAlignment="Right" Grid.Column="3" Orientation="Horizontal">
+                                    <StackPanel HorizontalAlignment="Right" Grid.Column="4" Orientation="Horizontal">
                                     <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center" Text="Status" Foreground="White"></TextBlock>
                                         <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding MyEscalationStatusList}" SelectedItem="{Binding SelectedItem}" Name="StatusComboBox" HorizontalAlignment="Right" Foreground="White">
                                             <ComboBox.ItemTemplate>
@@ -78,7 +80,7 @@
                                         </ComboBox>
                                     </StackPanel>
 
-                                <StackPanel HorizontalAlignment="Right" Grid.Column="4" Orientation="Horizontal">
+                                <StackPanel HorizontalAlignment="Right" Grid.Column="5" Orientation="Horizontal">
                                     <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center" Text="Items" Foreground="White"></TextBlock>
                                     <ComboBox Name="PageComboBox" HorizontalAlignment="Right" Foreground="White">
                                         <ComboBoxItem Content="10"></ComboBoxItem>
@@ -87,11 +89,15 @@
                                         <ComboBoxItem Content="100"></ComboBoxItem>
                                     </ComboBox>
                                 </StackPanel>
-                                <Button IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Name="QueryButton" Click="QueryButton_Click" BorderBrush="#FF145A92" BorderThickness="2" Width="70"  Grid.Column="5" HorizontalAlignment="Right"   Foreground="White" Content="Query" Background="#FF2196F3" ></Button>
+                                <Button IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Name="QueryButton" Click="QueryButton_Click" BorderBrush="#FF145A92" BorderThickness="2" Width="70"  Grid.Column="6" HorizontalAlignment="Right"   Foreground="White" Content="Query" Background="#FF2196F3" ></Button>
                             </Grid>
                         </StackPanel>
+                            <StackPanel Visibility="Collapsed" Name="ShowSearchPanel" Opacity="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}" Background="#FF2196F3" Orientation="Horizontal" Height="35">
+                                <TextBox Name="Searchtxt" Background="#FF2196F3" BorderThickness="0,0,0,3" BorderBrush="Aqua" Width="360" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" PlaceholderText="Search by ThreadID/ThreadTitle/Alias"></TextBox>
+                                <Image Name="Search" Tapped="Search_Tapped" Width="38" Height="30" Source="/Assets/search.png"></Image>
+                            </StackPanel>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
 
                 <ScrollViewer Name="MyScrollView" VerticalScrollBarVisibility="Visible" VerticalScrollMode="Enabled">
 

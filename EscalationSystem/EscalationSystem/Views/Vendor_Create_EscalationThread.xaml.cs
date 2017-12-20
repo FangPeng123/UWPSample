@@ -202,7 +202,25 @@ namespace EscalationSystem.Views
             string fte = "";
             try
             {
-                fte = (comFTES.SelectedItem as Ftes).Alias as string;
+               var ftename = comFTES.SelectedValue.ToString();
+                HttpClient HttpClient = new HttpClient();
+                var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/ftes")));
+                List<string> AllFTEList = new List<string>();
+                if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
+                {
+                    var result = await HttpResponseMessage.Content.ReadAsStringAsync();
+                    List<Ftes> FTEList = JsonConvert.DeserializeObject<List<Ftes>>(result);
+                    foreach (var myfte in FTEList)
+                    {
+                        if(myfte.DisplayName==ftename)
+                        {
+                            fte = myfte.Alias;
+                            break;
+                        }
+                    }
+
+                }
+
             }
             catch
             {

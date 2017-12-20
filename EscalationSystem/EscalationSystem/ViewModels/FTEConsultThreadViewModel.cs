@@ -197,14 +197,18 @@ namespace EscalationSystem.ViewModels
                 List<Ftes> FTEList = JsonConvert.DeserializeObject<List<Ftes>>(result);
                 foreach (var fte in FTEList)
                 {
-                    if(fte.DisplayName.Equals(alias))
+                    if (fte.DisplayName.Equals(alias))
                     {
                         FTEAlias = fte.Alias;
+                        break;
                     }
+                    else
+                        FTEAlias = "All";
                 }
 
             }
-            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/cthreads?Alias={0}&Platform={1}&Forum={2}&Status={3}&CTime1={4}&CTime2={5}&ETime1={6}&ETime2={7}&RTime1={8}&RTime2={9}", FTEAlias,platfrom,"","",startDatestring, endDatestring, "" ,"", "", "","")));
+           
+            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/cthreads?VendorAlias={0}&FteAlias={1}&Platform={2}&Forum={3}&Status={4}&CTime1={5}&CTime2={6}&ETime1={7}&ETime2={8}&RTime1={9}&RTime2={10}","", FTEAlias,platfrom,"","",startDatestring, endDatestring, "" ,"", "", "","")));
             ObservableCollection<ConsultThread> AllConsultThread = new ObservableCollection<ConsultThread>();
             if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
             {

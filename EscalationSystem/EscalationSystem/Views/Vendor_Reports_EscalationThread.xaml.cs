@@ -59,12 +59,19 @@ namespace EscalationSystem.Views
                 ForumCombobox.DataContext = AllMyForum;
                 ForumCombobox.SelectedIndex = 0;
                 ForumCombobox.DataContext = AllMyPlatform;
-                QueryButton_Click(sender, e);
+                if (ForumCombobox.DataContext == null || PlatformComboBox.DataContext == null)
+                {
+                    DataGrid.ItemsSource = null;
+                    MyProgressRing.IsActive = false;
+                }
+                else
+                {
+                    QueryButton_Click(sender, e);
+                }
             }
             catch (Exception ex)
             {
-                MessageDialog messageDialog = new MessageDialog(ex.Message.ToString());
-                await messageDialog.ShowAsync();
+                DataGrid.ItemsSource = null;
                 MyProgressRing.IsActive = false;
             }
         }
@@ -95,8 +102,7 @@ namespace EscalationSystem.Views
             }
             catch (Exception ex)
             {
-                MessageDialog messageDialog = new MessageDialog(ex.Message.ToString());
-                await messageDialog.ShowAsync();
+                DataGrid.ItemsSource = null;
                 MyProgressRing.IsActive = false;
             }
         }
