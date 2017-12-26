@@ -119,6 +119,7 @@ namespace EscalationSystem.Views
         {
             try
             {
+                ShowSearchPanel.Visibility = Visibility.Collapsed;
                 MyProgressRing.IsActive = true;
                 DataGrid.ItemsSource = null;
                 DateTime startDate = DateTime.Parse(StartDatePicker.Date.ToString());
@@ -202,185 +203,204 @@ namespace EscalationSystem.Views
 
         private async void Search_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (AllMySearchReport.Count > 0)
-            {
-                AllMySearchReport.Items.Clear();
-            }
-            DataGrid.ItemsSource = null;
-            MyProgressRing.IsActive = true;
-            PreviousImage.Visibility = Visibility.Collapsed;
-            FirstImage.Visibility = Visibility.Collapsed;
-            NextImage.Visibility = Visibility.Collapsed;
-            LastImage.Visibility = Visibility.Collapsed;
-            PreviousSearchImage.Visibility = Visibility.Visible;
-            FirstSearchImage.Visibility = Visibility.Visible;
-            NextSearchImage.Visibility = Visibility.Visible;
-            LastSearchImage.Visibility = Visibility.Visible;
 
-            DateTime startDate = DateTime.Parse(StartDatePicker.Date.ToString());
-            string startDatestring = startDate.ToString("MM-dd-yyyy");
-            DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
-            DateTime enddatelast = endDate.Date.AddDays(1);
-            string endDatestring = enddatelast.ToString("MM-dd-yyyy");
-            Product product = (Product)PlatformComboBox.SelectedValue;
-            string platform = product.Platform;
-            ComboBoxItem curItem = (ComboBoxItem)PageComboBox.SelectedItem;
-            searchPageSize = Convert.ToInt32(curItem.Content.ToString());
-            string forum = ForumComboBox.SelectedValue.ToString();
             try
             {
-                if (Searchtxt.Text.ToString().Contains("v-"))
+
+                if (AllMySearchReport.Count > 0)
                 {
-                    var SearchReport = await VendorEscalationReportViewModel.QueryAllEscalationReport(platform, forum, startDatestring, endDatestring,true);
-                    int i = 0;
-                    if (SearchReport.Items.Count > 0)
-                    {
-
-                        foreach (var item in SearchReport)
-                        {
-                            if (item.Alias == Searchtxt.Text.ToString())
-                            {
-                                AllMySearchReport.Items.Add(item);
-                                i = 1;
-                            }
-
-                        }
-
-                        if (i == 1)
-                        {
-
-
-                            if (AllMySearchReport.Count < 10)
-                            {
-                                DataGrid.ItemsSource = AllMySearchReport;
-                                MyScrollView.Height = (AllMySearchReport.Count + 1) * 60;
-                                AllRecords.Text = AllMySearchReport.Count.ToString();
-                                AllPageIndex.Text = VendorEscalationReportViewModel.GetPageIndex(AllMySearchReport, searchPageSize).ToString();
-                                PageTxt.Text = VendorEscalationReportViewModel.GetPageIndex(AllMySearchReport, searchPageSize).ToString();
-                            }
-
-                            else
-                            {
-                                AllRecords.Text = AllMySearchReport.Count.ToString();
-                                AllPageIndex.Text = VendorEscalationReportViewModel.GetPageIndex(AllMySearchReport, searchPageSize).ToString();
-                                int AllPagesIndex = VendorEscalationReportViewModel.GetPageIndex(AllMySearchReport, searchPageSize);
-                                PageTxt.Text = "1";
-                                if (AllMySearchReport.Count >= 10)
-                                {
-                                    MyScrollView.Height = 650;
-                                }
-                               else if (AllPagesIndex == 1)
-                                {
-                                    DataGrid.ItemsSource = AllMySearchReport;
-
-                                }
-                                else
-                                {
-                                    var SearchThreadList1Page = AllMySearchReport.Skip(0 * searchPageSize).Take(searchPageSize).ToList();
-                                    DataGrid.ItemsSource = SearchThreadList1Page;
-
-                                }
-                            }
-                        }
-                        else
-                        {
-                            DataGrid.ItemsSource = null;
-                            AllRecords.Text = "0";
-                            AllPageIndex.Text = "0";
-                            PageTxt.Text = "0";
-                        }
-                    }
-
-                    else
-                    {
-                        DataGrid.ItemsSource = null;
-                        AllRecords.Text = "0";
-                        AllPageIndex.Text = "0";
-                        PageTxt.Text = "0";
-                    }
+                    AllMySearchReport.Items.Clear();
                 }
-            
-                else
-                { 
-                    var SearchReport = await VendorEscalationReportViewModel.QueryAllEscalationReport(platform, forum, startDatestring, endDatestring, false);
-                    int i = 0;
-                    if (SearchReport.Items.Count > 0)
+                DataGrid.ItemsSource = null;
+                MyProgressRing.IsActive = true;
+                PreviousImage.Visibility = Visibility.Collapsed;
+                FirstImage.Visibility = Visibility.Collapsed;
+                NextImage.Visibility = Visibility.Collapsed;
+                LastImage.Visibility = Visibility.Collapsed;
+                PreviousSearchImage.Visibility = Visibility.Visible;
+                FirstSearchImage.Visibility = Visibility.Visible;
+                NextSearchImage.Visibility = Visibility.Visible;
+                LastSearchImage.Visibility = Visibility.Visible;
+
+                DateTime startDate = DateTime.Parse(StartDatePicker.Date.ToString());
+                string startDatestring = startDate.ToString("MM-dd-yyyy");
+                DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
+                DateTime enddatelast = endDate.Date.AddDays(1);
+                string endDatestring = enddatelast.ToString("MM-dd-yyyy");
+                Product product = (Product)PlatformComboBox.SelectedValue;
+                string platform = product.Platform;
+                ComboBoxItem curItem = (ComboBoxItem)PageComboBox.SelectedItem;
+                searchPageSize = Convert.ToInt32(curItem.Content.ToString());
+                string forum = ForumComboBox.SelectedValue.ToString();
+                MyProgressRing.IsActive = true;
+                try
+                {
+                    if (Searchtxt.Text.ToString().Contains("v-"))
                     {
-
-                        foreach (var item in SearchReport)
-                        {
-                            if (item.Alias == Searchtxt.Text.ToString())
-                            {
-                                AllMySearchReport.Items.Add(item);
-                                i = 1;
-                            }
-
-                        }
-
-                        if (i == 1)
+                        var SearchReport = await VendorEscalationReportViewModel.QueryAllEscalationReport(platform, forum, startDatestring, endDatestring, true);
+                        int i = 0;
+                        if (SearchReport.Items.Count > 0)
                         {
 
-
-                            if (AllMySearchReport.Count < 10)
+                            foreach (var item in SearchReport)
                             {
-                                DataGrid.ItemsSource = AllMySearchReport;
-                                MyScrollView.Height = (AllMySearchReport.Count + 1) * 60;
-                                AllRecords.Text = AllMySearchReport.Count.ToString();
-                                AllPageIndex.Text = VendorEscalationReportViewModel.GetPageIndex(AllMySearchReport, searchPageSize).ToString();
-                                PageTxt.Text = VendorEscalationReportViewModel.GetPageIndex(AllMySearchReport, searchPageSize).ToString();
-                            }
-
-                            else
-                            {
-                                AllRecords.Text = AllMySearchReport.Count.ToString();
-                                AllPageIndex.Text = VendorEscalationReportViewModel.GetPageIndex(AllMySearchReport, searchPageSize).ToString();
-                                int AllPagesIndex = VendorEscalationReportViewModel.GetPageIndex(AllMySearchReport, searchPageSize);
-                                PageTxt.Text = "1";
-                                if (AllMySearchReport.Count >= 10)
+                                if (item.Alias == Searchtxt.Text.ToString())
                                 {
-                                    MyScrollView.Height = 650;
+                                    AllMySearchReport.Items.Add(item);
+                                    i = 1;
                                 }
-                                else if (AllPagesIndex == 1)
+
+                            }
+
+                            if (i == 1)
+                            {
+
+
+                                if (AllMySearchReport.Count < 10)
                                 {
                                     DataGrid.ItemsSource = AllMySearchReport;
-
+                                    MyScrollView.Height = (AllMySearchReport.Count + 1) * 60;
+                                    AllRecords.Text = AllMySearchReport.Count.ToString();
+                                    AllPageIndex.Text = VendorEscalationReportViewModel.GetPageIndex(AllMySearchReport, searchPageSize).ToString();
+                                    PageTxt.Text = VendorEscalationReportViewModel.GetPageIndex(AllMySearchReport, searchPageSize).ToString();
                                 }
+
                                 else
                                 {
-                                    var SearchThreadList1Page = AllMySearchReport.Skip(0 * searchPageSize).Take(searchPageSize).ToList();
-                                    DataGrid.ItemsSource = SearchThreadList1Page;
+                                    AllRecords.Text = AllMySearchReport.Count.ToString();
+                                    AllPageIndex.Text = VendorEscalationReportViewModel.GetPageIndex(AllMySearchReport, searchPageSize).ToString();
+                                    int AllPagesIndex = VendorEscalationReportViewModel.GetPageIndex(AllMySearchReport, searchPageSize);
+                                    PageTxt.Text = "1";
+                                    if (AllMySearchReport.Count >= 10)
+                                    {
+                                        MyScrollView.Height = 650;
+                                    }
+                                    else if (AllPagesIndex == 1)
+                                    {
+                                        DataGrid.ItemsSource = AllMySearchReport;
 
+                                    }
+                                    else
+                                    {
+                                        var SearchThreadList1Page = AllMySearchReport.Skip(0 * searchPageSize).Take(searchPageSize).ToList();
+                                        DataGrid.ItemsSource = SearchThreadList1Page;
+
+                                    }
                                 }
                             }
+                            else
+                            {
+                                DataGrid.ItemsSource = null;
+                                AllRecords.Text = "0";
+                                AllPageIndex.Text = "0";
+                                PageTxt.Text = "0";
+                                MyProgressRing.IsActive = false;
+                            }
                         }
+
                         else
                         {
                             DataGrid.ItemsSource = null;
                             AllRecords.Text = "0";
                             AllPageIndex.Text = "0";
                             PageTxt.Text = "0";
+                            MyProgressRing.IsActive = false;
                         }
                     }
 
                     else
                     {
-                        DataGrid.ItemsSource = null;
-                        AllRecords.Text = "0";
-                        AllPageIndex.Text = "0";
-                        PageTxt.Text = "0";
+                        var SearchReport = await VendorEscalationReportViewModel.QueryAllEscalationReport(platform, forum, startDatestring, endDatestring, false);
+                        int i = 0;
+                        if (SearchReport.Items.Count > 0)
+                        {
+
+                            foreach (var item in SearchReport)
+                            {
+                                if (item.Alias == Searchtxt.Text.ToString())
+                                {
+                                    AllMySearchReport.Items.Add(item);
+                                    i = 1;
+                                }
+
+                            }
+
+                            if (i == 1)
+                            {
+
+
+                                if (AllMySearchReport.Count < 10)
+                                {
+                                    DataGrid.ItemsSource = AllMySearchReport;
+                                    MyScrollView.Height = (AllMySearchReport.Count + 1) * 60;
+                                    AllRecords.Text = AllMySearchReport.Count.ToString();
+                                    AllPageIndex.Text = VendorEscalationReportViewModel.GetPageIndex(AllMySearchReport, searchPageSize).ToString();
+                                    PageTxt.Text = VendorEscalationReportViewModel.GetPageIndex(AllMySearchReport, searchPageSize).ToString();
+                                }
+
+                                else
+                                {
+                                    AllRecords.Text = AllMySearchReport.Count.ToString();
+                                    AllPageIndex.Text = VendorEscalationReportViewModel.GetPageIndex(AllMySearchReport, searchPageSize).ToString();
+                                    int AllPagesIndex = VendorEscalationReportViewModel.GetPageIndex(AllMySearchReport, searchPageSize);
+                                    PageTxt.Text = "1";
+                                    if (AllMySearchReport.Count >= 10)
+                                    {
+                                        MyScrollView.Height = 650;
+                                    }
+                                    else if (AllPagesIndex == 1)
+                                    {
+                                        DataGrid.ItemsSource = AllMySearchReport;
+
+                                    }
+                                    else
+                                    {
+                                        var SearchThreadList1Page = AllMySearchReport.Skip(0 * searchPageSize).Take(searchPageSize).ToList();
+                                        DataGrid.ItemsSource = SearchThreadList1Page;
+
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                DataGrid.ItemsSource = null;
+                                AllRecords.Text = "0";
+                                AllPageIndex.Text = "0";
+                                PageTxt.Text = "0";
+                                MyProgressRing.IsActive = false;
+                            }
+                        }
+
+                        else
+                        {
+                            DataGrid.ItemsSource = null;
+                            AllRecords.Text = "0";
+                            AllPageIndex.Text = "0";
+                            PageTxt.Text = "0";
+                            MyProgressRing.IsActive = false;
+                        }
                     }
+
+                }
+
+                catch
+                {
+                    DataGrid.ItemsSource = null;
+                    AllRecords.Text = "0";
+                    AllPageIndex.Text = "0";
+                    PageTxt.Text = "0";
+                    MyProgressRing.IsActive = false;
                 }
 
             }
-
             catch
             {
                 DataGrid.ItemsSource = null;
                 AllRecords.Text = "0";
                 AllPageIndex.Text = "0";
                 PageTxt.Text = "0";
+                MyProgressRing.IsActive = false;
             }
-
                MyProgressRing.IsActive = false;
            }
         

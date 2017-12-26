@@ -117,6 +117,7 @@ namespace EscalationSystem.Views
 
         private async void QueryButton_Click(object sender, RoutedEventArgs e)
         {
+            ShowSearchPanel.Visibility = Visibility.Collapsed;
             PreviousImage.Visibility = Visibility.Visible;
             FirstImage.Visibility = Visibility.Visible;
             NextImage.Visibility = Visibility.Visible;
@@ -219,6 +220,7 @@ namespace EscalationSystem.Views
                 AllPageIndex.Text = "0";
                 PageTxt.Text = "0";
             }
+            MyProgressRing.IsActive = false;
         }
 
         public void setScrollViewheight(List<ConsultThread> MyList)
@@ -454,18 +456,27 @@ namespace EscalationSystem.Views
 
             try
                 {
-                    if (string.IsNullOrEmpty(CaseLinkTxt.Text.ToString()) == false && string.IsNullOrEmpty(VendorAliasTxt.Text.ToString()) == false && AddPanelPlatformCombox.SelectedIndex >= 0 && AddPanelForumCombox.SelectedIndex >= 0)
+
+                if (string.IsNullOrEmpty(CaseLinkTxt.Text.ToString()) == false && string.IsNullOrEmpty(VendorAliasTxt.Text.ToString()) == false && AddPanelPlatformCombox.SelectedIndex >= 0 && AddPanelForumCombox.SelectedIndex >= 0)
+                {
+                    ConsultThread consultThread = new ConsultThread();
+                    consultThread.Description = "N/A";
+                    consultThread.Forum = AddPanelForumCombox.SelectedValue.ToString();
+                    consultThread.Platform = ((Product)AddPanelPlatformCombox.SelectedValue).Platform;
+                    consultThread.Reason = "N/A";
+                    consultThread.SrescalationId = "N/A";
+                    consultThread.Status = "N/A";
+                    consultThread.Title = "N/A";
+                    consultThread.ThreadId = ThreadIDTxt.Text.ToString();
+                    consultThread.Url = CaseLinkTxt.Text.ToString();
+                    if (CaseLinkTxt.Text.Contains(ThreadIDTxt.Text) == false)
                     {
-                        ConsultThread consultThread = new ConsultThread();
-                        consultThread.Description = "N/A";
-                        consultThread.Forum = AddPanelForumCombox.SelectedValue.ToString();
-                        consultThread.Platform = ((Product)AddPanelPlatformCombox.SelectedValue).Platform;
-                        consultThread.Reason = "N/A";
-                        consultThread.SrescalationId = "N/A";
-                        consultThread.Status = "N/A";
-                        consultThread.Title = "N/A";
-                        consultThread.ThreadId = ThreadIDTxt.Text.ToString();
-                        consultThread.Url = CaseLinkTxt.Text.ToString();
+                        AddProgressRing.IsActive = false;
+                        MessageDialog messageDialog = new MessageDialog("You have entered the wrong thread ID!!!");
+                        await messageDialog.ShowAsync();
+                    }
+                    else
+                    {
                         Windows.Storage.ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
                         string userAlias = LocalSettings.Values["currentUserAlias"].ToString();
                         consultThread.FteAlias = userAlias;
@@ -476,14 +487,20 @@ namespace EscalationSystem.Views
                         consultThread.LastreplyDatetime = DateTime.Now;
                         consultThread.LastreplyFromOp = false;
                         consultThread.ThreadCreatedDatetime = DateTime.Now;
-                        FTEConsultThreadViewModel.AddConsultThread(consultThread);
+                        var result=await FTEConsultThreadViewModel.AddConsultThread(consultThread);
+                        if(result==true)
+                        {
+                            ThreadIDTxt.Text = "";
+                            CaseLinkTxt.Text = "";
+                            VendorAliasTxt.Text = "";
+                        }
                         AddProgressRing.IsActive = false;
 
                     }
-
-                    else
-                    {
-                        AddProgressRing.IsActive = false;
+                }
+                else
+                {
+                    AddProgressRing.IsActive = false;
                     MessageDialog messageDialog = new MessageDialog("Please fill all the fields!!!");
                     await messageDialog.ShowAsync();
 

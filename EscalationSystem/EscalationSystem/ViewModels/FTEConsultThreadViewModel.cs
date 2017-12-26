@@ -150,7 +150,7 @@ namespace EscalationSystem.ViewModels
             return AllPageIndex;
         }
 
-        public async void AddConsultThread(ConsultThread consultThread)
+        public async Task<bool> AddConsultThread(ConsultThread consultThread)
         {
             HttpClient HttpClient = new HttpClient();
             var json = JsonConvert.SerializeObject(consultThread);
@@ -162,11 +162,13 @@ namespace EscalationSystem.ViewModels
             {
                 MessageDialog messageDialog = new MessageDialog("Add the consult thread Sucessfully!!");
                 await messageDialog.ShowAsync();
+                return true;
             }
             else
             {
                 MessageDialog messageDialog = new MessageDialog("Add the consult thread Failed!!");
                 await messageDialog.ShowAsync();
+                return false;
             }
 
         }

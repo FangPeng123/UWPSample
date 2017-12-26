@@ -41,7 +41,7 @@
                     <RowDefinition Height="100"></RowDefinition>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Vertical" Grid.Row="0">
-                    <StackPanel Width="{Binding ScreenWidth}" Height="44"  Background="#FF7CBDF1"  HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <StackPanel Width="{Binding ScreenWidth}" Height="45"  Background="#FF7CBDF1"  HorizontalAlignment="Left" VerticalAlignment="Top">
                         <TextBlock  Text="All Threads List" FontWeight="Black" FontSize="30"  Foreground="White" VerticalAlignment="Center" />
                     </StackPanel>
                     <StackPanel Opacity="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}"  Orientation="Vertical" HorizontalAlignment="Left">
@@ -94,7 +94,7 @@
                                     </StackPanel>
                                     <StackPanel HorizontalAlignment="Right" Grid.Column="5" Orientation="Horizontal">
                                         <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center" Text="Items" Foreground="White"></TextBlock>
-                                        <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Name="PageComboBox" HorizontalAlignment="Right" Foreground="White">
+                                        <ComboBox SelectedIndex="0" IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Name="PageComboBox" HorizontalAlignment="Right" Foreground="White">
                                             <ComboBoxItem Content="10"></ComboBoxItem>
                                             <ComboBoxItem Content="20"></ComboBoxItem>
                                             <ComboBoxItem Content="50"></ComboBoxItem>

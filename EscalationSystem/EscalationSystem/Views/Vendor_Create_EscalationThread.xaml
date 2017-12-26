@@ -14,7 +14,7 @@
     <Grid Background="White">
         <ProgressRing IsActive="False" Name="MyProgressRing" Foreground="#FF2196F3" Width="200" Height="200" HorizontalAlignment="Left" VerticalAlignment="Center" ></ProgressRing>
         <StackPanel Opacity="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <StackPanel Height="35" Width="2000" Background="#FF7CBDF1"  HorizontalAlignment="Left" VerticalAlignment="Top">
+            <StackPanel Height="45" Width="2000" Background="#FF7CBDF1"  HorizontalAlignment="Left" VerticalAlignment="Top">
                 <TextBlock Margin="10,0,0,0" Text="Create Thread" FontWeight="Black" FontSize="27"  Foreground="White" VerticalAlignment="Top" />
             </StackPanel>
             <TextBlock Height="15"></TextBlock>

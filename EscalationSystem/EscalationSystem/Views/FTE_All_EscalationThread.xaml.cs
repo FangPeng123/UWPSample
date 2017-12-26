@@ -117,6 +117,7 @@ namespace EscalationSystem.Views
 
         private async void QueryButton_Click(object sender, RoutedEventArgs e)
         {
+            ShowSearchPanel.Visibility = Visibility.Collapsed;
             PreviousImage.Visibility = Visibility.Visible;
             FirstImage.Visibility = Visibility.Visible;
             NextImage.Visibility = Visibility.Visible;
