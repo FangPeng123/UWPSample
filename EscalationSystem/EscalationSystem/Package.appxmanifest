@@ -21,6 +21,11 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="aqua" />
       </uap:VisualElements>
       <Extensions>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="wuxiecs">
+            <uap:DisplayName>EscalationSystem</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
         <Extension Category="windows.backgroundTasks" EntryPoint="EscalationSystemBackgroundTask.FTE_All_EscalationThread_Notification">
           <BackgroundTasks>
             <Task Type="timer" />

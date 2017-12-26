@@ -18,9 +18,9 @@
         <Converter:ProgreeRingActionConverter x:Key="ProgreeRingActionConverter"></Converter:ProgreeRingActionConverter>
         <Converter:ProgressRingActionOpacityConverter x:Key="ProgressRingActionOpacityConverter"></Converter:ProgressRingActionOpacityConverter>
     </Page.Resources>
-    <Grid Name="RootGrid" Background="Azure" >
+    <Grid Name="RootGrid" Background="White" >
         <ProgressRing IsActive="{Binding IsLoading,Mode=TwoWay}" Name="MyProgressRing" Foreground="#FF2196F3" Width="200" Height="200" HorizontalAlignment="Center" VerticalAlignment="Center" ></ProgressRing>
- 
+        <ProgressRing  Name="AddProgressRing" Foreground="#FF2196F3" Width="250" Height="250" HorizontalAlignment="Left" VerticalAlignment="Top" ></ProgressRing>
         <StackPanel  HorizontalAlignment="Left" Orientation="Vertical"  Name="RootPanel" Width="{Binding ScreenWidth}">
             <StackPanel.DataContext>
                 <ViewModel:SceenSizeViewModel x:Name="SceenSizeViewModel"></ViewModel:SceenSizeViewModel>
@@ -36,27 +36,27 @@
                         <TextBlock  Text="Consult Threads Records" FontWeight="Black" FontSize="30"  Foreground="White" VerticalAlignment="Center" />
                     </StackPanel>
                     <StackPanel Opacity="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}"  Margin="5,0,0,0" Orientation="Vertical" HorizontalAlignment="Left">
-                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" >
                             <TextBlock Height="5"></TextBlock>
-                            <StackPanel Background="#FF2196F3" Orientation="Horizontal">
+                            <StackPanel Background="#FF2196F3" Orientation="Horizontal" Opacity="{Binding ElementName=AddProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}">
                                 <Image Name="ShowAddImage" Tapped="ShowAddImage_Tapped"  HorizontalAlignment="Left" Width="25" Height="20" Source="/Assets/triangle.png"/>
                                 <TextBlock Width="5"></TextBlock>
                                 <TextBlock Foreground="White" FontWeight="Bold" Text="Add Consult Thread"></TextBlock>
                             </StackPanel>
-                            <StackPanel Visibility="Collapsed" Background="#FF7CBDF1" Name="AddRecordsPanle" Orientation="Vertical" >
-
+                            <StackPanel Visibility="Collapsed" Opacity="{Binding ElementName=AddProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}" Background="#FF7CBDF1"  Name="AddRecordsPanle" Orientation="Vertical">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Width="80" Foreground="White" Text="Case Link"  VerticalAlignment="Center"></TextBlock>
-                                    <TextBox Name="CaseLinkTxt" Width="500" ></TextBox>
+                                    <TextBox Name="CaseLinkTxt" Width="600" ></TextBox>
                                 </StackPanel>
                                 <TextBlock Height="15"></TextBlock>
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
                                     <TextBlock Width="80" Foreground="White" Text="ThreadID" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
-                                    <TextBox Name="ThreadIDTxt" Width="250" ></TextBox>
+                                    <TextBox Name="ThreadIDTxt" Width="350" ></TextBox>
                                     <TextBlock Width="20"></TextBlock>
                                     <TextBlock Width="80" Foreground="White" Text="VendorAlias" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
                                     <TextBox Name="VendorAliasTxt" Width="150" ></TextBox>
                                 </StackPanel>
+                               
                                 <TextBlock Height="15"></TextBlock>
                                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 
@@ -81,9 +81,11 @@
                                 </ComboBox>
                                     </StackPanel>
                                 </StackPanel>
-                            <Image Name="AddConsultThread" Tapped="AddConsultThread_Tapped" HorizontalAlignment="Left" Width="35" Height="35" Source="/Assets/add.png"></Image>
-                               
+
+                                <Image Source="/Assets/add.png" Name="AddConsultThread" Tapped="AddConsultThread_Tapped" HorizontalAlignment="Left" Width="35" Height="35"></Image>
                             </StackPanel>
+
+                            
 
                             <TextBlock Height="5"></TextBlock>
                             <StackPanel Orientation="Horizontal" Background="#FF2196F3">
@@ -234,8 +236,10 @@
                     </ScrollViewer>
                     <StackPanel Orientation="Horizontal" Width="{Binding ScreenWidth}" HorizontalAlignment="Center" Height="80">
                         <StackPanel Height="80" VerticalAlignment="Center" Grid.Column="1"  Orientation="Horizontal"  HorizontalAlignment="Right">
-                            <Image Width="25" Height="25" Source="/Assets/NavF.PNG" Name="FirstImage" Tapped="FirstImage_Tapped"></Image>
-                            <Image Width="25" Height="25" Source="/Assets/Nav.PNG" Name="PreviousImage" Tapped="PreviousImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-6,0,0"  Source="/Assets/NavF.PNG" NineGrid="0,3,0,0"  Name="FirstImage" Tapped="FirstImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-6,0,0"  Source="/Assets/Nav.PNG" Name="PreviousImage" NineGrid="0,10,0,0" Tapped="PreviousImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-6,0,0"  Source="/Assets/NavF.PNG" NineGrid="0,3,0,0"  Name="FirstSearchImage" Visibility="Collapsed" Tapped="FirstSearchImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-6,0,0"  Source="/Assets/Nav.PNG" NineGrid="0,10,0,0"  Name="PreviousSearchImage" Visibility="Collapsed" Tapped="PreviousSearchImage_Tapped"></Image>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock FontWeight="Bold" Foreground="#FF2196F3" Text="0" VerticalAlignment="Center" Height="25" Name="PageTxt"></TextBlock>
                                 <TextBlock Width="5"></TextBlock>
@@ -249,8 +253,11 @@
                                 <TextBlock Width="5"></TextBlock>
                                 <TextBlock Height="25" Text="records" VerticalAlignment="Center"></TextBlock>
                             </StackPanel>
-                            <Image Width="25" Height="25" Source="/Assets/Nav2.PNG" Name="NextImage" Tapped="NextImage_Tapped"></Image>
-                            <Image Width="25" Height="25" Source="/Assets/NavL.PNG" Name="LastImage" Tapped="LastImage_Tapped"></Image>
+
+                            <Image Width="25" Height="25" Margin="0,-3,0,0"  Source="/Assets/Nav2.PNG" Name="NextImage" NineGrid="0,8,0,0" Tapped="NextImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-3,0,0"  Source="/Assets/NavL.PNG" Name="LastImage" NineGrid="0,10,0,0" Tapped="LastImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-3,0,0"  Source="/Assets/Nav2.PNG" NineGrid="0,8,0,0" Visibility="Collapsed" Name="NextSearchImage" Tapped="NextSearchImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-3,0,0"  Source="/Assets/NavL.PNG" NineGrid="0,10,0,0" Visibility="Collapsed" Name="LastSearchImage" Tapped="LastSearchImage_Tapped"></Image>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

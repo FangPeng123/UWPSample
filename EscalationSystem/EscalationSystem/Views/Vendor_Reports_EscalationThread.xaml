@@ -15,128 +15,185 @@
         <Converter:ProgreeRingActionConverter x:Key="ProgreeRingActionConverter"></Converter:ProgreeRingActionConverter>
         <Converter:ProgressRingActionOpacityConverter x:Key="ProgressRingActionOpacityConverter"></Converter:ProgressRingActionOpacityConverter>
     </Page.Resources>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid Name="RootGrid" Background="Azure" >
-            <ProgressRing IsActive="True"  Name="MyProgressRing" Foreground="#FF2196F3" Width="200" Height="200" HorizontalAlignment="Center" VerticalAlignment="Center" ></ProgressRing>
-            <StackPanel  HorizontalAlignment="Left" Orientation="Vertical"  Name="RootPanel" Width="{Binding ScreenWidth}">
-                <StackPanel.DataContext>
-                    <ViewModel:SceenSizeViewModel x:Name="SceenSizeViewModel"></ViewModel:SceenSizeViewModel>
-                </StackPanel.DataContext>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="auto"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <StackPanel  Orientation="Vertical" Grid.Row="0">
-                        <StackPanel Width="{Binding ScreenWidth}" Height="50"  Background="#FF7CBDF1"  HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <TextBlock  Text="Threads Report" FontWeight="Black" FontSize="30"  Foreground="White" VerticalAlignment="Center" />
-                        </StackPanel>
-                        <StackPanel  Opacity="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}" Orientation="Vertical" HorizontalAlignment="Left">
-                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                                <StackPanel Orientation="Horizontal" Background="#FF2196F3">
-                                    <Grid Margin="0,0,0,0" Width="{Binding ScreenWidth}">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="1.5*"></ColumnDefinition>
-                                            <ColumnDefinition Width="1.5*"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                            <ColumnDefinition Width="1.5*"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <StackPanel  Grid.Column="0"  Orientation="Horizontal">
-                                            <TextBlock  Foreground="White" Text="Start Date"  VerticalAlignment="Center"></TextBlock>
-                                            <DatePicker IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Foreground="White" Name="StartDatePicker"  VerticalAlignment="Center"></DatePicker>
-                                        </StackPanel>
+    <Grid Background="White">
+        <ProgressRing IsActive="True" Name="MyProgressRing" Foreground="#FF2196F3" Width="200" Height="200" HorizontalAlignment="Center" VerticalAlignment="Center" ></ProgressRing>
+        <StackPanel  HorizontalAlignment="Left" Orientation="Vertical"  Name="RootPanel" Width="{Binding ScreenWidth}">
+            <StackPanel.DataContext>
+                <ViewModel:SceenSizeViewModel x:Name="SceenSizeViewModel"></ViewModel:SceenSizeViewModel>
+            </StackPanel.DataContext>
 
-                                        <StackPanel HorizontalAlignment="Right" Grid.Column="1" Orientation="Horizontal">
-                                            <TextBlock  Foreground="White" Text="End Date" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
-                                            <DatePicker IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Foreground="White" Name="EndDatePicker"  HorizontalAlignment="Right" VerticalAlignment="Center"></DatePicker>
-                                        </StackPanel>
-                                        <StackPanel HorizontalAlignment="Right" Grid.Column="2" Orientation="Horizontal">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                </Grid.RowDefinitions>
 
-                                            <TextBlock Text="Platform" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White"></TextBlock>
-                                            <ComboBox SelectionChanged="PlatformComboBox_SelectionChanged" IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding MyProductList}" SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Right" Name="PlatformComboBox"   Foreground="White">
-                                                <ComboBox.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Text="{Binding Platform}"/>
-                                                    </DataTemplate>
-                                                </ComboBox.ItemTemplate>
-                                            </ComboBox>
-                                        </StackPanel>
-                                        <StackPanel HorizontalAlignment="Right" Grid.Column="3" Orientation="Horizontal">
-                                            <TextBlock Text="Forum" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White"></TextBlock>
-                                            <ComboBox  Name="ForumCombobox" IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding}"  HorizontalAlignment="Right" Foreground="White">
-                                                <ComboBox.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Text="{Binding}"/>
-                                                    </DataTemplate>
-                                                </ComboBox.ItemTemplate>
-                                            </ComboBox>
-                                        </StackPanel>
-                                        <Button IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Click="QueryButton_Click" Name="QueryButton"  BorderBrush="#FF145A92" BorderThickness="2" Width="70"  Grid.Column="4" HorizontalAlignment="Right"   Foreground="White" Content="Query" Background="#FF2196F3" ></Button>
-                                    </Grid>
-                                </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Row="0">
+                    <StackPanel Width="{Binding ScreenWidth}" Height="50"  Background="#FF7CBDF1"  HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBlock  Text="All Threads List" FontWeight="Black" FontSize="30"  Foreground="White" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Opacity="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}" Orientation="Vertical" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                            <StackPanel Orientation="Horizontal" Background="#FF2196F3">
+                                <Grid Margin="0,0,0,0" Width="{Binding ScreenWidth}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.3*"></ColumnDefinition>
+                                        <ColumnDefinition Width="3.2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="3.2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="2.5*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Opacity="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}" Name="ShowQueryImage" Tapped="ShowQueryImage_Tapped" HorizontalAlignment="Left" Width="50" Height="30" Source="/Assets/searchshow.png"/>
+                                    <StackPanel  Grid.Column="1"  Orientation="Horizontal">
+                                        <TextBlock  Foreground="White" Text="Start Date"  VerticalAlignment="Center"></TextBlock>
+                                        <DatePicker  Foreground="White" Name="StartDatePicker"  VerticalAlignment="Center"></DatePicker>
+                                    </StackPanel>
+
+                                    <StackPanel HorizontalAlignment="Right" Grid.Column="2" Orientation="Horizontal">
+                                        <TextBlock  Foreground="White" Text="End Date" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                                        <DatePicker   Foreground="White" Name="EndDatePicker"  HorizontalAlignment="Right" VerticalAlignment="Center"></DatePicker>
+                                    </StackPanel>
+                                    <StackPanel HorizontalAlignment="Right" Grid.Column="3" Orientation="Horizontal">
+                                        <TextBlock Text="Platform" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White"></TextBlock>
+                                        <ComboBox SelectionChanged="PlatformComboBox_SelectionChanged_1" IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding MyProductList}" SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Right" Name="PlatformComboBox"   Foreground="White">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Platform}"/>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <StackPanel HorizontalAlignment="Right" Grid.Column="4" Orientation="Horizontal">
+                                        <TextBlock Text="Forum" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White"></TextBlock>
+                                        <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding}"  HorizontalAlignment="Right" Name="ForumComboBox"   Foreground="White">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding}"/>
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </StackPanel>
+
+                                    <StackPanel HorizontalAlignment="Right" Grid.Column="5" Orientation="Horizontal">
+                                        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center" Text="Items" Foreground="White"></TextBlock>
+                                        <ComboBox Name="PageComboBox" HorizontalAlignment="Right" Foreground="White">
+                                            <ComboBoxItem Content="10"></ComboBoxItem>
+                                            <ComboBoxItem Content="20"></ComboBoxItem>
+                                            <ComboBoxItem Content="50"></ComboBoxItem>
+                                            <ComboBoxItem Content="100"></ComboBoxItem>
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <Button IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Name="QueryButton" Click="QueryButton_Click" BorderBrush="#FF145A92" BorderThickness="2" Width="70"  Grid.Column="6" HorizontalAlignment="Right"   Foreground="White" Content="Query" Background="#FF2196F3" ></Button>
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel Visibility="Collapsed" Name="ShowSearchPanel" Opacity="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}" Background="#FF2196F3" Orientation="Horizontal" Height="35">
+                                <TextBox Name="Searchtxt" Background="#FF2196F3" BorderThickness="0,0,0,3" BorderBrush="Aqua" Width="360" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" PlaceholderText="Search by ThreadID/ThreadTitle/Alias"></TextBox>
+                                <Image Name="Search" Tapped="Search_Tapped" Width="38" Height="30" Source="/Assets/search.png"></Image>
                             </StackPanel>
                         </StackPanel>
-
                     </StackPanel>
 
-                    <StackPanel Grid.Row="1">
-                        <Border Background="Azure" BorderThickness="3,3,3,3" BorderBrush="White">
-                            <controls:DataGrid RowBackgroundEvenBrush="Azure" RowBackgroundOddBrush="#FFD1E5F5" HeaderBackground="#FF7CBDF1" x:Name="DataGrid" DefaultOrderIndex="0">
-                                <controls:DataGrid.Columns>
-                                    <controls:DataGridTextColumn FontSize="15" Width="*" CanSort="False"
+                    <ScrollViewer Name="MyScrollView" VerticalScrollBarVisibility="Visible" VerticalScrollMode="Enabled">
+
+                        <StackPanel Grid.Row="1">
+
+                            <Border Background="Azure" BorderThickness="3,3,3,3" BorderBrush="White">
+
+                                <controls:DataGrid RowBackgroundEvenBrush="Azure" RowBackgroundOddBrush="#FFD1E5F5" HeaderBackground="#FF7CBDF1" x:Name="DataGrid" DefaultOrderIndex="0">
+                                    <controls:DataGrid.Columns>
+                                        <controls:DataGridTextColumn FontSize="15" Width="*" CanSort="False"
                   Binding="{Binding Alias}" d:DataContext="{d:DesignInstance Type=Model:Report}">
-                                        <controls:DataGridTextColumn.Header>
-                                            <TextBlock  HorizontalAlignment="Right" FontSize="15" FontWeight="Bold" Text="Alias"></TextBlock>
-                                        </controls:DataGridTextColumn.Header>
-                                    </controls:DataGridTextColumn>
-                                    <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding TotalNum}" 
+                                            <controls:DataGridTextColumn.Header>
+                                                <TextBlock  HorizontalAlignment="Right" FontSize="15" FontWeight="Bold" Text="Alias"></TextBlock>
+                                            </controls:DataGridTextColumn.Header>
+                                        </controls:DataGridTextColumn>
+                                        <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding TotalNum}" 
                 d:DataContext="{d:DesignInstance Type=Model:Report}">
-                                        <controls:DataGridTextColumn.Header>
-                                            <TextBlock FontSize="15" FontWeight="Bold" Text="EscVolume"></TextBlock>
-                                        </controls:DataGridTextColumn.Header>
-                                    </controls:DataGridTextColumn>
-                                    <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding OpenNum}" 
+                                            <controls:DataGridTextColumn.Header>
+                                                <TextBlock FontSize="15" FontWeight="Bold" Text="EscVolume"></TextBlock>
+                                            </controls:DataGridTextColumn.Header>
+                                        </controls:DataGridTextColumn>
+                                        <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding OpenNum}" 
                 d:DataContext="{d:DesignInstance Type=Model:Report}">
-                                        <controls:DataGridTextColumn.Header>
-                                            <TextBlock FontSize="15" FontWeight="Bold" Text="OpenedVolume"></TextBlock>
-                                        </controls:DataGridTextColumn.Header>
-                                    </controls:DataGridTextColumn>
-                                    <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding ClosedNum}" 
+                                            <controls:DataGridTextColumn.Header>
+                                                <TextBlock FontSize="15" FontWeight="Bold" Text="OpenedVolume"></TextBlock>
+                                            </controls:DataGridTextColumn.Header>
+                                        </controls:DataGridTextColumn>
+                                        <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding ClosedNum}" 
                 d:DataContext="{d:DesignInstance Type=Model:Report}">
-                                        <controls:DataGridTextColumn.Header>
-                                            <TextBlock FontSize="15" FontWeight="Bold" Text="ClosedVolume"></TextBlock>
-                                        </controls:DataGridTextColumn.Header>
-                                    </controls:DataGridTextColumn>
-                                    <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding MarkedNum}" 
+                                            <controls:DataGridTextColumn.Header>
+                                                <TextBlock FontSize="15" FontWeight="Bold" Text="ClosedVolume"></TextBlock>
+                                            </controls:DataGridTextColumn.Header>
+                                        </controls:DataGridTextColumn>
+                                        <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding MarkedNum}" 
                 d:DataContext="{d:DesignInstance Type=Model:Report}">
-                                        <controls:DataGridTextColumn.Header>
-                                            <TextBlock FontSize="15" FontWeight="Bold" Text="MarkedVolume"></TextBlock>
-                                        </controls:DataGridTextColumn.Header>
-                                    </controls:DataGridTextColumn>
-                                    <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding ClosedRate}" 
+                                            <controls:DataGridTextColumn.Header>
+                                                <TextBlock FontSize="15" FontWeight="Bold" Text="MarkedVolume"></TextBlock>
+                                            </controls:DataGridTextColumn.Header>
+                                        </controls:DataGridTextColumn>
+                                        <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding ClosedRate}" 
                 d:DataContext="{d:DesignInstance Type=Model:Report}">
-                                        <controls:DataGridTextColumn.Header>
-                                            <TextBlock FontSize="15" FontWeight="Bold" Text="ClosedRate"></TextBlock>
-                                        </controls:DataGridTextColumn.Header>
-                                    </controls:DataGridTextColumn>
-                                    <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding MarkedRate}" 
+                                            <controls:DataGridTextColumn.Header>
+                                                <TextBlock FontSize="15" FontWeight="Bold" Text="ClosedRate"></TextBlock>
+                                            </controls:DataGridTextColumn.Header>
+                                        </controls:DataGridTextColumn>
+                                        <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding MarkedRate}" 
                 d:DataContext="{d:DesignInstance Type=Model:Report}">
-                                        <controls:DataGridTextColumn.Header>
-                                            <TextBlock FontSize="15" FontWeight="Bold" Text="OPMarkedRate"></TextBlock>
-                                        </controls:DataGridTextColumn.Header>
-                                    </controls:DataGridTextColumn>
-                                </controls:DataGrid.Columns>
-                                <controls:DataGrid.RowStyle>
-                                    <Style TargetType="ListBoxItem">
-                                        <Setter Property="Margin" Value="0"></Setter>
-                                    </Style>
-                                </controls:DataGrid.RowStyle>
-                            </controls:DataGrid>
-                        </Border>
+                                            <controls:DataGridTextColumn.Header>
+                                                <TextBlock FontSize="15" FontWeight="Bold" Text="OPMarkedRate"></TextBlock>
+                                            </controls:DataGridTextColumn.Header>
+                                        </controls:DataGridTextColumn>
+                                    </controls:DataGrid.Columns>
+                                    <controls:DataGrid.RowStyle>
+                                        <Style TargetType="ListBoxItem">
+                                            <Setter Property="Margin" Value="0"></Setter>
+                                        </Style>
+                                    </controls:DataGrid.RowStyle>
+                                </controls:DataGrid>
+
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <StackPanel Orientation="Horizontal" Width="{Binding ScreenWidth}" HorizontalAlignment="Center" Height="80">
+
+                        <StackPanel Height="80" VerticalAlignment="Center" Grid.Column="1"  Orientation="Horizontal"  HorizontalAlignment="Right">
+                            <Image Width="25" Height="25" Margin="0,-6,0,0"  Source="/Assets/NavF.PNG" NineGrid="0,3,0,0"  Name="FirstImage" Tapped="FirstImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-6,0,0"  Source="/Assets/Nav.PNG" Name="PreviousImage" NineGrid="0,10,0,0" Tapped="PreviousImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-6,0,0"  Source="/Assets/NavF.PNG" NineGrid="0,3,0,0"  Name="FirstSearchImage" Visibility="Collapsed" Tapped="FirstSearchImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-6,0,0"  Source="/Assets/Nav.PNG" NineGrid="0,10,0,0"  Name="PreviousSearchImage" Visibility="Collapsed" Tapped="PreviousSearchImage_Tapped"></Image>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontWeight="Bold" Foreground="#FF2196F3" Text="0" VerticalAlignment="Center" Height="25" Name="PageTxt"></TextBlock>
+                                <TextBlock Width="5"></TextBlock>
+                                <TextBlock Height="25" VerticalAlignment="Center" Text="to"  ></TextBlock>
+                                <TextBlock Width="5"></TextBlock>
+                                <TextBlock FontWeight="Bold"  Height="25" VerticalAlignment="Center" Foreground="#FF2196F3" Name="AllPageIndex" Text="0"></TextBlock>
+                                <TextBlock Width="5"></TextBlock>
+                                <TextBlock Height="25" VerticalAlignment="Center" Text="of"></TextBlock>
+                                <TextBlock Width="5"></TextBlock>
+                                <TextBlock FontWeight="Bold"  Height="25" Foreground="#FF2196F3" Text="0" Name="AllRecords" VerticalAlignment="Center"></TextBlock>
+                                <TextBlock Width="5"></TextBlock>
+                                <TextBlock Height="25" Text="records" VerticalAlignment="Center"></TextBlock>
+                            </StackPanel>
+
+                            <Image Width="25" Height="25" Margin="0,-3,0,0"  Source="/Assets/Nav2.PNG" Name="NextImage" NineGrid="0,8,0,0" Tapped="NextImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-3,0,0"  Source="/Assets/NavL.PNG" Name="LastImage" NineGrid="0,10,0,0" Tapped="LastImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-3,0,0"  Source="/Assets/Nav2.PNG" NineGrid="0,8,0,0" Visibility="Collapsed" Name="NextSearchImage" Tapped="NextSearchImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-3,0,0"  Source="/Assets/NavL.PNG" NineGrid="0,10,0,0" Visibility="Collapsed" Name="LastSearchImage" Tapped="LastSearchImage_Tapped"></Image>
+                        </StackPanel>
                     </StackPanel>
-                </Grid>
-            </StackPanel>
-        </Grid>
+                </StackPanel>
+
+
+
+
+            </Grid>
+
+
+        </StackPanel>
     </Grid>
 </Page>

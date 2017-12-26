@@ -17,7 +17,7 @@
         <Converter:ProgressRingActionOpacityConverter x:Key="ProgressRingActionOpacityConverter"></Converter:ProgressRingActionOpacityConverter>
     </Page.Resources>
 
-    <Grid Background="Azure">
+    <Grid Background="White">
         <ProgressRing IsActive="True" Name="MyProgressRing" Foreground="#FF2196F3" Width="200" Height="200" HorizontalAlignment="Center" VerticalAlignment="Center" ></ProgressRing>
         <StackPanel  HorizontalAlignment="Left" Orientation="Vertical"  Name="RootPanel" Width="{Binding ScreenWidth}">
             <StackPanel.DataContext>
@@ -231,9 +231,11 @@
                 <StackPanel Orientation="Horizontal" Width="{Binding ScreenWidth}" HorizontalAlignment="Center" Height="80">
 
                     <StackPanel Height="80" VerticalAlignment="Center" Grid.Column="1"  Orientation="Horizontal"  HorizontalAlignment="Right">
-                        <Image Width="25" Height="25" Source="/Assets/NavF.PNG" Name="FirstImage" Tapped="FirstImage_Tapped"></Image>
-                        <Image Width="25" Height="25" Source="/Assets/Nav.PNG" Name="PreviousImage" Tapped="PreviousImage_Tapped"></Image>
-                        <StackPanel Orientation="Horizontal">
+                            <Image Width="25" Height="25" Margin="0,-6,0,0"  Source="/Assets/NavF.PNG" NineGrid="0,3,0,0"  Name="FirstImage" Tapped="FirstImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-6,0,0"  Source="/Assets/Nav.PNG" Name="PreviousImage" NineGrid="0,10,0,0" Tapped="PreviousImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-6,0,0"  Source="/Assets/NavF.PNG" NineGrid="0,3,0,0"  Name="FirstSearchImage" Visibility="Collapsed" Tapped="FirstSearchImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-6,0,0"  Source="/Assets/Nav.PNG" NineGrid="0,10,0,0"  Name="PreviousSearchImage" Visibility="Collapsed" Tapped="PreviousSearchImage_Tapped"></Image>
+                            <StackPanel Orientation="Horizontal">
                             <TextBlock FontWeight="Bold" Foreground="#FF2196F3" Text="0" VerticalAlignment="Center" Height="25" Name="PageTxt"></TextBlock>
                             <TextBlock Width="5"></TextBlock>
                             <TextBlock Height="25" VerticalAlignment="Center" Text="to"  ></TextBlock>
@@ -247,9 +249,11 @@
                             <TextBlock Height="25" Text="records" VerticalAlignment="Center"></TextBlock>
                         </StackPanel>
 
-                        <Image Width="25" Height="25" Source="/Assets/Nav2.PNG" Name="NextImage" Tapped="NextImage_Tapped"></Image>
-                        <Image Width="25" Height="25" Source="/Assets/NavL.PNG" Name="LastImage" Tapped="LastImage_Tapped"></Image>
-                    </StackPanel>
+                            <Image Width="25" Height="25" Margin="0,-3,0,0"  Source="/Assets/Nav2.PNG" Name="NextImage" NineGrid="0,8,0,0" Tapped="NextImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-3,0,0"  Source="/Assets/NavL.PNG" Name="LastImage" NineGrid="0,10,0,0" Tapped="LastImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-3,0,0"  Source="/Assets/Nav2.PNG" NineGrid="0,8,0,0" Visibility="Collapsed" Name="NextSearchImage" Tapped="NextSearchImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-3,0,0"  Source="/Assets/NavL.PNG" NineGrid="0,10,0,0" Visibility="Collapsed" Name="LastSearchImage" Tapped="LastSearchImage_Tapped"></Image>
+                        </StackPanel>
                 </StackPanel>
             </StackPanel>
 

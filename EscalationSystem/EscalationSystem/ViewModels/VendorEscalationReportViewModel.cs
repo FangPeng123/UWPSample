@@ -32,7 +32,29 @@ namespace EscalationSystem.ViewModels
             }
         }
 
-       
+        public int GetPageIndex(ObservableCollectionView<Report> ReportThreadList, int pageSize)
+        {
+            int AllPageIndex;
+            if (ReportThreadList.Count > pageSize)
+            {
+
+                if (ReportThreadList.Count % pageSize == 0)
+                {
+                    AllPageIndex = ReportThreadList.Count / pageSize;
+                }
+                else
+                {
+                    AllPageIndex = (ReportThreadList.Count / pageSize) + 1;
+                }
+            }
+
+            else
+            {
+                AllPageIndex = 1;
+            }
+
+            return AllPageIndex;
+        }
         public async Task<ObservableCollection<Product>> GetAllPlaform()
         {
             HttpClient HttpClient = new HttpClient();
@@ -59,15 +81,15 @@ namespace EscalationSystem.ViewModels
             {
                 var result = await HttpResponseMessage.Content.ReadAsStringAsync();
                 AllMyPlatform = JsonConvert.DeserializeObject<ObservableCollection<Product>>(result);
-                AllMyPlatform.Insert(0, new Product() { Platform = "All", Forum = "All", Description = "All", Owner = "All", Operator = "All" });
-                foreach(var prouct in AllMyPlatform)
+                foreach (var prouct in AllMyPlatform)
                 {
-                    if(prouct.Platform.Equals(PlatForm))
+                    if (prouct.Platform.Equals(PlatForm))
                     {
                         Forumlist.Add(prouct.Forum);
                     }
                 }
             }
+            Forumlist.Insert(0, "All");
             return Forumlist;
         }
         public static async Task<VendorEscalationReportViewModel> GetVendorEscalationReportViewModel()
@@ -83,14 +105,14 @@ namespace EscalationSystem.ViewModels
             return VendorEscalationReportViewModel;
         }
 
-        public async Task<ObservableCollectionView<Report>> QueryAllEscalationReport(string plaform, string forum, string startDatestring, string endDatestring)
+        public async Task<ObservableCollectionView<Report>> QueryAllEscalationReport(string plaform, string forum, string startDatestring, string endDatestring,bool flag)
         {
             ObservableCollectionView<Report> ReportList = new ObservableCollectionView<Report>();
             HttpClient HttpClient = new HttpClient();
             Product MyProduct = new Product();
          
             
-            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/reports?Alias={0}&Platform={1}&Forum={2}&ETime1={3}&ETime2={4}&VFlag={5}", "All", plaform, forum, startDatestring, endDatestring, true)));
+            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/reports?Alias={0}&Platform={1}&Forum={2}&ETime1={3}&ETime2={4}&VFlag={5}", "All", plaform, forum, startDatestring, endDatestring, flag)));
             ObservableCollection<Report> AllMyReport = new ObservableCollection<Report>();
             if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
             {

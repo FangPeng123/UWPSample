@@ -24,6 +24,7 @@ using Windows.Web.Http;
 using Newtonsoft.Json;
 using Windows.UI.Popups;
 using System.Threading.Tasks;
+using Windows.UI.Core;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -38,10 +39,15 @@ namespace EscalationSystem.Views
         public ProductWithSelectedItem AllMyPlatform { get; set; }
         public ObservableCollectionView<ConsultThread> ConsultThreadListPage { get; set; }
         public ObservableCollectionView<ConsultThread> ConsultThreadList { get; set; }
+
+        public ObservableCollectionView<ConsultThread> MySearchConsultThreadListPage { get; set; }
+        public ObservableCollectionView<ConsultThread> MySearchConsultThreadList { get; set; }
         //public EscalationThread EscalationThread { get; set; }
         public FTEConsultThreadViewModel FTEConsultThreadViewModel { get; set; }
         public int pageSize;
+        public int searchPageSize;
         public static int i = 0;
+     
         public FTE_Consult_Page()
         {
             this.InitializeComponent();
@@ -52,6 +58,8 @@ namespace EscalationSystem.Views
             AllMyPlatform = new ProductWithSelectedItem();
             ConsultThreadList= new ObservableCollectionView<ConsultThread>();
             ConsultThreadListPage = new ObservableCollectionView<ConsultThread>();
+            MySearchConsultThreadList = new ObservableCollectionView<ConsultThread>();
+            MySearchConsultThreadListPage = new ObservableCollectionView<ConsultThread>();
             FTEConsultThreadViewModel = new FTEConsultThreadViewModel();
             this.Loaded += FTE_Consult_Page_Loaded;
             this.DataContext = FTEConsultThreadViewModel;
@@ -109,6 +117,14 @@ namespace EscalationSystem.Views
 
         private async void QueryButton_Click(object sender, RoutedEventArgs e)
         {
+            PreviousImage.Visibility = Visibility.Visible;
+            FirstImage.Visibility = Visibility.Visible;
+            NextImage.Visibility = Visibility.Visible;
+            LastImage.Visibility = Visibility.Visible;
+            PreviousSearchImage.Visibility = Visibility.Collapsed;
+            FirstSearchImage.Visibility = Visibility.Collapsed;
+            NextSearchImage.Visibility = Visibility.Collapsed;
+            LastSearchImage.Visibility = Visibility.Collapsed;
             try
             {
                 MyProgressRing.IsActive = true;
@@ -177,7 +193,7 @@ namespace EscalationSystem.Views
                         }
                         else
                         {
-                            MyScrollView.Height = 650;
+                            MyScrollView.Height = 500;
                         }
                     }
                     if (AllPagesIndex == 1)
@@ -236,6 +252,24 @@ namespace EscalationSystem.Views
                     DataGrid.ItemsSource = ConsultThreadListPage;
                     setScrollViewheight(ConsultThreadListPage);
                     PageTxt.Text = index.ToString();
+                    if (ShowSearchPanel.Visibility == Visibility.Visible && AddRecordsPanle.Visibility == Visibility.Visible)
+                    {
+                        MyScrollView.Height = 350;
+                    }
+                    else if (ShowSearchPanel.Visibility == Visibility.Visible)
+                    {
+                        MyScrollView.Height = 500;
+                    }
+                    else if (AddRecordsPanle.Visibility == Visibility.Visible)
+                    {
+                        MyScrollView.Height = 400;
+
+                    }
+
+                    else
+                    {
+                        MyScrollView.Height = 650;
+                    }
                 }
 
                 else
@@ -245,6 +279,24 @@ namespace EscalationSystem.Views
                     setScrollViewheight(ConsultThreadListPage);
                     int count = ConsultThreadList.Count;
                     PageTxt.Text = AllPageIndex.ToString();
+                    if (ShowSearchPanel.Visibility == Visibility.Visible && AddRecordsPanle.Visibility == Visibility.Visible)
+                    {
+                        MyScrollView.Height = 350;
+                    }
+                    else if (ShowSearchPanel.Visibility == Visibility.Visible)
+                    {
+                        MyScrollView.Height = 500;
+                    }
+                    else if (AddRecordsPanle.Visibility == Visibility.Visible)
+                    {
+                        MyScrollView.Height = 400;
+
+                    }
+
+                    else
+                    {
+                        MyScrollView.Height = 650;
+                    }
 
                 }
             }
@@ -274,6 +326,25 @@ namespace EscalationSystem.Views
                     DataGrid.ItemsSource = ConsultThreadListPage;
                     setScrollViewheight(ConsultThreadListPage);
                     PageTxt.Text = ((Convert.ToInt32(PageTxt.Text.ToString())) - 1).ToString();
+
+                    if (ShowSearchPanel.Visibility == Visibility.Visible && AddRecordsPanle.Visibility == Visibility.Visible)
+                    {
+                        MyScrollView.Height = 350;
+                    }
+                    else if (ShowSearchPanel.Visibility == Visibility.Visible)
+                    {
+                        MyScrollView.Height = 500;
+                    }
+                    else if (AddRecordsPanle.Visibility == Visibility.Visible)
+                    {
+                        MyScrollView.Height = 400;
+
+                    }
+
+                    else
+                    {
+                        MyScrollView.Height = 650;
+                    }
 
                 }
             }
@@ -313,6 +384,24 @@ namespace EscalationSystem.Views
                 DataGrid.ItemsSource = ConsultThreadListPage1;
                 setScrollViewheight(ConsultThreadListPage1);
                 PageTxt.Text = "1";
+                if (ShowSearchPanel.Visibility == Visibility.Visible && AddRecordsPanle.Visibility == Visibility.Visible)
+                {
+                    MyScrollView.Height = 350;
+                }
+                else if (ShowSearchPanel.Visibility == Visibility.Visible)
+                {
+                    MyScrollView.Height = 500;
+                }
+                else if (AddRecordsPanle.Visibility == Visibility.Visible)
+                {
+                    MyScrollView.Height = 400;
+
+                }
+
+                else
+                {
+                    MyScrollView.Height = 650;
+                }
             }
         }
 
@@ -357,59 +446,75 @@ namespace EscalationSystem.Views
 
         private async void AddConsultThread_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            try
-            {
-                if (string.IsNullOrEmpty(CaseLinkTxt.Text.ToString()) == false && string.IsNullOrEmpty(VendorAliasTxt.Text.ToString()) == false && AddPanelPlatformCombox.SelectedIndex >= 0 && AddPanelForumCombox.SelectedIndex >= 0)
-                {
-                    ConsultThread consultThread = new ConsultThread();
-                    consultThread.Description = "N/A";
-                    consultThread.Forum = AddPanelForumCombox.SelectedValue.ToString();
-                    consultThread.Platform = ((Product)AddPanelPlatformCombox.SelectedValue).Platform;
-                    consultThread.Reason = "N/A";
-                    consultThread.SrescalationId = "N/A";
-                    consultThread.Status = "N/A";
-                    consultThread.Title = "N/A";
-                    consultThread.ThreadId = ThreadIDTxt.Text.ToString();
-                    consultThread.Url = CaseLinkTxt.Text.ToString();
-                    Windows.Storage.ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-                    string userAlias = LocalSettings.Values["currentUserAlias"].ToString();
-                    consultThread.FteAlias = userAlias;
-                    consultThread.VendorAlias = VendorAliasTxt.Text.ToString();
-                    consultThread.EscalatedDatetime = DateTime.Now;
-                    consultThread.IsManaged = false;
-                    consultThread.Labor = "N/A";
-                    consultThread.LastreplyDatetime = DateTime.Now;
-                    consultThread.LastreplyFromOp = false;
-                    consultThread.ThreadCreatedDatetime = DateTime.Now;
-                    FTEConsultThreadViewModel.AddConsultThread(consultThread);
-                }
+           await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+            () =>
+              {
+                 AddProgressRing.IsActive = true;
+              });
 
-                else
+            try
                 {
+                    if (string.IsNullOrEmpty(CaseLinkTxt.Text.ToString()) == false && string.IsNullOrEmpty(VendorAliasTxt.Text.ToString()) == false && AddPanelPlatformCombox.SelectedIndex >= 0 && AddPanelForumCombox.SelectedIndex >= 0)
+                    {
+                        ConsultThread consultThread = new ConsultThread();
+                        consultThread.Description = "N/A";
+                        consultThread.Forum = AddPanelForumCombox.SelectedValue.ToString();
+                        consultThread.Platform = ((Product)AddPanelPlatformCombox.SelectedValue).Platform;
+                        consultThread.Reason = "N/A";
+                        consultThread.SrescalationId = "N/A";
+                        consultThread.Status = "N/A";
+                        consultThread.Title = "N/A";
+                        consultThread.ThreadId = ThreadIDTxt.Text.ToString();
+                        consultThread.Url = CaseLinkTxt.Text.ToString();
+                        Windows.Storage.ApplicationDataContainer LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                        string userAlias = LocalSettings.Values["currentUserAlias"].ToString();
+                        consultThread.FteAlias = userAlias;
+                        consultThread.VendorAlias = VendorAliasTxt.Text.ToString();
+                        consultThread.EscalatedDatetime = DateTime.Now;
+                        consultThread.IsManaged = false;
+                        consultThread.Labor = "N/A";
+                        consultThread.LastreplyDatetime = DateTime.Now;
+                        consultThread.LastreplyFromOp = false;
+                        consultThread.ThreadCreatedDatetime = DateTime.Now;
+                        FTEConsultThreadViewModel.AddConsultThread(consultThread);
+                        AddProgressRing.IsActive = false;
+
+                    }
+
+                    else
+                    {
+                        AddProgressRing.IsActive = false;
                     MessageDialog messageDialog = new MessageDialog("Please fill all the fields!!!");
                     await messageDialog.ShowAsync();
+
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageDialog messageDialog = new MessageDialog(ex.Message.ToString());
-                await messageDialog.ShowAsync();
-                MyProgressRing.IsActive = false;
-            }
+                }
+                catch (Exception ex)
+                {
+                    AddProgressRing.IsActive = false;
+                    MessageDialog messageDialog = new MessageDialog(ex.Message.ToString());
+                    await messageDialog.ShowAsync();
+                    MyProgressRing.IsActive = false;
 
+                }
 
+            
         }
 
-        public int j = 0;
+       
         private void ShowQueryImage_Tapped(object sender, TappedRoutedEventArgs e)
         {
             
             if (ShowSearchPanel.Visibility == Visibility.Collapsed)
             {
                 ShowSearchPanel.Visibility = Visibility.Visible;
-                if (j == 0)
+                if (AddRecordsPanle.Visibility==Visibility.Collapsed)
                 {
                     MyScrollView.Height = 600;
+                }
+                else
+                {
+                    MyScrollView.Height = 350;
                 }
             }
             else
@@ -421,25 +526,42 @@ namespace EscalationSystem.Views
 
         private async void Search_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            if (MySearchConsultThreadList.Count > 0)
+            {
+                MySearchConsultThreadList.Items.Clear();
+            }
+            DataGrid.ItemsSource = null;
+            MyProgressRing.IsActive = true;
+            PreviousImage.Visibility = Visibility.Collapsed;
+            FirstImage.Visibility = Visibility.Collapsed;
+            NextImage.Visibility = Visibility.Collapsed;
+            LastImage.Visibility = Visibility.Collapsed;
+            PreviousSearchImage.Visibility = Visibility.Visible;
+            FirstSearchImage.Visibility = Visibility.Visible;
+            NextSearchImage.Visibility = Visibility.Visible;
+            LastSearchImage.Visibility = Visibility.Visible;
+            ComboBoxItem curItem = (ComboBoxItem)PageComboBox.SelectedItem;
+            searchPageSize = Convert.ToInt32(curItem.Content.ToString());
             try
             {
                 var test = await FTEConsultThreadViewModel.QueryAllConsultThread( "", "", "", "");
                 int i = 0;
                 if (test.Items.Count > 0)
                 {
-                    ObservableCollectionView<ConsultThread> SearchConsultThreadList = new ObservableCollectionView<ConsultThread>();
+                   
                     foreach (var item in test)
                     {
                         if (Searchtxt.Text.ToString().Contains("*"))
                         {
-                            if (item.ThreadId.Contains(Searchtxt.Text.ToString()))
+                            string Text = Searchtxt.Text.ToString().Trim((new Char[] { '*' }));
+                            if (item.ThreadId.Contains(Text))
                             {
-                                SearchConsultThreadList.Items.Add(item);
+                                MySearchConsultThreadList.Items.Add(item);
                                 i = 1;
                             }
-                            else if (item.Title.Contains(Searchtxt.Text.ToString()))
+                            else if (item.Title.Contains(Text))
                             {
-                                SearchConsultThreadList.Items.Add(item);
+                                MySearchConsultThreadList.Items.Add(item);
                                 i = 1;
 
                             }
@@ -448,12 +570,12 @@ namespace EscalationSystem.Views
                         {
                             if (item.ThreadId == Searchtxt.Text.ToString())
                             {
-                                SearchConsultThreadList.Items.Add(item);
+                                MySearchConsultThreadList.Items.Add(item);
                                 i = 1;
                             }
                             else if (item.Title == Searchtxt.Text.ToString())
                             {
-                                SearchConsultThreadList.Items.Add(item);
+                                MySearchConsultThreadList.Items.Add(item);
                                 i = 1;
 
                             }
@@ -465,13 +587,13 @@ namespace EscalationSystem.Views
                     {
 
 
-                        if (SearchConsultThreadList.Count < 10)
+                        if (MySearchConsultThreadList.Count < 10)
                         {
-                            DataGrid.ItemsSource = SearchConsultThreadList;
-                            MyScrollView.Height = (SearchConsultThreadList.Count + 1) * 60;
-                            AllRecords.Text = SearchConsultThreadList.Count.ToString();
-                            AllPageIndex.Text = FTEConsultThreadViewModel.GetPageIndex(SearchConsultThreadList, pageSize).ToString();
-                            PageTxt.Text = FTEConsultThreadViewModel.GetPageIndex(SearchConsultThreadList, pageSize).ToString();
+                            DataGrid.ItemsSource = MySearchConsultThreadList;
+                            MyScrollView.Height = (MySearchConsultThreadList.Count + 1) * 60;
+                            AllRecords.Text = MySearchConsultThreadList.Count.ToString();
+                            AllPageIndex.Text = FTEConsultThreadViewModel.GetPageIndex(MySearchConsultThreadList, searchPageSize).ToString();
+                            PageTxt.Text = FTEConsultThreadViewModel.GetPageIndex(MySearchConsultThreadList, searchPageSize).ToString();
 
                             if(ShowSearchPanel.Visibility==Visibility.Visible&&AddRecordsPanle.Visibility==Visibility.Visible)
                             {
@@ -495,11 +617,11 @@ namespace EscalationSystem.Views
 
                         else
                         {
-                            AllRecords.Text = SearchConsultThreadList.Count.ToString();
-                            AllPageIndex.Text = FTEConsultThreadViewModel.GetPageIndex(SearchConsultThreadList, pageSize).ToString();
-                            int AllPagesIndex = FTEConsultThreadViewModel.GetPageIndex(SearchConsultThreadList, pageSize);
+                            AllRecords.Text = MySearchConsultThreadList.Count.ToString();
+                            AllPageIndex.Text = FTEConsultThreadViewModel.GetPageIndex(MySearchConsultThreadList, searchPageSize).ToString();
+                            int AllPagesIndex = FTEConsultThreadViewModel.GetPageIndex(MySearchConsultThreadList, searchPageSize);
                             PageTxt.Text = "1";
-                            if (SearchConsultThreadList.Count >= 10)
+                            if (MySearchConsultThreadList.Count >= 10)
                             {
 
                                 if (ShowSearchPanel.Visibility == Visibility.Visible && AddRecordsPanle.Visibility == Visibility.Visible)
@@ -513,12 +635,12 @@ namespace EscalationSystem.Views
                             }
                             if (AllPagesIndex == 1)
                             {
-                                DataGrid.ItemsSource = SearchConsultThreadList;
+                                DataGrid.ItemsSource = MySearchConsultThreadList;
 
                             }
                             else
                             {
-                                var SearchConsultThreadListPage = SearchConsultThreadList.Skip(0 * pageSize).Take(pageSize).ToList();
+                                var SearchConsultThreadListPage = MySearchConsultThreadList.Skip(0 * searchPageSize).Take(searchPageSize).ToList();
                                 DataGrid.ItemsSource = SearchConsultThreadListPage;
 
                             }
@@ -526,32 +648,45 @@ namespace EscalationSystem.Views
                     }
                     else
                     {
+                        DateTime startDate = DateTime.Parse(StartDatePicker.Date.ToString());
+                        string startDatestring = startDate.ToString("MM-dd-yyyy");
+                        DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
+                        DateTime enddatelast = endDate.Date.AddDays(1);
+                        string endDatestring = enddatelast.ToString("MM-dd-yyyy");
+                        Product product = (Product)PlatformComboBox.SelectedValue;
+                        var alias = FTEComboBox.SelectedValue.ToString();
+                        string platform = product.Platform;
+                        var AllConsultThreadList = await FTEConsultThreadViewModel.QueryAllConsultThread(alias, platform, startDatestring, endDatestring);
 
-
-                        if (ConsultThreadList.Items.Count > 0)
+                        if (AllConsultThreadList.Items.Count > 0)
                         {
-                            ObservableCollectionView<ConsultThread> SearchConsultThreadList1 = new ObservableCollectionView<ConsultThread>();
-                            foreach (var item in ConsultThreadList)
+                            
+                            foreach (var item in AllConsultThreadList)
                             {
                                 if (item.FteAlias == Searchtxt.Text.ToString())
                                 {
-                                    SearchConsultThreadList1.Items.Add(item);
+                                    MySearchConsultThreadList.Items.Add(item);
                                     i = 1;
                                 }
 
+                                else if (item.VendorAlias == Searchtxt.Text.ToString())
+                                {
+                                    MySearchConsultThreadList.Items.Add(item);
+                                    i = 1;
+                                }
                             }
 
                             if (i == 1)
                             {
 
 
-                                if (SearchConsultThreadList1.Count < 10)
+                                if (MySearchConsultThreadList.Count < 10)
                                 {
-                                    DataGrid.ItemsSource = SearchConsultThreadList1;
-                                    MyScrollView.Height = (SearchConsultThreadList1.Count + 1) * 60;
-                                    AllRecords.Text = SearchConsultThreadList1.Count.ToString();
-                                    AllPageIndex.Text = FTEConsultThreadViewModel.GetPageIndex(SearchConsultThreadList1, pageSize).ToString();
-                                    PageTxt.Text = FTEConsultThreadViewModel.GetPageIndex(SearchConsultThreadList1, pageSize).ToString();
+                                    DataGrid.ItemsSource = MySearchConsultThreadList;
+                                    MyScrollView.Height = (MySearchConsultThreadList.Count + 1) * 60;
+                                    AllRecords.Text = MySearchConsultThreadList.Count.ToString();
+                                    AllPageIndex.Text = FTEConsultThreadViewModel.GetPageIndex(MySearchConsultThreadList, searchPageSize).ToString();
+                                    PageTxt.Text = FTEConsultThreadViewModel.GetPageIndex(MySearchConsultThreadList, searchPageSize).ToString();
                                     if (ShowSearchPanel.Visibility == Visibility.Visible && AddRecordsPanle.Visibility == Visibility.Visible)
                                     {
                                         MyScrollView.Height = 350;
@@ -574,11 +709,11 @@ namespace EscalationSystem.Views
 
                                 else
                                 {
-                                    AllRecords.Text = SearchConsultThreadList1.Count.ToString();
-                                    AllPageIndex.Text = FTEConsultThreadViewModel.GetPageIndex(SearchConsultThreadList1, pageSize).ToString();
-                                    int AllPagesIndex = FTEConsultThreadViewModel.GetPageIndex(SearchConsultThreadList1, pageSize);
+                                    AllRecords.Text = MySearchConsultThreadList.Count.ToString();
+                                    AllPageIndex.Text = FTEConsultThreadViewModel.GetPageIndex(MySearchConsultThreadList, searchPageSize).ToString();
+                                    int AllPagesIndex = FTEConsultThreadViewModel.GetPageIndex(MySearchConsultThreadList, searchPageSize);
                                     PageTxt.Text = "1";
-                                    if (SearchConsultThreadList1.Count >= 10)
+                                    if (MySearchConsultThreadList.Count >= 10)
                                     {
                                         if (ShowSearchPanel.Visibility == Visibility.Visible && AddRecordsPanle.Visibility == Visibility.Visible)
                                         {
@@ -591,12 +726,12 @@ namespace EscalationSystem.Views
                                     }
                                     if (AllPagesIndex == 1)
                                     {
-                                        DataGrid.ItemsSource = SearchConsultThreadList1;
+                                        DataGrid.ItemsSource = MySearchConsultThreadList;
 
                                     }
                                     else
                                     {
-                                        var SearchConsultThreadList1Page = SearchConsultThreadList1.Skip(0 * pageSize).Take(pageSize).ToList();
+                                        var SearchConsultThreadList1Page = MySearchConsultThreadList.Skip(0 * searchPageSize).Take(searchPageSize).ToList();
                                         DataGrid.ItemsSource = SearchConsultThreadList1Page;
 
                                     }
@@ -628,6 +763,182 @@ namespace EscalationSystem.Views
                 AllRecords.Text = "0";
                 AllPageIndex.Text = "0";
                 PageTxt.Text = "0";
+            }
+
+            MyProgressRing.IsActive = false;
+        }
+
+        private void FirstSearchImage_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (MySearchConsultThreadList.Count == 0)
+            {
+                this.PageTxt.Text = "0";
+                MyScrollView.Height = 100;
+                DataGrid.ItemsSource = null;
+            }
+            else
+            {
+                var ConsultThreadListPage1 = MySearchConsultThreadList.Skip(0 * searchPageSize).Take(searchPageSize).ToList();
+                DataGrid.ItemsSource = ConsultThreadListPage1;
+                setScrollViewheight(ConsultThreadListPage1);
+                PageTxt.Text = "1";
+                if (ShowSearchPanel.Visibility == Visibility.Visible && AddRecordsPanle.Visibility == Visibility.Visible)
+                {
+                    MyScrollView.Height = 350;
+                }
+                else if (ShowSearchPanel.Visibility == Visibility.Visible)
+                {
+                    MyScrollView.Height = 500;
+                }
+                else if (AddRecordsPanle.Visibility == Visibility.Visible)
+                {
+                    MyScrollView.Height = 400;
+
+                }
+
+                else
+                {
+                    MyScrollView.Height = 650;
+                }
+            }
+        }
+
+        private void PreviousSearchImage_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (MySearchConsultThreadList.Count == 0)
+            {
+                this.PageTxt.Text = "0";
+                MyScrollView.Height = 100;
+                DataGrid.ItemsSource = null;
+            }
+            else
+            {
+                if (Convert.ToInt32(PageTxt.Text.ToString()) == 1)
+                {
+                    var ConsultThreadListPage1 = MySearchConsultThreadList.Skip(0 * searchPageSize).Take(searchPageSize).ToList();
+                    DataGrid.ItemsSource = ConsultThreadListPage1;
+                    setScrollViewheight(ConsultThreadListPage1);
+                    PageTxt.Text = "1";
+
+                }
+                else
+                {
+                    var ConsultThreadListPage = MySearchConsultThreadList.Skip((Convert.ToInt32(PageTxt.Text.ToString())) - 1 * searchPageSize).Take(searchPageSize).ToList();
+                    DataGrid.ItemsSource = ConsultThreadListPage;
+                    setScrollViewheight(ConsultThreadListPage);
+                    PageTxt.Text = ((Convert.ToInt32(PageTxt.Text.ToString())) - 1).ToString();
+
+                    if (ShowSearchPanel.Visibility == Visibility.Visible && AddRecordsPanle.Visibility == Visibility.Visible)
+                    {
+                        MyScrollView.Height = 350;
+                    }
+                    else if (ShowSearchPanel.Visibility == Visibility.Visible)
+                    {
+                        MyScrollView.Height = 500;
+                    }
+                    else if (AddRecordsPanle.Visibility == Visibility.Visible)
+                    {
+                        MyScrollView.Height = 400;
+
+                    }
+
+                    else
+                    {
+                        MyScrollView.Height = 650;
+                    }
+
+                }
+            }
+        }
+
+        private void NextSearchImage_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
+
+            if (MySearchConsultThreadList.Count == 0)
+            {
+                this.PageTxt.Text = "0";
+                MyScrollView.Height = 100;
+                DataGrid.ItemsSource = null;
+            }
+
+            else
+            {
+                int AllPageIndex = FTEConsultThreadViewModel.GetPageIndex(MySearchConsultThreadList, searchPageSize);
+                int index = Convert.ToInt32(PageTxt.Text.ToString());
+                index++;
+                if (index < AllPageIndex)
+                {
+                    var ConsultThreadListPage = MySearchConsultThreadList.Skip((index - 1) * searchPageSize).Take(searchPageSize).ToList();
+                    DataGrid.ItemsSource = ConsultThreadListPage;
+                    setScrollViewheight(ConsultThreadListPage);
+                    PageTxt.Text = index.ToString();
+                    if (ShowSearchPanel.Visibility == Visibility.Visible && AddRecordsPanle.Visibility == Visibility.Visible)
+                    {
+                        MyScrollView.Height = 350;
+                    }
+                    else if (ShowSearchPanel.Visibility == Visibility.Visible)
+                    {
+                        MyScrollView.Height = 500;
+                    }
+                    else if (AddRecordsPanle.Visibility == Visibility.Visible)
+                    {
+                        MyScrollView.Height = 400;
+
+                    }
+
+                    else
+                    {
+                        MyScrollView.Height = 650;
+                    }
+                }
+
+                else
+                {
+                    var ConsultThreadListPage = MySearchConsultThreadList.Skip((AllPageIndex - 1) * searchPageSize).Take(searchPageSize).ToList();
+                    DataGrid.ItemsSource = ConsultThreadListPage;
+                    setScrollViewheight(ConsultThreadListPage);
+                    int count = MySearchConsultThreadList.Count;
+                    PageTxt.Text = AllPageIndex.ToString();
+                    if (ShowSearchPanel.Visibility == Visibility.Visible && AddRecordsPanle.Visibility == Visibility.Visible)
+                    {
+                        MyScrollView.Height = 350;
+                    }
+                    else if (ShowSearchPanel.Visibility == Visibility.Visible)
+                    {
+                        MyScrollView.Height = 500;
+                    }
+                    else if (AddRecordsPanle.Visibility == Visibility.Visible)
+                    {
+                        MyScrollView.Height = 400;
+
+                    }
+
+                    else
+                    {
+                        MyScrollView.Height = 650;
+                    }
+
+                }
+            }
+        }
+
+        private void LastSearchImage_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (MySearchConsultThreadList.Count == 0)
+            {
+                this.PageTxt.Text = "0";
+                MyScrollView.Height = 100;
+                DataGrid.ItemsSource = null;
+            }
+            else
+            {
+                int AllPageIndex = FTEConsultThreadViewModel.GetPageIndex(MySearchConsultThreadList, searchPageSize);
+                PageTxt.Text = AllPageIndex.ToString();
+                var ConsultThreadListPage = MySearchConsultThreadList.Skip((AllPageIndex - 1) * searchPageSize).Take(searchPageSize).ToList();
+                DataGrid.ItemsSource = ConsultThreadListPage;
+                setScrollViewheight(ConsultThreadListPage);
+                PageTxt.Text = AllPageIndex.ToString();
             }
         }
     }

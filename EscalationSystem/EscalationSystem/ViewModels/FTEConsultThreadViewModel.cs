@@ -163,6 +163,11 @@ namespace EscalationSystem.ViewModels
                 MessageDialog messageDialog = new MessageDialog("Add the consult thread Sucessfully!!");
                 await messageDialog.ShowAsync();
             }
+            else
+            {
+                MessageDialog messageDialog = new MessageDialog("Add the consult thread Failed!!");
+                await messageDialog.ShowAsync();
+            }
 
         }
         public async Task<List<string>>GetFTEList()

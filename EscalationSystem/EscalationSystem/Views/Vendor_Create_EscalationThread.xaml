@@ -11,7 +11,7 @@
         <Converter:ProgreeRingActionConverter x:Key="ProgreeRingActionConverter"></Converter:ProgreeRingActionConverter>
         <Converter:ProgressRingActionOpacityConverter x:Key="ProgressRingActionOpacityConverter"></Converter:ProgressRingActionOpacityConverter>
     </Page.Resources>
-    <Grid Background="Azure">
+    <Grid Background="White">
         <ProgressRing IsActive="False" Name="MyProgressRing" Foreground="#FF2196F3" Width="200" Height="200" HorizontalAlignment="Left" VerticalAlignment="Center" ></ProgressRing>
         <StackPanel Opacity="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
             <StackPanel Height="35" Width="2000" Background="#FF7CBDF1"  HorizontalAlignment="Left" VerticalAlignment="Top">

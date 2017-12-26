@@ -43,9 +43,12 @@ namespace EscalationSystem.Views
         public ProductWithSelectedItem AllMyPlatform { get; set; }
         public ObservableCollectionView<EscalationAndStatusThread> EscalationThreadList { get; set; }
         public ObservableCollectionView<EscalationAndStatusThread> EscalationThreadListPage { get; set; }
+        public ObservableCollectionView<EscalationAndStatusThread> MySearchEscalationThreadList { get; set; }
+        public ObservableCollectionView<EscalationAndStatusThread> MySearchEscalationThreadListPage { get; set; }
         public EscalationThread EscalationThread { get; set; }
         public FTEEscalationThreadViewModel FTEEscalationThreadViewModel{get;set;}
         public int pageSize;
+        public int searchPageSize;
         public static int i = 0;
         public static int tag = 0;
         public FTE_All_EscalationThread()
@@ -59,6 +62,8 @@ namespace EscalationSystem.Views
             AllMyPlatform = new ProductWithSelectedItem();
             EscalationThreadList = new ObservableCollectionView<EscalationAndStatusThread>();
             EscalationThreadListPage = new ObservableCollectionView<EscalationAndStatusThread>();
+            MySearchEscalationThreadList = new ObservableCollectionView<EscalationAndStatusThread>();
+            MySearchEscalationThreadListPage = new ObservableCollectionView<EscalationAndStatusThread>();
             FTEEscalationThreadViewModel = new FTEEscalationThreadViewModel();
             EscalationThread = new EscalationThread();
             this.Loaded += FTE_All_EscalationThread_Loaded;
@@ -78,6 +83,7 @@ namespace EscalationSystem.Views
                 StatusComboBox.DataContext = EscalatonStatusList;
                 AllMyPlatform = FTEEscalationThreadViewModel.AllPratfromList;
                 PlatformComboBox.DataContext = AllMyPlatform;
+             
                 PageComboBox.SelectedIndex = 0;
                 if (StatusComboBox.DataContext == null || PlatformComboBox.DataContext == null)
                 {
@@ -111,6 +117,14 @@ namespace EscalationSystem.Views
 
         private async void QueryButton_Click(object sender, RoutedEventArgs e)
         {
+            PreviousImage.Visibility = Visibility.Visible;
+            FirstImage.Visibility = Visibility.Visible;
+            NextImage.Visibility = Visibility.Visible;
+            LastImage.Visibility = Visibility.Visible;
+            PreviousSearchImage.Visibility = Visibility.Collapsed;
+            FirstSearchImage.Visibility = Visibility.Collapsed;
+            NextSearchImage.Visibility = Visibility.Collapsed;
+            LastSearchImage.Visibility = Visibility.Collapsed;
 
             try
             {
@@ -339,12 +353,18 @@ namespace EscalationSystem.Views
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var it = DataGrid.Items.Count;
-            if (DataGrid.Items.Count < 10)
+            try
+            {
+                if (DataGrid.Items.Count < 10)
+                {
+                    MyScrollView.Height = 600;
+                }
+            }
+            catch(Exception ex)
             {
                 MyScrollView.Height = 600;
             }
-           
+
       
         }
 
@@ -362,25 +382,42 @@ namespace EscalationSystem.Views
 
         private async void Search_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            if (MySearchEscalationThreadList.Count > 0)
+            {
+                MySearchEscalationThreadList.Items.Clear();
+            }
+            DataGrid.ItemsSource = null;
+            MyProgressRing.IsActive = true;
+            PreviousImage.Visibility = Visibility.Collapsed;
+            FirstImage.Visibility = Visibility.Collapsed;
+            NextImage.Visibility = Visibility.Collapsed;
+            LastImage.Visibility = Visibility.Collapsed;
+            PreviousSearchImage.Visibility = Visibility.Visible;
+            FirstSearchImage.Visibility = Visibility.Visible;
+            NextSearchImage.Visibility = Visibility.Visible;
+            LastSearchImage.Visibility = Visibility.Visible;
+            ComboBoxItem curItem = (ComboBoxItem)PageComboBox.SelectedItem;
+            searchPageSize = Convert.ToInt32(curItem.Content.ToString());
             try
             {
                 var test = await FTEEscalationThreadViewModel.QueryAllEscalationAndStatusThread(AllMyPlatform, EscalatonStatusList, "", "", "", "");
                 int i = 0;
                 if (test.Items.Count > 0)
                 {
-                    ObservableCollectionView<EscalationAndStatusThread> SearchEscalationThreadList = new ObservableCollectionView<EscalationAndStatusThread>();
+                   
                     foreach (var item in EscalationThreadList)
                     {
                         if (Searchtxt.Text.ToString().Contains("*"))
                         {
-                            if (item.EscalationThread.ThreadId.Contains(Searchtxt.Text.ToString()))
+                            string Text = Searchtxt.Text.ToString().Trim((new Char[] { '*' }));
+                            if (item.EscalationThread.ThreadId.Contains(Text))
                             {
-                                SearchEscalationThreadList.Items.Add(item);
+                                MySearchEscalationThreadList.Items.Add(item);
                                 i = 1;
                             }
-                            else if (item.EscalationThread.Title.Contains(Searchtxt.Text.ToString()))
+                            else if (item.EscalationThread.Title.Contains(Text))
                             {
-                                SearchEscalationThreadList.Items.Add(item);
+                                MySearchEscalationThreadList.Items.Add(item);
                                 i = 1;
 
                             }
@@ -389,12 +426,12 @@ namespace EscalationSystem.Views
                         {
                             if (item.EscalationThread.ThreadId == Searchtxt.Text.ToString())
                             {
-                                SearchEscalationThreadList.Items.Add(item);
+                                MySearchEscalationThreadList.Items.Add(item);
                                 i = 1;
                             }
                             else if (item.EscalationThread.Title == Searchtxt.Text.ToString())
                             {
-                                SearchEscalationThreadList.Items.Add(item);
+                                MySearchEscalationThreadList.Items.Add(item);
                                 i = 1;
 
                             }
@@ -406,33 +443,33 @@ namespace EscalationSystem.Views
                     {
 
 
-                        if (SearchEscalationThreadList.Count < 10)
+                        if (MySearchEscalationThreadList.Count < 10)
                         {
-                            DataGrid.ItemsSource = SearchEscalationThreadList;
-                            MyScrollView.Height = (SearchEscalationThreadList.Count + 1) * 60;
-                            AllRecords.Text = SearchEscalationThreadList.Count.ToString();
-                            AllPageIndex.Text = FTEEscalationThreadViewModel.GetPageIndex(SearchEscalationThreadList, pageSize).ToString();
-                            PageTxt.Text = FTEEscalationThreadViewModel.GetPageIndex(SearchEscalationThreadList, pageSize).ToString();
+                            DataGrid.ItemsSource = MySearchEscalationThreadList;
+                            MyScrollView.Height = (MySearchEscalationThreadList.Count + 1) * 60;
+                            AllRecords.Text = MySearchEscalationThreadList.Count.ToString();
+                            AllPageIndex.Text = FTEEscalationThreadViewModel.GetPageIndex(MySearchEscalationThreadList, searchPageSize).ToString();
+                            PageTxt.Text = FTEEscalationThreadViewModel.GetPageIndex(MySearchEscalationThreadList, searchPageSize).ToString();
                         }
 
                         else
                         {
-                            AllRecords.Text = SearchEscalationThreadList.Count.ToString();
-                            AllPageIndex.Text = FTEEscalationThreadViewModel.GetPageIndex(SearchEscalationThreadList, pageSize).ToString();
-                            int AllPagesIndex = FTEEscalationThreadViewModel.GetPageIndex(SearchEscalationThreadList, pageSize);
+                            AllRecords.Text = MySearchEscalationThreadList.Count.ToString();
+                            AllPageIndex.Text = FTEEscalationThreadViewModel.GetPageIndex(MySearchEscalationThreadList, searchPageSize).ToString();
+                            int AllPagesIndex = FTEEscalationThreadViewModel.GetPageIndex(MySearchEscalationThreadList, searchPageSize);
                             PageTxt.Text = "1";
-                            if (SearchEscalationThreadList.Count >= 10)
+                            if (MySearchEscalationThreadList.Count >= 10)
                             {
                                 MyScrollView.Height = 650;
                             }
                             if (AllPagesIndex == 1)
                             {
-                                DataGrid.ItemsSource = SearchEscalationThreadList;
+                                DataGrid.ItemsSource = MySearchEscalationThreadList;
 
                             }
                             else
                             {
-                                var SearchEscalationThreadListPage = SearchEscalationThreadList.Skip(0 * pageSize).Take(pageSize).ToList();
+                                var SearchEscalationThreadListPage = MySearchEscalationThreadList.Skip(0 * searchPageSize).Take(searchPageSize).ToList();
                                 DataGrid.ItemsSource = SearchEscalationThreadListPage;
 
                             }
@@ -441,15 +478,25 @@ namespace EscalationSystem.Views
                     else
                     {
 
+                        DateTime startDate = DateTime.Parse(StartDatePicker.Date.ToString());
+                        string startDatestring = startDate.ToString("MM-dd-yyyy");
+                        DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
+                        DateTime enddatelast = endDate.Date.AddDays(1);
+                        string endDatestring = enddatelast.ToString("MM-dd-yyyy");
+                        EscalationStatus statusitem = StatusComboBox.SelectedItem as EscalationStatus;
+                        string status = statusitem.Status;
+                        Product productitem = PlatformComboBox.SelectedItem as Product;
+                        string plaform = productitem.Platform;
+                        var AllEscalationThreadList = await FTEEscalationThreadViewModel.QueryAllEscalationAndStatusThread(AllMyPlatform, EscalatonStatusList, status, plaform, startDatestring, endDatestring);
 
-                        if (EscalationThreadList.Items.Count > 0)
+                        if (AllEscalationThreadList.Items.Count > 0)
                         {
-                            ObservableCollectionView<EscalationAndStatusThread> SearchEscalationThreadList1 = new ObservableCollectionView<EscalationAndStatusThread>();
-                            foreach (var item in EscalationThreadList)
+                            
+                            foreach (var item in AllEscalationThreadList)
                             {
                                 if (item.EscalationThread.VendorAlias == Searchtxt.Text.ToString())
                                 {
-                                    SearchEscalationThreadList1.Items.Add(item);
+                                    MySearchEscalationThreadList.Items.Add(item);
                                     i = 1;
                                 }
 
@@ -459,33 +506,33 @@ namespace EscalationSystem.Views
                             {
 
 
-                                if (SearchEscalationThreadList1.Count < 10)
+                                if (MySearchEscalationThreadList.Count < 10)
                                 {
-                                    DataGrid.ItemsSource = SearchEscalationThreadList1;
-                                    MyScrollView.Height = (SearchEscalationThreadList1.Count + 1) * 60;
-                                    AllRecords.Text = SearchEscalationThreadList1.Count.ToString();
-                                    AllPageIndex.Text = FTEEscalationThreadViewModel.GetPageIndex(SearchEscalationThreadList1, pageSize).ToString();
-                                    PageTxt.Text = FTEEscalationThreadViewModel.GetPageIndex(SearchEscalationThreadList1, pageSize).ToString();
+                                    DataGrid.ItemsSource = MySearchEscalationThreadList;
+                                    MyScrollView.Height = (MySearchEscalationThreadList.Count + 1) * 60;
+                                    AllRecords.Text = MySearchEscalationThreadList.Count.ToString();
+                                    AllPageIndex.Text = FTEEscalationThreadViewModel.GetPageIndex(MySearchEscalationThreadList, searchPageSize).ToString();
+                                    PageTxt.Text = FTEEscalationThreadViewModel.GetPageIndex(MySearchEscalationThreadList, searchPageSize).ToString();
                                 }
 
                                 else
                                 {
-                                    AllRecords.Text = SearchEscalationThreadList1.Count.ToString();
-                                    AllPageIndex.Text = FTEEscalationThreadViewModel.GetPageIndex(SearchEscalationThreadList1, pageSize).ToString();
-                                    int AllPagesIndex = FTEEscalationThreadViewModel.GetPageIndex(SearchEscalationThreadList1, pageSize);
+                                    AllRecords.Text = MySearchEscalationThreadList.Count.ToString();
+                                    AllPageIndex.Text = FTEEscalationThreadViewModel.GetPageIndex(MySearchEscalationThreadList, searchPageSize).ToString();
+                                    int AllPagesIndex = FTEEscalationThreadViewModel.GetPageIndex(MySearchEscalationThreadList, searchPageSize);
                                     PageTxt.Text = "1";
-                                    if (SearchEscalationThreadList.Count >= 10)
+                                    if (MySearchEscalationThreadList.Count >= 10)
                                     {
                                         MyScrollView.Height = 650;
                                     }
                                     if (AllPagesIndex == 1)
                                     {
-                                        DataGrid.ItemsSource = SearchEscalationThreadList1;
+                                        DataGrid.ItemsSource = MySearchEscalationThreadList;
 
                                     }
                                     else
                                     {
-                                        var SearchEscalationThreadList1Page = SearchEscalationThreadList1.Skip(0 * pageSize).Take(pageSize).ToList();
+                                        var SearchEscalationThreadList1Page = MySearchEscalationThreadList.Skip(0 * searchPageSize).Take(searchPageSize).ToList();
                                         DataGrid.ItemsSource = SearchEscalationThreadList1Page;
 
                                     }
@@ -518,8 +565,115 @@ namespace EscalationSystem.Views
                 AllPageIndex.Text = "0";
                 PageTxt.Text = "0";
             }
+
+            MyProgressRing.IsActive = false;
         }
 
+        private void FirstSearchImage_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (MySearchEscalationThreadList.Count == 0)
+            {
+                this.PageTxt.Text = "0";
+                MyScrollView.Height = 100;
+                DataGrid.ItemsSource = null;
+            }
+            else
+            {
+                var EscalationThreadListPage1 = MySearchEscalationThreadList.Skip(0 * searchPageSize).Take(searchPageSize).ToList();
+                DataGrid.ItemsSource = EscalationThreadListPage1;
+                setScrollViewheight(EscalationThreadListPage1);
+                PageTxt.Text = "1";
+               
+            }
+        }
+
+        private void PreviousSearchImage_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (MySearchEscalationThreadList.Count == 0)
+            {
+                this.PageTxt.Text = "0";
+                MyScrollView.Height = 100;
+                DataGrid.ItemsSource = null;
+            }
+            else
+            {
+                if (Convert.ToInt32(PageTxt.Text.ToString()) == 1)
+                {
+                    var EscalationThreadListPage1 = MySearchEscalationThreadList.Skip(0 * searchPageSize).Take(searchPageSize).ToList();
+                    DataGrid.ItemsSource = EscalationThreadListPage1;
+                    setScrollViewheight(EscalationThreadListPage1);
+                    PageTxt.Text = "1";
+
+                }
+                else
+                {
+                    var EscalationThreadListPage = MySearchEscalationThreadList.Skip((Convert.ToInt32(PageTxt.Text.ToString())) - 1 * searchPageSize).Take(searchPageSize).ToList();
+                    DataGrid.ItemsSource = EscalationThreadListPage;
+                    setScrollViewheight(EscalationThreadListPage);
+                    PageTxt.Text = ((Convert.ToInt32(PageTxt.Text.ToString())) - 1).ToString();
+
+                  
+
+                }
+            }
+        }
+
+        private void NextSearchImage_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
+
+            if (MySearchEscalationThreadList.Count == 0)
+            {
+                this.PageTxt.Text = "0";
+                MyScrollView.Height = 100;
+                DataGrid.ItemsSource = null;
+            }
+
+            else
+            {
+                int AllPageIndex = FTEEscalationThreadViewModel.GetPageIndex(MySearchEscalationThreadList, searchPageSize);
+                int index = Convert.ToInt32(PageTxt.Text.ToString());
+                index++;
+                if (index < AllPageIndex)
+                {
+                    var EscalationThreadListPage = MySearchEscalationThreadList.Skip((index - 1) * searchPageSize).Take(searchPageSize).ToList();
+                    DataGrid.ItemsSource = EscalationThreadListPage;
+                    setScrollViewheight(EscalationThreadListPage);
+                    PageTxt.Text = index.ToString();
+                    
+                }
+
+                else
+                {
+                    var EscalationThreadListPage = MySearchEscalationThreadList.Skip((AllPageIndex - 1) * searchPageSize).Take(searchPageSize).ToList();
+                    DataGrid.ItemsSource = EscalationThreadListPage;
+                    setScrollViewheight(EscalationThreadListPage);
+                    int count = MySearchEscalationThreadList.Count;
+                    PageTxt.Text = AllPageIndex.ToString();
+                    
+
+                }
+            }
+        }
+
+        private void LastSearchImage_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (MySearchEscalationThreadList.Count == 0)
+            {
+                this.PageTxt.Text = "0";
+                MyScrollView.Height = 100;
+                DataGrid.ItemsSource = null;
+            }
+            else
+            {
+                int AllPageIndex = FTEEscalationThreadViewModel.GetPageIndex(MySearchEscalationThreadList, searchPageSize);
+                PageTxt.Text = AllPageIndex.ToString();
+                var EscalationThreadListPage = MySearchEscalationThreadList.Skip((AllPageIndex - 1) * searchPageSize).Take(searchPageSize).ToList();
+                DataGrid.ItemsSource = EscalationThreadListPage;
+                setScrollViewheight(EscalationThreadListPage);
+                PageTxt.Text = AllPageIndex.ToString();
+            }
+        }
     }
 }
 

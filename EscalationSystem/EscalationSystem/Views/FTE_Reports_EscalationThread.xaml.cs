@@ -17,6 +17,7 @@ using EscalationSystem.Models;
 using MyToolkit.Collections;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
+using System.Collections.ObjectModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -49,6 +50,19 @@ namespace EscalationSystem.Views
                 FTEEscalationReportViewModel = await FTEEscalationReportViewModel.GetFTEEscalationReportViewModel();
                 AllMyPlatform = FTEEscalationReportViewModel.AllPratfromList;
                 PlatformComboBox.DataContext = AllMyPlatform;
+                Product product = (Product)PlatformComboBox.SelectedValue;
+                if (product.Platform.Equals("All"))
+                {
+                    ForumComboBox.DataContext = new ObservableCollection<string> { "All" };
+                 
+                }
+                else
+                {
+                    ObservableCollection<string> Allforum = await FTEEscalationReportViewModel.GetAllForum(product.Platform);
+                    ForumComboBox.DataContext = Allforum;
+                  
+                }
+                ForumComboBox.SelectedIndex = 0;
                 QueryButton_Click(sender, e);
             }
             catch (Exception ex)
@@ -74,7 +88,11 @@ namespace EscalationSystem.Views
                 DateTime endDate = DateTime.Parse(EndDatePicker.Date.ToString());
                 DateTime enddatelast = endDate.Date.AddDays(1);
                 string endDatestring = enddatelast.ToString("MM-dd-yyyy");
-                AllMyReport = await FTEEscalationReportViewModel.QueryAllEscalationReport(AllMyPlatform, startDatestring, endDatestring);
+                PlatformComboBox.DataContext = AllMyPlatform;
+                Product product = (Product)PlatformComboBox.SelectedValue;
+                string plafrom = product.Platform;
+                string forum = ForumComboBox.SelectedValue.ToString();
+                AllMyReport = await FTEEscalationReportViewModel.QueryAllEscalationReport(AllMyPlatform,plafrom,forum, startDatestring, endDatestring);
                 DataGrid.ItemsSource = AllMyReport;
                 await Task.Delay(new TimeSpan(3));
                 MyProgressRing.IsActive = false;
@@ -88,5 +106,20 @@ namespace EscalationSystem.Views
             }
         }
 
+        private async void PlatformComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Product product = (Product)PlatformComboBox.SelectedValue;
+            if (product.Platform.Equals("All"))
+            {
+                ForumComboBox.DataContext = new ObservableCollection<string> { "All" };
+                ForumComboBox.SelectedIndex = 0;
+            }
+            else
+            {
+                ObservableCollection<string> Allforum = await FTEEscalationReportViewModel.GetAllForum(product.Platform);
+                ForumComboBox.DataContext = Allforum;
+                ForumComboBox.SelectedIndex = 0;
+            }
+        }
     }
 }

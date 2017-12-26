@@ -138,9 +138,6 @@
     <Compile Include="Views\FTE_Reports_EscalationThread.xaml.cs">
       <DependentUpon>FTE_Reports_EscalationThread.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LoginPage.xaml.cs">
-      <DependentUpon>LoginPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Vendor_All_EscalationThread.xaml.cs">
       <DependentUpon>Vendor_All_EscalationThread.xaml</DependentUpon>
     </Compile>
@@ -256,10 +253,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\FTE_Reports_EscalationThread.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

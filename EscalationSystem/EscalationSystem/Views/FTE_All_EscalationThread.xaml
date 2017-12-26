@@ -17,7 +17,7 @@
         <Converter:ProgreeRingActionConverter x:Key="ProgreeRingActionConverter"></Converter:ProgreeRingActionConverter>
         <Converter:ProgressRingActionOpacityConverter x:Key="ProgressRingActionOpacityConverter"></Converter:ProgressRingActionOpacityConverter>
     </Page.Resources>
-    <Grid Name="RootGrid" Background="Azure" >
+    <Grid Name="RootGrid" Background="White" >
         <ProgressRing IsActive="{Binding IsLoading,Mode=TwoWay}" Name="MyProgressRing" Foreground="#FF2196F3" Width="200" Height="200" HorizontalAlignment="Center" VerticalAlignment="Center" ></ProgressRing>
         <Popup Margin="100,100,100,100"  IsOpen="False" Name="EscalationPopup">
             <StackPanel Background="#FF7CBDF1" Orientation="Vertical" Width="300" Height="150">
@@ -81,6 +81,7 @@
                                             </ComboBox.ItemTemplate>
                                         </ComboBox>
                                     </StackPanel>
+                                  
                                     <StackPanel HorizontalAlignment="Right" Grid.Column="4" Orientation="Horizontal">
                                         <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Center" Text="Status" Foreground="White"></TextBlock>
                                         <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding MyEscalationStatusList}" SelectedItem="{Binding SelectedItem}" Name="StatusComboBox" HorizontalAlignment="Right" Foreground="White">
@@ -200,6 +201,10 @@
                                                             <HyperlinkButton Foreground="#FF0563C1"  HorizontalAlignment="Left" VerticalAlignment="Center"  NavigateUri="{Binding EscalationThread.Url,Converter={StaticResource URLConverter}}" Content="{Binding EscalationThread.Url}"></HyperlinkButton>
                                                         </StackPanel>
                                                         <StackPanel Orientation="Vertical">
+                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  FontWeight="Black" Text="Forum:" Width="150"></TextBlock>
+                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{Binding EscalationThread.Forum}"></TextBlock>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Vertical">
                                                             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  FontWeight="Black" Text="EscalationDate:" Width="150"></TextBlock>
                                                             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center"  Text="{Binding EscalationThread.EscalatedDatetime}"></TextBlock>
                                                         </StackPanel>
@@ -231,8 +236,10 @@
                     </ScrollViewer>
                     <StackPanel Orientation="Horizontal" Width="{Binding ScreenWidth}" HorizontalAlignment="Center" Height="80">
                         <StackPanel Height="80" VerticalAlignment="Center" Grid.Column="1"  Orientation="Horizontal"  HorizontalAlignment="Right">
-                            <Image Width="25" Height="25" Source="/Assets/NavF.PNG" Name="FirstImage" Tapped="FirstImage_Tapped"></Image>
-                            <Image Width="25" Height="25" Source="/Assets/Nav.PNG" Name="PreviousImage" Tapped="PreviousImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-6,0,0"  Source="/Assets/NavF.PNG" NineGrid="0,3,0,0"  Name="FirstImage" Tapped="FirstImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-6,0,0"  Source="/Assets/Nav.PNG" Name="PreviousImage" NineGrid="0,10,0,0" Tapped="PreviousImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-6,0,0"  Source="/Assets/NavF.PNG" NineGrid="0,3,0,0"  Name="FirstSearchImage" Visibility="Collapsed" Tapped="FirstSearchImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-6,0,0"  Source="/Assets/Nav.PNG" NineGrid="0,10,0,0"  Name="PreviousSearchImage" Visibility="Collapsed" Tapped="PreviousSearchImage_Tapped"></Image>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock FontWeight="Bold" Foreground="#FF2196F3" Text="0" VerticalAlignment="Center" Height="25" Name="PageTxt"></TextBlock>
                                 <TextBlock Width="5"></TextBlock>
@@ -246,8 +253,11 @@
                                 <TextBlock Width="5"></TextBlock>
                                 <TextBlock Height="25" Text="records" VerticalAlignment="Center"></TextBlock>
                             </StackPanel>
-                            <Image Width="25" Height="25" Source="/Assets/Nav2.PNG" Name="NextImage" Tapped="NextImage_Tapped"></Image>
-                            <Image Width="25" Height="25" Source="/Assets/NavL.PNG" Name="LastImage" Tapped="LastImage_Tapped"></Image>
+
+                            <Image Width="25" Height="25" Margin="0,-3,0,0"  Source="/Assets/Nav2.PNG" Name="NextImage" NineGrid="0,8,0,0" Tapped="NextImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-3,0,0"  Source="/Assets/NavL.PNG" Name="LastImage" NineGrid="0,10,0,0" Tapped="LastImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-3,0,0"  Source="/Assets/Nav2.PNG" NineGrid="0,8,0,0" Visibility="Collapsed" Name="NextSearchImage" Tapped="NextSearchImage_Tapped"></Image>
+                            <Image Width="25" Height="25" Margin="0,-3,0,0"  Source="/Assets/NavL.PNG" NineGrid="0,10,0,0" Visibility="Collapsed" Name="LastSearchImage" Tapped="LastSearchImage_Tapped"></Image>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

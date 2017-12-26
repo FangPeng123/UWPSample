@@ -178,6 +178,7 @@ namespace EscalationSystem.Views
 
         private async void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
+            SubmitButton.IsEnabled = false;
             
             string Platform = "";
             try
@@ -232,9 +233,15 @@ namespace EscalationSystem.Views
 
             if (Platform != "" && Forum != "" && Platform != "" && fte != "" && pathurl != "")
             {
+               
                 EscalationThread mes = new EscalationThread();
                 mes.ThreadId = txtThreadID.Text.ToString();
                 mes.Url = pathurl;
+                if (pathurl.Contains(txtThreadID.Text.ToString())==false)
+                {
+                    MessageDialog messageDialog = new MessageDialog("You have entered the wrong thread ID!!!");
+                    await messageDialog.ShowAsync();
+                }
                 string title = "";
                 txttitle.Document.GetText(Windows.UI.Text.TextGetOptions.AdjustCrlf, out title);
                 mes.Title = title;
@@ -261,20 +268,27 @@ namespace EscalationSystem.Views
                 if (reaultaddesc)
                 {
                     MyProgressRing.IsActive = false;
+                    SubmitButton.IsEnabled = true;                   
                     await new MessageDialog("Add Escalation Thread Successfully! ").ShowAsync();
+                    this.Frame.Navigate(typeof(Vendor_Create_EscalationThread));
+
                 }
                 else
                 {
                     MyProgressRing.IsActive = false;
+                    SubmitButton.IsEnabled = true;
                     await new MessageDialog("Add Escalation Thread Failed! ").ShowAsync();
+               
                 }
                
             }
             else
             {
                 MyProgressRing.IsActive = false;
+                SubmitButton.IsEnabled = true;
                 MessageDialog messageDialog = new MessageDialog("Please fill all the fields!!!");
                 await messageDialog.ShowAsync();
+
             }
         }
         public async Task<bool> AddEscalationAndStatusThread(EscalationThread mes)

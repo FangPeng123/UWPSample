@@ -76,6 +76,14 @@ namespace EscalationSystem
 
                     }
 
+                    else if (userAlias.Equals("joewu"))
+                    {
+                        VendorButton.Visibility = Visibility.Visible;
+                        FTEButton.Visibility = Visibility.Visible;
+                        count = 1;
+
+                    }
+
                     else if (userAlias.Contains("v-"))
                     {
                         this.Frame.Navigate(typeof(Vendor_MainPage));
@@ -94,9 +102,9 @@ namespace EscalationSystem
 
             if (count == 0)
             {
-                MessageDialog Message = new MessageDialog("You do not have the premission for this App, please log in your PC with your Microsoft Alias!!! or you will go to this Login Page ");
+                MessageDialog Message = new MessageDialog("You do not have the premission for this App, please log in your PC with your Microsoft Alias!!!");
                 await Message.ShowAsync();
-                this.Frame.Navigate(typeof(LoginPage));
+               
             }
 
 

@@ -15,7 +15,7 @@
         <Converter:ProgreeRingActionConverter x:Key="ProgreeRingActionConverter"></Converter:ProgreeRingActionConverter>
         <Converter:ProgressRingActionOpacityConverter x:Key="ProgressRingActionOpacityConverter"></Converter:ProgressRingActionOpacityConverter>
     </Page.Resources>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="White">
         <Grid Name="RootGrid" Background="Azure" >
             <ProgressRing IsActive="True"  Name="MyProgressRing" Foreground="#FF2196F3" Width="200" Height="200" HorizontalAlignment="Center" VerticalAlignment="Center" ></ProgressRing>
             <StackPanel  HorizontalAlignment="Left" Orientation="Vertical"  Name="RootPanel" Width="{Binding ScreenWidth}">
@@ -26,6 +26,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="100"></RowDefinition>
                     </Grid.RowDefinitions>
                     <StackPanel  Orientation="Vertical" Grid.Row="0">
                         <StackPanel Width="{Binding ScreenWidth}" Height="50"  Background="#FF7CBDF1"  HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -36,11 +37,13 @@
                                 <StackPanel Orientation="Horizontal" Background="#FF2196F3">
                                     <Grid Margin="0,0,0,0" Width="{Binding ScreenWidth}">
                                         <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                                            <ColumnDefinition Width="2*"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="1.5*"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
+                                        
                                         <StackPanel  Grid.Column="0"  Orientation="Horizontal">
                                             <TextBlock  Foreground="White" Text="Start Date"  VerticalAlignment="Center"></TextBlock>
                                             <DatePicker IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Foreground="White" Name="StartDatePicker"  VerticalAlignment="Center"></DatePicker>
@@ -53,7 +56,7 @@
                                         <StackPanel HorizontalAlignment="Right" Grid.Column="2" Orientation="Horizontal">
 
                                             <TextBlock Text="Platform" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White"></TextBlock>
-                                            <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding MyProductList}" SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Right" Name="PlatformComboBox"   Foreground="White">
+                                            <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding MyProductList}" SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Right" Name="PlatformComboBox"   Foreground="White" SelectionChanged="PlatformComboBox_SelectionChanged">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <TextBlock Text="{Binding Platform}"/>
@@ -61,69 +64,84 @@
                                                 </ComboBox.ItemTemplate>
                                             </ComboBox>
                                         </StackPanel>
-                                        <Button IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Click="QueryButton_Click" Name="QueryButton"  BorderBrush="#FF145A92" BorderThickness="2" Width="70"  Grid.Column="3" HorizontalAlignment="Right"   Foreground="White" Content="Query" Background="#FF2196F3" ></Button>
+                                        <StackPanel HorizontalAlignment="Right" Grid.Column="3" Orientation="Horizontal">
+
+                                            <TextBlock Text="Forum" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White"></TextBlock>
+                                            <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding}" HorizontalAlignment="Right" Name="ForumComboBox"   Foreground="White">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding}"/>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <Button IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" Click="QueryButton_Click" Name="QueryButton"  BorderBrush="#FF145A92" BorderThickness="2" Width="70"  Grid.Column="4" HorizontalAlignment="Right"   Foreground="White" Content="Query" Background="#FF2196F3" ></Button>
                                     </Grid>
                                 </StackPanel>
+                         
                             </StackPanel>
                         </StackPanel>
 
                     </StackPanel>
-
-                    <StackPanel Grid.Row="1">
-                        <Border Background="Azure" BorderThickness="3,3,3,3" BorderBrush="White">
-                            <controls:DataGrid RowBackgroundEvenBrush="Azure" RowBackgroundOddBrush="#FFD1E5F5" HeaderBackground="#FF7CBDF1" x:Name="DataGrid" DefaultOrderIndex="0">
-                                <controls:DataGrid.Columns>
-                                    <controls:DataGridTextColumn FontSize="15" Width="*" CanSort="False"
+                    
+                        <StackPanel Grid.Row="1">
+                        <ScrollViewer Name="MyScrollView" Height="700"  VerticalScrollBarVisibility="Visible" VerticalScrollMode="Enabled">
+                            <Border Background="Azure" BorderThickness="3,3,3,3" BorderBrush="White">
+                                <controls:DataGrid RowBackgroundEvenBrush="Azure" RowBackgroundOddBrush="#FFD1E5F5" HeaderBackground="#FF7CBDF1" x:Name="DataGrid" DefaultOrderIndex="0">
+                                    <controls:DataGrid.Columns>
+                                        <controls:DataGridTextColumn FontSize="15" Width="*" CanSort="False"
                   Binding="{Binding Alias}" d:DataContext="{d:DesignInstance Type=Model:Report}">
-                                        <controls:DataGridTextColumn.Header>
-                                            <TextBlock  HorizontalAlignment="Right" FontSize="15" FontWeight="Bold" Text="FTEAlias"></TextBlock>
-                                        </controls:DataGridTextColumn.Header>
-                                    </controls:DataGridTextColumn>
-                                    <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding TotalNum}" 
+                                            <controls:DataGridTextColumn.Header>
+                                                <TextBlock  HorizontalAlignment="Right" FontSize="15" FontWeight="Bold" Text="FTEAlias"></TextBlock>
+                                            </controls:DataGridTextColumn.Header>
+                                        </controls:DataGridTextColumn>
+                                        <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding TotalNum}" 
                 d:DataContext="{d:DesignInstance Type=Model:Report}">
-                                        <controls:DataGridTextColumn.Header>
-                                            <TextBlock FontSize="15" FontWeight="Bold" Text="EscVolume"></TextBlock>
-                                        </controls:DataGridTextColumn.Header>
-                                    </controls:DataGridTextColumn>
-                                    <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding OpenNum}" 
+                                            <controls:DataGridTextColumn.Header>
+                                                <TextBlock FontSize="15" FontWeight="Bold" Text="EscVolume"></TextBlock>
+                                            </controls:DataGridTextColumn.Header>
+                                        </controls:DataGridTextColumn>
+                                        <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding OpenNum}" 
                 d:DataContext="{d:DesignInstance Type=Model:Report}">
-                                        <controls:DataGridTextColumn.Header>
-                                            <TextBlock FontSize="15" FontWeight="Bold" Text="OpenedVolume"></TextBlock>
-                                        </controls:DataGridTextColumn.Header>
-                                    </controls:DataGridTextColumn>
-                                    <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding ClosedNum}" 
+                                            <controls:DataGridTextColumn.Header>
+                                                <TextBlock FontSize="15" FontWeight="Bold" Text="OpenedVolume"></TextBlock>
+                                            </controls:DataGridTextColumn.Header>
+                                        </controls:DataGridTextColumn>
+                                        <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding ClosedNum}" 
                 d:DataContext="{d:DesignInstance Type=Model:Report}">
-                                        <controls:DataGridTextColumn.Header>
-                                            <TextBlock FontSize="15" FontWeight="Bold" Text="ClosedVolume"></TextBlock>
-                                        </controls:DataGridTextColumn.Header>
-                                    </controls:DataGridTextColumn>
-                                    <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding MarkedNum}" 
+                                            <controls:DataGridTextColumn.Header>
+                                                <TextBlock FontSize="15" FontWeight="Bold" Text="ClosedVolume"></TextBlock>
+                                            </controls:DataGridTextColumn.Header>
+                                        </controls:DataGridTextColumn>
+                                        <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding MarkedNum}" 
                 d:DataContext="{d:DesignInstance Type=Model:Report}">
-                                        <controls:DataGridTextColumn.Header>
-                                            <TextBlock FontSize="15" FontWeight="Bold" Text="MarkedVolume"></TextBlock>
-                                        </controls:DataGridTextColumn.Header>
-                                    </controls:DataGridTextColumn>
-                                    <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding ClosedRate}" 
+                                            <controls:DataGridTextColumn.Header>
+                                                <TextBlock FontSize="15" FontWeight="Bold" Text="MarkedVolume"></TextBlock>
+                                            </controls:DataGridTextColumn.Header>
+                                        </controls:DataGridTextColumn>
+                                        <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding ClosedRate}" 
                 d:DataContext="{d:DesignInstance Type=Model:Report}">
-                                        <controls:DataGridTextColumn.Header>
-                                            <TextBlock FontSize="15" FontWeight="Bold" Text="ClosedRate"></TextBlock>
-                                        </controls:DataGridTextColumn.Header>
-                                    </controls:DataGridTextColumn>
-                                    <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding MarkedRate}" 
+                                            <controls:DataGridTextColumn.Header>
+                                                <TextBlock FontSize="15" FontWeight="Bold" Text="ClosedRate"></TextBlock>
+                                            </controls:DataGridTextColumn.Header>
+                                        </controls:DataGridTextColumn>
+                                        <controls:DataGridTextColumn FontSize="15" Width="1*" IsAscendingDefault="False" Binding="{Binding MarkedRate}" 
                 d:DataContext="{d:DesignInstance Type=Model:Report}">
-                                        <controls:DataGridTextColumn.Header>
-                                            <TextBlock FontSize="15" FontWeight="Bold" Text="OPMarkedRate"></TextBlock>
-                                        </controls:DataGridTextColumn.Header>
-                                    </controls:DataGridTextColumn>
-                                </controls:DataGrid.Columns>
-                                <controls:DataGrid.RowStyle>
-                                    <Style TargetType="ListBoxItem">
-                                        <Setter Property="Margin" Value="0"></Setter>
-                                    </Style>
-                                </controls:DataGrid.RowStyle>
-                            </controls:DataGrid>
-                        </Border>
+                                            <controls:DataGridTextColumn.Header>
+                                                <TextBlock FontSize="15" FontWeight="Bold" Text="OPMarkedRate"></TextBlock>
+                                            </controls:DataGridTextColumn.Header>
+                                        </controls:DataGridTextColumn>
+                                    </controls:DataGrid.Columns>
+                                    <controls:DataGrid.RowStyle>
+                                        <Style TargetType="ListBoxItem">
+                                            <Setter Property="Margin" Value="0"></Setter>
+                                        </Style>
+                                    </controls:DataGrid.RowStyle>
+                                </controls:DataGrid>
+                            </Border>
+                        </ScrollViewer>
                     </StackPanel>
+                
                 </Grid>
             </StackPanel>
         </Grid>

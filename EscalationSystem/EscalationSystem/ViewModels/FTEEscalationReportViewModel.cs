@@ -59,14 +59,36 @@ namespace EscalationSystem.ViewModels
             return FTEEscalationReportViewModel;
         }
 
-        public async Task<ObservableCollectionView<Report>> QueryAllEscalationReport(ProductWithSelectedItem AllMyPlatform,string startDatestring, string endDatestring)
+        public async Task<ObservableCollection<string>> GetAllForum(string PlatForm)
+        {
+            ObservableCollection<string> Forumlist = new ObservableCollection<string>();
+            HttpClient HttpClient = new HttpClient();
+            var HttpResponseMessage = await HttpClient.GetAsync(new Uri("http://escalationmanagerwebapi.azurewebsites.net/api/products"));
+            ObservableCollection<Product> AllMyPlatform = new ObservableCollection<Product>();
+            if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
+            {
+                var result = await HttpResponseMessage.Content.ReadAsStringAsync();
+                AllMyPlatform = JsonConvert.DeserializeObject<ObservableCollection<Product>>(result);
+                foreach (var prouct in AllMyPlatform)
+                {
+                    if (prouct.Platform.Equals(PlatForm))
+                    {
+                        Forumlist.Add(prouct.Forum);
+                    }
+                }
+            }
+            Forumlist.Insert(0, "All");
+            return Forumlist;
+        }
+
+        public async Task<ObservableCollectionView<Report>> QueryAllEscalationReport(ProductWithSelectedItem AllMyPlatform,string platfrom,string forum,string startDatestring, string endDatestring)
         {
             ObservableCollectionView<Report> ReportList = new ObservableCollectionView<Report>();
             HttpClient HttpClient = new HttpClient();
             Product MyProduct = new Product();
             MyProduct = AllMyPlatform.SelectedItem;
-            string plaform = MyProduct.Platform; 
-            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/reports?Alias={0}&Platform={1}&Forum={2}&ETime1={3}&ETime2={4}&VFlag={5}","All", plaform,"",startDatestring, endDatestring, false)));
+           
+            var HttpResponseMessage = await HttpClient.GetAsync(new Uri(string.Format("http://escalationmanagerwebapi.azurewebsites.net/api/reports?Alias={0}&Platform={1}&Forum={2}&ETime1={3}&ETime2={4}&VFlag={5}","All", platfrom,forum,startDatestring, endDatestring, false)));
             ObservableCollection<Report> AllMyReport = new ObservableCollection<Report>();
             if (HttpResponseMessage.StatusCode == HttpStatusCode.Ok)
             {
