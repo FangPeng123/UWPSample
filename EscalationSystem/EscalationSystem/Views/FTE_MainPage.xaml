@@ -181,7 +181,7 @@
         <!--show user message-->
         <StackPanel Orientation="Vertical" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right">
             <Image Grid.Row="0" Width="25" Height="25" HorizontalAlignment="Right" Source="ms-appx:///Assets/avatar.png"></Image>
-            <TextBlock Foreground="Red" Name="UserTxt"></TextBlock>
+            <TextBlock Foreground="Yellow" Name="UserTxt" FontWeight="Bold"></TextBlock>
         </StackPanel>
         <!--two row define SplitView control-->
         <SplitView x:Name="Splitter" Grid.Row="1" CompactPaneLength="40" IsPaneOpen="True" Grid.Column="1" DisplayMode="CompactInline" >

@@ -31,7 +31,7 @@
 
                 <StackPanel Orientation="Vertical" Grid.Row="0">
                     <StackPanel Width="{Binding ScreenWidth}" Height="50"  Background="#FF7CBDF1"  HorizontalAlignment="Left" VerticalAlignment="Top">
-                        <TextBlock  Text="All Threads List" FontWeight="Black" FontSize="30"  Foreground="White" VerticalAlignment="Center" />
+                        <TextBlock  Text="Threads Report" FontWeight="Black" FontSize="30"  Foreground="White" VerticalAlignment="Center" />
                     </StackPanel>
                     <StackPanel Opacity="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}" Orientation="Vertical" HorizontalAlignment="Left">
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
