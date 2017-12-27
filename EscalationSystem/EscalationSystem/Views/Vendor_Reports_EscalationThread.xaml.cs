@@ -77,16 +77,16 @@ namespace EscalationSystem.Views
                 Product product = (Product)PlatformComboBox.SelectedValue;
                 if (product.Platform.Equals("All"))
                 {
-                    ForumComboBox.DataContext = new ObservableCollection<string> { "All" };
+                    ForumCombobox.DataContext = new ObservableCollection<string> { "All" };
 
                 }
                 else
                 {
                     ObservableCollection<string> Allforum = await VendorEscalationReportViewModel.GetAllForum(product.Platform);
-                    ForumComboBox.DataContext = Allforum;
+                    ForumCombobox.DataContext = Allforum;
 
                 }
-                ForumComboBox.SelectedIndex = 0;
+                ForumCombobox.SelectedIndex = 0;
                 PageComboBox.SelectedIndex = 0;
                 if (PlatformComboBox.DataContext == null)
                 {
@@ -129,7 +129,7 @@ namespace EscalationSystem.Views
                 string endDatestring = enddatelast.ToString("MM-dd-yyyy");
                 Product product = (Product)PlatformComboBox.SelectedValue;
                 string platform = product.Platform;
-                string forum = ForumComboBox.SelectedValue.ToString();
+                string forum = ForumCombobox.SelectedValue.ToString();
                 AllMyReport = await VendorEscalationReportViewModel.QueryAllEscalationReport(platform, forum, startDatestring, endDatestring, true);
                 ComboBoxItem curItem = (ComboBoxItem)PageComboBox.SelectedItem;
                 pageSize = Convert.ToInt32(curItem.Content.ToString());
@@ -231,7 +231,7 @@ namespace EscalationSystem.Views
                 string platform = product.Platform;
                 ComboBoxItem curItem = (ComboBoxItem)PageComboBox.SelectedItem;
                 searchPageSize = Convert.ToInt32(curItem.Content.ToString());
-                string forum = ForumComboBox.SelectedValue.ToString();
+                string forum = ForumCombobox.SelectedValue.ToString();
                 MyProgressRing.IsActive = true;
                 try
                 {
@@ -634,14 +634,14 @@ namespace EscalationSystem.Views
             Product product = (Product)PlatformComboBox.SelectedValue;
             if (product.Platform.Equals("All"))
             {
-                ForumComboBox.DataContext = new ObservableCollection<string> { "All" };
-                ForumComboBox.SelectedIndex = 0;
+                ForumCombobox.DataContext = new ObservableCollection<string> { "All" };
+                ForumCombobox.SelectedIndex = 0;
             }
             else
             {
                 ObservableCollection<string> Allforum = await VendorEscalationReportViewModel.GetAllForum(product.Platform);
-                ForumComboBox.DataContext = Allforum;
-                ForumComboBox.SelectedIndex = 0;
+                ForumCombobox.DataContext = Allforum;
+                ForumCombobox.SelectedIndex = 0;
             }
 
         }

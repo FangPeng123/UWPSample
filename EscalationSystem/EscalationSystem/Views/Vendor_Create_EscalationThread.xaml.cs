@@ -237,50 +237,53 @@ namespace EscalationSystem.Views
                 EscalationThread mes = new EscalationThread();
                 mes.ThreadId = txtThreadID.Text.ToString();
                 mes.Url = pathurl;
-                if (pathurl.Contains(txtThreadID.Text.ToString())==false)
+                if (pathurl.Contains(txtThreadID.Text.ToString()) == false)
                 {
                     MessageDialog messageDialog = new MessageDialog("You have entered the wrong thread ID!!!");
                     await messageDialog.ShowAsync();
-                }
-                string title = "";
-                txttitle.Document.GetText(Windows.UI.Text.TextGetOptions.AdjustCrlf, out title);
-                mes.Title = title;
-                mes.Forum = Forum;
-                mes.Platform = Platform;
-                mes.LastreplyFromOp = true;
-                mes.EscalatedDatetime = DateTime.Now;
-                mes.VendorAlias = ThreadOnwerTxt.Text;
-                mes.FteAlias = fte;
-                string reason = "";
-                txtReason.Document.GetText(Windows.UI.Text.TextGetOptions.AdjustCrlf, out reason);
-                mes.Reason = reason;
-                string description = "";
-                txtDescription.Document.GetText(Windows.UI.Text.TextGetOptions.AdjustCrlf, out description);
-                mes.Description = description;
-                mes.Labor = 0;
-                mes.Status = "Open: New";
-                mes.ThreadCreatedDatetime = DateTime.Now;
-                mes.LastreplyDatetime = DateTime.Now;
-                mes.LastreplyFromOp = true;
-                mes.SrescalationId = "";
-                mes.IsManaged = false;
-                bool reaultaddesc = await AddEscalationAndStatusThread(mes);
-                if (reaultaddesc)
-                {
-                    MyProgressRing.IsActive = false;
-                    SubmitButton.IsEnabled = true;                   
-                    await new MessageDialog("Add Escalation Thread Successfully! ").ShowAsync();
-                    this.Frame.Navigate(typeof(Vendor_Create_EscalationThread));
-
+                    SubmitButton.IsEnabled = true;
                 }
                 else
                 {
-                    MyProgressRing.IsActive = false;
-                    SubmitButton.IsEnabled = true;
-                    await new MessageDialog("Add Escalation Thread Failed! ").ShowAsync();
-               
+                    string title = "";
+                    txttitle.Document.GetText(Windows.UI.Text.TextGetOptions.AdjustCrlf, out title);
+                    mes.Title = title;
+                    mes.Forum = Forum;
+                    mes.Platform = Platform;
+                    mes.LastreplyFromOp = true;
+                    mes.EscalatedDatetime = DateTime.Now;
+                    mes.VendorAlias = ThreadOnwerTxt.Text;
+                    mes.FteAlias = fte;
+                    string reason = "";
+                    txtReason.Document.GetText(Windows.UI.Text.TextGetOptions.AdjustCrlf, out reason);
+                    mes.Reason = reason;
+                    string description = "";
+                    txtDescription.Document.GetText(Windows.UI.Text.TextGetOptions.AdjustCrlf, out description);
+                    mes.Description = description;
+                    mes.Labor = 0;
+                    mes.Status = "Open: New";
+                    mes.ThreadCreatedDatetime = DateTime.Now;
+                    mes.LastreplyDatetime = DateTime.Now;
+                    mes.LastreplyFromOp = true;
+                    mes.SrescalationId = "";
+                    mes.IsManaged = false;
+                    bool reaultaddesc = await AddEscalationAndStatusThread(mes);
+                    if (reaultaddesc)
+                    {
+                        MyProgressRing.IsActive = false;
+                        SubmitButton.IsEnabled = true;
+                        await new MessageDialog("Add Escalation Thread Successfully! ").ShowAsync();
+                        this.Frame.Navigate(typeof(Vendor_Create_EscalationThread));
+
+                    }
+                    else
+                    {
+                        MyProgressRing.IsActive = false;
+                        SubmitButton.IsEnabled = true;
+                        await new MessageDialog("Add Escalation Thread Failed! ").ShowAsync();
+
+                    }
                 }
-               
             }
             else
             {

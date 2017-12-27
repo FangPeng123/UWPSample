@@ -17,7 +17,7 @@
         <Converter:ProgreeRingActionConverter x:Key="ProgreeRingActionConverter"></Converter:ProgreeRingActionConverter>
         <Converter:ProgressRingActionOpacityConverter x:Key="ProgressRingActionOpacityConverter"></Converter:ProgressRingActionOpacityConverter>
     </Page.Resources>
-    <Grid Name="RootGrid" Background="White" >
+    <Grid Background="White" >
         <ProgressRing IsActive="{Binding IsLoading,Mode=TwoWay}" Name="MyProgressRing" Foreground="#FF2196F3" Width="200" Height="200" HorizontalAlignment="Center" VerticalAlignment="Center" ></ProgressRing>
         <Popup Margin="100,100,100,100"  IsOpen="False" Name="EscalationPopup">
             <StackPanel Background="#FF7CBDF1" Orientation="Vertical" Width="300" Height="150">

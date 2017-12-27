@@ -13,12 +13,13 @@
     </Page.Resources>
     <Grid Background="White">
         <ProgressRing IsActive="False" Name="MyProgressRing" Foreground="#FF2196F3" Width="200" Height="200" HorizontalAlignment="Left" VerticalAlignment="Center" ></ProgressRing>
-        <StackPanel Opacity="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
             <StackPanel Height="45" Width="2000" Background="#FF7CBDF1"  HorizontalAlignment="Left" VerticalAlignment="Top">
                 <TextBlock Margin="10,0,0,0" Text="Create Thread" FontWeight="Black" FontSize="27"  Foreground="White" VerticalAlignment="Top" />
             </StackPanel>
+            
             <TextBlock Height="15"></TextBlock>
-            <StackPanel Margin="10,0,0,0" Orientation="Vertical">
+            <StackPanel Margin="10,0,0,0" Orientation="Vertical" Opacity="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgressRingActionOpacityConverter}}">
                 <StackPanel Name="Thread_Onwer" Orientation="Horizontal" HorizontalAlignment="Left">
                     <TextBlock Text="Thread Onwer" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                     <TextBlock Text="" Width="10"></TextBlock>

@@ -47,6 +47,7 @@ namespace EscalationSystem.Views
         {
             try
             {
+                MyProgressRing.IsActive = true;
                 FTEEscalationReportViewModel = await FTEEscalationReportViewModel.GetFTEEscalationReportViewModel();
                 AllMyPlatform = FTEEscalationReportViewModel.AllPratfromList;
                 PlatformComboBox.DataContext = AllMyPlatform;

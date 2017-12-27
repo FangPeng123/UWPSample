@@ -15,7 +15,7 @@
         <Converter:ProgreeRingActionConverter x:Key="ProgreeRingActionConverter"></Converter:ProgreeRingActionConverter>
         <Converter:ProgressRingActionOpacityConverter x:Key="ProgressRingActionOpacityConverter"></Converter:ProgressRingActionOpacityConverter>
     </Page.Resources>
-    <Grid Background="White">
+    <Grid Name="RootGrid" Background="White">
         <ProgressRing IsActive="True" Name="MyProgressRing" Foreground="#FF2196F3" Width="200" Height="200" HorizontalAlignment="Center" VerticalAlignment="Center" ></ProgressRing>
         <StackPanel  HorizontalAlignment="Left" Orientation="Vertical"  Name="RootPanel" Width="{Binding ScreenWidth}">
             <StackPanel.DataContext>
@@ -69,7 +69,7 @@
                                     </StackPanel>
                                     <StackPanel HorizontalAlignment="Right" Grid.Column="4" Orientation="Horizontal">
                                         <TextBlock Text="Forum" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="White"></TextBlock>
-                                        <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding}"  HorizontalAlignment="Right" Name="ForumComboBox"   Foreground="White">
+                                        <ComboBox IsEnabled="{Binding ElementName=MyProgressRing,Path=IsActive,Converter={StaticResource ProgreeRingActionConverter}}" ItemsSource="{Binding}"  HorizontalAlignment="Right" Name="ForumCombobox"   Foreground="White">
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding}"/>

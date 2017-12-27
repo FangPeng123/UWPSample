@@ -508,10 +508,11 @@ namespace EscalationSystem.Views
                 }
                 catch (Exception ex)
                 {
+             
                     AddProgressRing.IsActive = false;
                     MessageDialog messageDialog = new MessageDialog(ex.Message.ToString());
                     await messageDialog.ShowAsync();
-                    MyProgressRing.IsActive = false;
+                 
 
                 }
 
